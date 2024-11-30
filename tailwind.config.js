@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'mangas': "url('./src/assets/mangaBackground.jpg')",
+      },
+    },
   },
   plugins: [],
 }
