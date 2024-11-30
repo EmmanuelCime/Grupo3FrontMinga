@@ -5,7 +5,7 @@ import Footer from "../Components/Footer.jsx";
 function StandardLayout() {
     return (
         <>
-            <header>
+            <header className="absolute w-full">
                 <NavBar></NavBar>
             </header>
 
