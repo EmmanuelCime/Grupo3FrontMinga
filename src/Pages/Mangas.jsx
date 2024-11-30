@@ -700,34 +700,41 @@ let mangas = [
 function Mangas() {
   const uniqueCategories = [...new Set(mangas.map((manga) => manga.category_id))];
   const categoryColors = [
-    "bg-red-300",
-    "bg-blue-300",
-    "bg-green-300",
-    "bg-yellow-300",
-    "bg-purple-300",
-    "bg-pink-300",
-    "bg-orange-300",
+    "-red-300",
+    "-blue-300",
+    "-green-300",
+    "-yellow-300",
+    "-purple-300",
+    "-pink-300",
+    "-orange-300",
   ]
 
+  const categoryColorMap = uniqueCategories.reduce((acc, category, index) => {
+    acc[category] = categoryColors[index % categoryColors.length];
+    return acc;
+  }, {});
+
   return (
-    <div>
-      <div className="bg-mangas bg-cover w-full h-[70vh] px-5 flex flex-col justify-center items-center">
+    <>
+      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center">
         <p className='w-auto mb-8 mt-36 text-6xl text-white font-bold'>Mangas</p>
         <input type='search' placeholder='Find your manga here' className='w-full md:w-[70vw] py-1 px-5 rounded-xl' />
       </div>
-      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-5 -mt-10 mx-auto border">
+      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-5 -mt-10 mx-auto shadow drop-shadow-md">
         <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
           {uniqueCategories.map((category, index) => (
-            <button className={`px-2 m-1 rounded-full ${categoryColors[index % categoryColors.length]}`} key={index}>{category}</button>
+            <button className={`px-2 m-1 rounded-full bg${categoryColorMap[category]}`} key={index}>
+              {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
+            </button>
           ))}
         </div>
-        <div className="flex flex-wrap justify-around md:justify-between border">
+        <div className="flex flex-wrap justify-around">
           {mangas.map((manga, index) => (
             <CardManga key={index} manga={manga} />
           ))}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

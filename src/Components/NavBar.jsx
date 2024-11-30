@@ -14,7 +14,7 @@ function NavBar() {
 
     return (
         <>
-            <div className="flex justify-between">
+            <div className="flex justify-between sticky top-0">
                 <button onClick={toggleSidebar} className="pt-4 pb-4 ps-14">
                     <img src={MenuIcon} alt="Menu icon" className="w-10 cursor-pointer" />
                 </button>
