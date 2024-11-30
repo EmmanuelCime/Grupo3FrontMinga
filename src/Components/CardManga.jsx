@@ -1,13 +1,15 @@
 
-const categoryColors = [
-    "-red-500",
-    "-blue-500",
-    "-green-500",
-    "-yellow-500",
-    "-purple-500",
-    "-pink-500",
-    "-orange-500",
-]
+// const categoryColors = [
+//     "-red-500",
+//     "-blue-500",
+//     "-green-500",
+//     "-yellow-500",
+//     "-purple-500",
+//     "-pink-500",
+//     "-orange-500",
+// ]
+
+import { getCategoryColor } from "../utils/utils"
 
 const BtnAuthCompanyTop = () => {
     return (
@@ -40,17 +42,20 @@ const BtnAuthCompanyBottom = () => {
 }
 
 
-export default function CardManga({ manga, index }) {
-    const colorIndex = manga.category_id.charCodeAt(0) % categoryColors.length
-    const categoryColor = categoryColors[colorIndex]
+export default function CardManga({ manga, index, uniqueCategories }) {
+    // const colorIndex = manga.category_id.charCodeAt(1) % categoryColors.length
+    // const categoryColor = categoryColors[colorIndex]
+
+    const categoryColor = getCategoryColor(manga.category_id, uniqueCategories)
+    
     return (
         <>
             <div key={index} className="w-64 h-36 lg:w-80 lg:h-44 flex items-center mt-4 rounded-2xl shadow drop-shadow-md">
-                <div className={`w-2 h-24 md:h-32 bg${categoryColor}`}></div>
+                <div className={`w-2 h-24 md:h-32 bg${categoryColor}300`}></div>
                 <div className="h-full w-full flex flex-col justify-around items-start pl-3 py-1">
                     {manga.role == 0 && (<BtnAuthCompanyTop />)}
                     <p className="text-xl font-semibold">{manga.title}</p>
-                    <p className={`font-semibold mr-5 text${categoryColor}`}>{manga.category_id.charAt(0).toUpperCase() + manga.category_id.slice(1).toLowerCase()}</p>
+                    <p className={`font-semibold mr-5 text${categoryColor}500`}>{manga.category_id.charAt(0).toUpperCase() + manga.category_id.slice(1).toLowerCase()}</p>
                     {manga.role == 0 ? (<BtnAuthCompanyBottom />) : (<button className="font-medium py-1 px-4 rounded-full bg-green-200 text-green-600">Read</button>)}
                 </div>
                 <img className="min-w-28 sm:min-w-32 lg:min-w-40 h-full object-cover rounded-tl-full rounded-bl-full " src={manga.cover_photo} alt={manga.title} />

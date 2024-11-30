@@ -698,28 +698,31 @@ let mangas = [
 ]
 
 
-function Mangas() {
-  const uniqueCategories = [...new Set(mangas.map((manga) => manga.category_id))];
+function Manager() {
+  const creator = mangas.filter((manga) => manga.author_id === "lucas")
+  const uniqueCategories = [...new Set(creator.map((manga) => manga.category_id))];
+
+  const nameCreator = creator[0]?.author_id
 
   return (
     <>
       <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center">
-        <p className='w-auto mb-8 mt-36 text-6xl text-white font-bold'>Mangas</p>
+        <p className='w-auto mb-8 mt-36 text-6xl text-white font-bold'>{nameCreator}</p>
         <input type='search' placeholder='Find your manga here' className='w-full md:w-[70vw] py-1 px-5 rounded-xl' />
       </div>
       <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-5 -mt-10 mx-auto shadow drop-shadow-md">
-        <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
+        <div className="w-full h-full lg:px-5 flex flex-wrap justify-around sm:justify-start">
           {uniqueCategories.map((category, index) => {
             const categoryColor = getCategoryColor(category, uniqueCategories)
             return (
-              <button value={category} className={`px-2 m-1 rounded-full bg${categoryColor}300`} key={index}>
-                {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
-              </button>
+            <button value={category} className={`px-2 m-1 rounded-full bg${categoryColor}300`} key={index}>
+              {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
+            </button>
             )
           })}
         </div>
         <div className="flex flex-wrap justify-around">
-          {mangas.map((manga, index) => (
+          {creator.map((manga, index) => (
             <CardManga key={index} manga={manga} uniqueCategories={uniqueCategories} />
           ))}
         </div>
@@ -728,4 +731,4 @@ function Mangas() {
   )
 }
 
-export default Mangas
+export default Manager
