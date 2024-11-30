@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./Pages/Home.jsx";
 import NotFound from "./Pages/NotFound.jsx";
 import StandardLayout from "./Layouts/StandardLayout.jsx";
+import Mangas from "./Pages/Mangas.jsx";
 import SignUp from "./Pages/SignUp.jsx"; 
 import SignIn from "./Pages/SignIn.jsx";
 import LayoutForms from "./Layouts/LayoutForms.jsx";
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/home", element: <Home /> },
+      { path: "/mangas", element: <Mangas /> }
     ]
   },
   {
