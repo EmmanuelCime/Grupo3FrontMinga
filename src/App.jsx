@@ -6,6 +6,7 @@ import SignUp from "./Pages/SignUp.jsx";
 import SignIn from "./Pages/SignIn.jsx";
 import LayoutForms from "./Layouts/LayoutForms.jsx";
 import NewRole from "./Pages/NewRole.jsx";
+import Panel from "./Pages/Panel.jsx";
 
 
 const router = createBrowserRouter([
@@ -19,9 +20,10 @@ const router = createBrowserRouter([
   {
     element: <LayoutForms />,
     children: [
-      { path: "/signin", element: <SignIn></SignIn>},
-      { path: "/signup", element: <SignUp></SignUp>},
-      { path: "/newrole", element: <NewRole></NewRole>},
+      { path: "/signin", element: <SignIn/>},
+      { path: "/signup", element: <SignUp/>},
+      { path: "/newrole", element: <NewRole/>},
+    { path: "/panel", element: <Panel /> },
     ]
   },
   { path: "/*", element: <NotFound /> }
