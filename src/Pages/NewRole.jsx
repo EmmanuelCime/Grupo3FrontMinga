@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import imageNewRole from "../assets/imageNewRole.jpg";
+import MingaLogotype from "../assets/mingaLogotype.png";
 
 export default function NewRole() {
     const [selectedRole, setSelectedRole] = useState("");
@@ -10,9 +11,9 @@ export default function NewRole() {
             <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white">
                 {/* Título */}
                 <div className="text-center">
-                    <p className="text-lg font-semibold text-gray-600 mb-4">Change role to</p>
-                    <h1 className="text-4xl font-bold text-orange-500 flex items-center mb-6">
-                        Minga <span className="ml-2 text-black">雪</span>
+                    <p className="text-md text-orange-500">Change role to</p>
+                    <h1 className=" mb-2 flex items-center">
+                        <img className="h-14" src={MingaLogotype} alt="Minga Logotype" />
                     </h1>
                 </div>
 
@@ -93,13 +94,13 @@ export default function NewRole() {
                             {/* Texto */}
                             <div className="text-left">
                                 <p
-                                    className={`font-bold ${selectedRole === "company" ? "text-orange-500" : "text-gray-700"
+                                    className={`ml-3 font-bold ${selectedRole === "company" ? "text-orange-500" : "text-gray-700"
                                         }`}
                                 >
                                     Join as a Company!
                                 </p>
                                 <p
-                                    className={`text-sm ${selectedRole === "company" ? "text-orange-500" : "text-gray-700"
+                                    className={`ml-3 text-sm ${selectedRole === "company" ? "text-orange-500" : "text-gray-700"
                                         }`}>
                                     I’m a company and I want to publish my comics
                                 </p>

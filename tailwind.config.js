@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif'],
+      },
       backgroundImage: {
         'mangas': "url('./src/assets/mangaBackground.jpg')",
       },
