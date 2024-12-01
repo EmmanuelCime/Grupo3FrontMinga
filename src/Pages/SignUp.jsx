@@ -19,7 +19,7 @@ export default function SignUp() {
         </p>
 
         {/* Formulario */}
-        <form className="w-full max-w-md space-y-5">
+        <form className="w-full max-w-md space-y-3">
           {/* Input de Email */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input

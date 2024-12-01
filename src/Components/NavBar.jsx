@@ -3,6 +3,26 @@ import { useState } from "react"
 import MingaLogotype from "../assets/mingaLogotype.png"
 import MenuIcon from "../assets/menuIcon.png"
 
+const routes = [
+    { to: "/", text: "Home" },
+    { to: "/mangas", text: "Mangas" },
+    { to: "/manager", text: "Manager" },
+    { to: "/signup", text: "Register" },
+    { to: "/signin", text: "Sign In" },
+]
+
+function LinkMenu() {
+    return (
+        routes.map((r, index) => (
+            <li key={index} className='hover:underline'>
+                <NavLink to={r.to}
+                    className={({ isActive }) => isActive ? "text-xl text-white font-bold" : "text-xl text-white"}>
+                    {r.text}
+                </NavLink>
+            </li>
+        ))
+    )
+}
 
 function NavBar() {
 
@@ -14,12 +34,16 @@ function NavBar() {
 
     return (
         <>
-            <div className="flex justify-between">
-                <button onClick={toggleSidebar} className="pt-4 pb-4 ps-14">
+            <div className="absolute top-0 left-0 w-full flex justify-between items-center bg-transparent z-50 py-2">
+                <button onClick={toggleSidebar} className=" ps-8">
                     <img src={MenuIcon} alt="Menu icon" className="w-10 cursor-pointer" />
                 </button>
-
-                <NavLink to="/home" className="pe-14"><img src={MingaLogotype} alt="Minga Logotype" /></NavLink>
+                <div className={`${isOpen ? 'block' : 'hidden'} pr-3`}>
+                    <ul className="space-x-3 flex text-black items-center">
+                        <LinkMenu routes={routes}></LinkMenu>
+                    </ul>
+                </div>
+                <NavLink to="/home" className="pe-14"><img className="h-12" src={MingaLogotype} alt="Minga Logotype" /></NavLink>
             </div>
         </>
     )

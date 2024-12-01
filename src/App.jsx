@@ -3,7 +3,8 @@ import Home from "./Pages/Home.jsx";
 import NotFound from "./Pages/NotFound.jsx";
 import StandardLayout from "./Layouts/StandardLayout.jsx";
 import Mangas from "./Pages/Mangas.jsx";
-import SignUp from "./Pages/SignUp.jsx"; 
+import Manager from "./Pages/Manager.jsx";
+import SignUp from "./Pages/SignUp.jsx";
 import SignIn from "./Pages/SignIn.jsx";
 import LayoutForms from "./Layouts/LayoutForms.jsx";
 import NewRole from "./Pages/NewRole.jsx";
@@ -18,16 +19,17 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/home", element: <Home /> },
       { path: "/mangas", element: <Mangas /> },
-      { path: "/panel", element: <AdminPanel /> },
+      { path: "/manager", element: <Manager /> },
+      { path: "/adminpanel", element: <AdminPanel /> },
       { path: "/profile", element: <Profile /> },
     ]
   },
   {
     element: <LayoutForms />,
     children: [
-      { path: "/signin", element: <SignIn/>},
-      { path: "/signup", element: <SignUp/>},
-      { path: "/newrole", element: <NewRole/>},
+      { path: "/signin", element: <SignIn></SignIn> },
+      { path: "/signup", element: <SignUp></SignUp> },
+      { path: "/newrole", element: <NewRole></NewRole> },
     ]
   },
   { path: "/*", element: <NotFound /> }

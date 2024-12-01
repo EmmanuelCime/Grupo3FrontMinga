@@ -6,7 +6,7 @@ import ButtonGoogle from "../Components/ButtonGoogle";
 
 export default function SignIn() {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen border border-blue-500">
       {/* Imagen lateral */}
       <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${imageSignIn})` }}
       ></div>
