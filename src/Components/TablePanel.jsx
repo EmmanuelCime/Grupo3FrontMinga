@@ -1,7 +1,7 @@
 import { useState } from "react";
-import imagePanel from "../assets/imagePanel.jpg";
 
-export default function Panel() {
+export default function TablePanel() {
+
     const [view, setView] = useState("companies");
     const [data, setData] = useState({
         companies: [
@@ -24,49 +24,26 @@ export default function Panel() {
         setData(updatedData);
     };
 
-    return (
-        <div className="flex flex-col h-full justify-center items-center">
-            {/* Header with background image */}
-            <div
-                className="relative h-[680px] w-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${imagePanel})` }}
-            >
-                {/* Main Title */}
-                <div className="absolute inset-0 flex justify-center items-center mb-36">
-                    <h1 className="text-white text-5xl font-bold">Panel</h1>
-                </div>
-            </div>
 
-            {/* Main Content */}
-            <div className="flex flex-col justify-center items-center relative bg-white p-8 w-11/12 h-auto bottom-56 border border-none rounded-t-lg">
-                {/* Section Title */}
-                <h2 className="text-center text-3xl font-bold text-orange-500 mb-10">
-                    Entities
-                </h2>
-
-                {/* Table */}
-                <div className="border rounded-md shadow-md bg-white w-9/12 border border-red-500">
+    return(
+        <>
+         {/* Table */}
+         <div className="border rounded-t-lg shadow-md bg-white w-9/12">
+                    <div className="flex justify-center border border-none rounded-t-lg">
+                        <button
+                            className={`px-4 py-2 rounded-tl-lg w-full ${view === "companies" ? "bg-orange-500 text-white" : "bg-gray-200 text-gray-700"}`}
+                            onClick={() => setView("companies")}
+                        >
+                            Companies
+                        </button>
+                        <button
+                            className={`px-4 py-2 rounded-tr-lg w-full ${view === "authors" ? "bg-orange-500 text-white" : "bg-gray-200 text-gray-700"}`}
+                            onClick={() => setView("authors")}
+                        >
+                            Authors
+                        </button>
+                    </div>
                     <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr>
-                                <th colSpan={view === "companies" ? 4 : 5} className="px-4 py-2 text-center">
-                                    <div className="flex justify-center">
-                                        <button
-                                            className={`px-4 py-2 mx-2 rounded-t w-40 ${view === "companies" ? "bg-orange-500 text-white" : "bg-gray-200 text-gray-700"}`}
-                                            onClick={() => setView("companies")}
-                                        >
-                                            Companies
-                                        </button>
-                                        <button
-                                            className={`px-4 py-2 mx-2 rounded-t w-40 ${view === "authors" ? "bg-orange-500 text-white" : "bg-gray-200 text-gray-700"}`}
-                                            onClick={() => setView("authors")}
-                                        >
-                                            Authors
-                                        </button>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
                         <tbody>
                             {view === "companies"
                                 ? data.companies.map((company, index) => (
@@ -91,11 +68,11 @@ export default function Panel() {
                                         </td>
                                         <td className="px-4 py-2 text-center">
                                             <button
-                                                className={`w-10 h-6 rounded-full mx-auto ${company.active ? "bg-green-500" : "bg-gray-300"}`}
+                                                className={`w-10 h-6 rounded-full mx-auto ${company.active ? "bg-orange-500" : "bg-gray-300"}`}
                                                 onClick={() => toggleActive("companies", index)}
                                             >
                                                 <span
-                                                    className={`block w-4 h-4 rounded-full bg-white transform transition-transform ${company.active ? "translate-x-4" : ""}`}
+                                                    className={`block w-4 h-4 rounded-full bg-white transform transition-transform ${company.active ? "translate-x-5" : "translate-x-1"}`}
                                                 ></span>
                                             </button>
                                         </td>
@@ -125,16 +102,16 @@ export default function Panel() {
                                             <img
                                                 src={author.photo}
                                                 alt={author.name}
-                                                className="w-9 h-9 rounded-full"
+                                                className="w-8 h-8 rounded-full"
                                             />
                                         </td>
                                         <td className="px-4 py-2 text-center">
                                             <button
-                                                className={`w-10 h-6 rounded-full mx-auto ${author.active ? "bg-green-500" : "bg-gray-300"}`}
+                                                className={`w-10 h-6 rounded-full mx-auto ${author.active ? "bg-orange-500" : "bg-gray-300"}`}
                                                 onClick={() => toggleActive("authors", index)}
                                             >
                                                 <span
-                                                    className={`block w-4 h-4 rounded-full bg-white transform transition-transform ${author.active ? "translate-x-4" : ""}`}
+                                                    className={`block w-4 h-4 rounded-full bg-white transform transition-transform ${author.active ? "translate-x-5" : "translate-x-1"}`}
                                                 ></span>
                                             </button>
                                         </td>
@@ -143,7 +120,7 @@ export default function Panel() {
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    );
+        
+        </>
+    )
 }

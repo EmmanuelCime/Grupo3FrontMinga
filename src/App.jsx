@@ -7,7 +7,8 @@ import SignUp from "./Pages/SignUp.jsx";
 import SignIn from "./Pages/SignIn.jsx";
 import LayoutForms from "./Layouts/LayoutForms.jsx";
 import NewRole from "./Pages/NewRole.jsx";
-import Panel from "./Pages/Panel.jsx";
+import AdminPanel from "./Pages/AdminPanel.jsx";
+import Profile from "./Pages/Profile.jsx";
 
 
 const router = createBrowserRouter([
@@ -16,7 +17,9 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/home", element: <Home /> },
-      { path: "/mangas", element: <Mangas /> }
+      { path: "/mangas", element: <Mangas /> },
+      { path: "/panel", element: <AdminPanel /> },
+      { path: "/profile", element: <Profile /> },
     ]
   },
   {
@@ -25,7 +28,6 @@ const router = createBrowserRouter([
       { path: "/signin", element: <SignIn/>},
       { path: "/signup", element: <SignUp/>},
       { path: "/newrole", element: <NewRole/>},
-    { path: "/panel", element: <Panel /> },
     ]
   },
   { path: "/*", element: <NotFound /> }
