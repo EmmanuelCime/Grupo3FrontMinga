@@ -7,15 +7,16 @@ import ButtonGoogle from "../Components/ButtonGoogle";
 export default function SignIn() {
   return (
     <div className="flex h-screen border border-blue-500">
+      
       {/* Imagen lateral */}
       <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${imageSignIn})` }}
       ></div>
 
       {/* Contenedor del formulario */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
+           <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
         {/* Logo y título */}
         <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 flex items-center">
-         <img className="h-16" src={MingaLogotype} alt="Minga Logotype" />
+          <img className="h-16" src={MingaLogotype} alt="Minga Logotype" />
         </h1>
         <h2 className="text-2xl md:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
         <p className="text-gray-600 mb-6 text-center text-sm">
