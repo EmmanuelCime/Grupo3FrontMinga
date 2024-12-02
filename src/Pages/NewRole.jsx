@@ -3,79 +3,73 @@ import imageNewRole from "../assets/imageNewRole.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
 
 export default function NewRole() {
-  const [selectedRole, setSelectedRole] = useState(""); 
+  const [selectedRole, setSelectedRole] = useState("");
 
   return (
     <div className="flex h-screen">
       {/* Lado izquierdo */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white">
+      <div className="w-full md:w-1/2 mx-4  flex flex-col justify-center items-center bg-white">
         <div className="text-center">
-          <p className="text-md text-orange-500">Change role to</p>
+          <p className="text-md text-orange-500 pr-3">Change role to</p>
           <h1 className=" mb-2 flex items-center">
             <img className="h-14" src={MingaLogotype} alt="Minga Logotype" />
           </h1>
         </div>
 
-        <div className="space-y-4 w-3/4">
+        <div className="flex flex-col gap-y-4 w-full sm:w-6/5 max-w-lg lg:w-10/12">
           {/* Botón de Autor */}
           <button
             onClick={() => setSelectedRole("author")}
-            className={`w-full flex items-center p-4 border-2 rounded-3xl shadow-sm transition ${
-              selectedRole === "author"
-                ? "border-orange-500 bg-orange-50"
-                : "border-gray-300 hover:bg-gray-50"
-            } relative`}
+            className={`flex items-center py-5 px-4 sm:p-4 border-2 rounded-3xl shadow-sm transition ${selectedRole === "author"
+              ? "border-orange-500 bg-orange-50"
+              : "border-gray-300 hover:bg-gray-50"
+              } relative`}
           >
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-x-4">
               <div className="flex">
                 <img
                   src="https://randomuser.me/api/portraits/women/45.jpg"
                   alt="User 1"
-                  className="w-8 h-8 rounded-full border-2 border-white -ml-2 mt-1"
+                  className="w-6 sm:w-8 h-6 sm:h-8 rounded-full border-2 border-white -ml-2 mt-1"
                 />
                 <img
                   src="https://randomuser.me/api/portraits/men/32.jpg"
                   alt="User 2"
-                  className="w-10 h-10 rounded-full border-2 border-white -ml-2"
+                  className="w-8 sm:w-10 h-8 sm:h-10 rounded-full border-2 border-white -ml-2"
                 />
                 <img
                   src="https://randomuser.me/api/portraits/women/10.jpg"
                   alt="User 3"
-                  className="w-8 h-8 rounded-full border-2 border-white -ml-2 mt-1"
+                  className="w-6 sm:w-8 h-6 sm:h-8 rounded-full border-2 border-white -ml-2 mt-1"
                 />
               </div>
               <div className="text-left">
                 <p
-                  className={`font-bold ${
-                    selectedRole === "author" ? "text-orange-500" : "text-gray-700"
-                  }`}
+                  className={`font-bold text-xs sm:text-sm ${selectedRole === "author" ? "text-orange-500" : "text-gray-700"
+                    }`}
                 >
                   Join as an Author!
                 </p>
                 <p
-                  className={`text-sm ${
-                    selectedRole === "author" ? "text-orange-500" : "text-gray-700"
-                  }`}
+                  className={`text-xs sm:text-sm ${selectedRole === "author" ? "text-orange-500" : "text-gray-700"
+                    }`}
                 >
                   I’m a reader writing a manga
                 </p>
               </div>
             </div>
-
-            {/* Checkbox */}
             <div
-              className={`w-6 h-6 border-2 rounded-full flex justify-center items-center absolute top-2 right-2 ${
-                selectedRole === "author"
-                  ? "border-orange-500 bg-orange-200"
-                  : "border-gray-100 bg-white"
-              }`}
+              className={`w-5 h-5 sm:w-6 sm:h-6 border-2 rounded-full flex justify-center items-center absolute top-2 right-2 ${selectedRole === "author"
+                ? "border-orange-500 bg-orange-200"
+                : "border-gray-300 bg-white"
+                }`}
             >
               {selectedRole === "author" && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-8 h-8 text-orange-500"
+                  className="w-4 h-4 sm:w-6 sm:h-6 text-orange-500"
                 >
                   <path
                     fillRule="evenodd"
@@ -90,62 +84,59 @@ export default function NewRole() {
           {/* Botón de Compañía */}
           <button
             onClick={() => setSelectedRole("company")}
-            className={`w-full flex items-center p-4 border-2 rounded-3xl shadow-sm transition ${
-              selectedRole === "company"
-                ? "border-orange-500 bg-orange-50"
-                : "border-gray-300 hover:bg-gray-50"
-            } relative`}
+            className={`flex items-center py-5 px-4 sm:p-4 border-2 rounded-3xl shadow-sm transition ${selectedRole === "company"
+              ? "border-orange-500 bg-orange-50"
+              : "border-gray-300 hover:bg-gray-50"
+              } relative`}
           >
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-x-4">
+              {/* Imágenes dinámicas */}
               <div className="flex">
                 <img
                   src="https://randomuser.me/api/portraits/men/5.jpg"
                   alt="User 1"
-                  className="w-8 h-8 rounded-full border-2 border-white -ml-2 mt-1"
+                  className="w-6 sm:w-8 h-6 sm:h-8 rounded-full border-2 border-white -ml-2 mt-1"
                 />
                 <img
                   src="https://randomuser.me/api/portraits/women/20.jpg"
                   alt="User 2"
-                  className="w-10 h-10 rounded-full border-2 border-white -ml-2"
+                  className="w-8 sm:w-10 h-8 sm:h-10 rounded-full border-2 border-white -ml-2"
                 />
                 <img
                   src="https://randomuser.me/api/portraits/men/17.jpg"
                   alt="User 3"
-                  className="w-8 h-8 rounded-full border-2 border-white -ml-2 mt-1"
+                  className="w-6 sm:w-8 h-6 sm:h-8 rounded-full border-2 border-white -ml-2 mt-1"
                 />
               </div>
+
+              {/* Texto dinámico */}
               <div className="text-left">
                 <p
-                  className={`ml-3 font-bold ${
-                    selectedRole === "company" ? "text-orange-500" : "text-gray-700"
-                  }`}
+                  className={`font-bold text-xs sm:text-sm ${selectedRole === "company" ? "text-orange-500" : "text-gray-700"}`}
                 >
                   Join as a Company!
                 </p>
                 <p
-                  className={`ml-3 text-sm ${
-                    selectedRole === "company" ? "text-orange-500" : "text-gray-700"
-                  }`}
+                  className={`text-xs sm:text-sm ${selectedRole === "company" ? "text-orange-500" : "text-gray-700"}`}
                 >
-                  I’m a company and I want to publish my comics
+                  I’m a company and I want <br /> to publish my comics
                 </p>
               </div>
             </div>
 
-            {/* Checkbox */}
+            {/* Checkbox dinámico */}
             <div
-              className={`w-6 h-6 border-2 rounded-full flex justify-center items-center absolute top-2 right-2 ${
-                selectedRole === "company"
-                  ? "border-orange-500 bg-orange-200"
-                  : "border-gray-100 bg-white"
-              }`}
+              className={`w-5 h-5 sm:w-6 sm:h-6 border-2 rounded-full flex justify-center items-center absolute top-2 right-2 ${selectedRole === "company"
+                ? "border-orange-500 bg-orange-200"
+                : "border-gray-300 bg-white"
+                }`}
             >
               {selectedRole === "company" && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-8 h-8 text-orange-500"
+                  className="w-4 h-4 sm:w-6 sm:h-6 text-orange-500"
                 >
                   <path
                     fillRule="evenodd"
@@ -157,13 +148,13 @@ export default function NewRole() {
             </div>
           </button>
         </div>
+
       </div>
 
       {/* Lado derecho */}
       <div
         className="hidden md:block w-1/2 bg-cover bg-center"
-        style={{ backgroundImage: `url(${imageNewRole})` }}
-      >
+        style={{ backgroundImage: `url(${imageNewRole})` }}>
         <div className="flex flex-col h-full p-8 bg-black bg-opacity-50 text-white">
           <div className="flex flex-col mx-20 mt-20">
             <p className="text-2xl mb-5 font-bold">
