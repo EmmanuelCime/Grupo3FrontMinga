@@ -1,6 +1,15 @@
 import CardManga from "../Components/CardManga"
 import { getCategoryColor } from "../utils/utils";
 
+const categoryColorClasses = {
+  red: "bg-red-300 text-red-300",
+  blue: "bg-blue-300 text-blue-300",
+  green: "bg-green-300 text-green-300",
+  yellow: "bg-yellow-300 text-yellow-300",
+  purple: "bg-purple-300 text-purple-300",
+  pink: "bg-pink-300 text-pink-300",
+  orange: "bg-orange-300 text-orange-300",
+}
 
 let mangas = [
   {
@@ -706,24 +715,32 @@ function Manager() {
 
   return (
     <>
-      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center">
-        <p className='w-auto mb-8 mt-36 text-6xl text-white font-bold'>{nameCreator}</p>
-        <input type='search' placeholder='Find your manga here' className='w-full md:w-[70vw] py-1 px-5 rounded-xl' />
+      <div className="bg-manager bg-cover bg-center bg-opacity-40 w-full h-[40vh] sm:h-[60vw] px-5 flex flex-col justify-center items-center">
+        <p className='w-auto mb-8 sm:mt-36 text-6xl text-white font-bold'>{nameCreator}</p>
+        <div className="relative w-full md:w-[70vw]">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400">
+            <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
+          </svg>
+          <input type='search' placeholder="Find your manga here"
+            className='w-full py-2 pl-12 pr-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none' />
+        </div>
       </div>
       <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-5 -mt-10 mx-auto shadow drop-shadow-md">
         <div className="w-full h-full lg:px-5 flex flex-wrap justify-around sm:justify-start">
           {uniqueCategories.map((category, index) => {
             const categoryColor = getCategoryColor(category, uniqueCategories)
+            
             return (
-            <button value={category} className={`px-2 m-1 rounded-full bg${categoryColor}300`} key={index}>
-              {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
-            </button>
+              <button value={category} className={`px-2 m-1 rounded-full ${categoryColorClasses[categoryColor]?.split(" ")[0]}`} key={index}>
+                {category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}
+              </button>
             )
           })}
         </div>
         <div className="flex flex-wrap justify-around">
           {creator.map((manga, index) => (
-            <CardManga key={index} manga={manga} uniqueCategories={uniqueCategories} />
+            <CardManga key={index} manga={manga} uniqueCategories={uniqueCategories} categoryColorClasses={categoryColorClasses} />
           ))}
         </div>
       </div>
