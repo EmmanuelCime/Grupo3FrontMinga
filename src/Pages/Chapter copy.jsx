@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 
 function Badge({ category }) {
     return (
@@ -79,97 +78,96 @@ export default function Chapter() {
     ];
 
     return (
-        <div className="flex flex-col md:flex-row flex-wrap max-w-7xl mx-auto p-3 pt-14 sm:p-4 sm:pt-16 ">
+        <div className="flex flex-col lg:flex-row max-w-7xl flex-wrap mx-auto p-3  pt-14 sm:p-4 sm:pt-16 ">
             {/* Left Panel - Manga Image */}
-            <div className="md:w-1/2 flex justify-center md:pr-3 md:mb-4 ">
+            <div className="lg:w-1/2 flex items-center md:items-start justify-center">
                 <img
                     src={chapters[0].cover_photo}
                     alt={chapters[0].title}
-                    className="rounded-lg shadow-lg w-full max-h-[75vh] object-cover xl:mr-8 xl:max-h-[65vh] border border-red-500 "
+                    className="rounded-lg shadow-lg w-full max-h-[75vh] object-cover md:min-h-[100vh]"
                 />
             </div>
 
             {/* Right Panel - Details */}
-            <div className="md:w-1/2 flex flex-col gap-6 md:p-2">
+            <div className="lg:w-1/2 flex flex-col p-1 gap-6">
                 {/* Title and Badge */}
                 <div>
-                    <h1 className="text-4xl font-bold text-gray-800 mt-4 md:text-5xl ">{chapters[0].title}</h1>
-                    <div className="flex flex-wrap gap-2 mt-4 lg:py-3">
-                        <Badge category={chapters[0].category_id} />
+                    <h1 className="text-4xl font-bold text-gray-800 pt-3 md:">{chapters[0].title}</h1>
+                    <div className="flex flex-wrap gap-2 mt-4">
+                        {chapters.map((chapter, index) => (
+                            <Badge key={index} category={chapter.category_id} />
+                        ))}
                     </div>
                 </div>
 
                 {/* Reaction Icons */}
                 <div className="flex justify-around">
-                    <button className="flex items-center justify-center w-14 h-14 xl:w-18 xl:h-18 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
+                    <button className="flex items-center justify-center w-14 h-14 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
                         👍
                     </button>
-                    <button className="flex items-center justify-center w-14 h-14 xl:w-18 xl:h-18 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
+                    <button className="flex items-center justify-center w-14 h-14 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
                         👎
                     </button>
-                    <button className="flex items-center justify-center w-14 h-14 xl:w-18 xl:h-18 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
+                    <button className="flex items-center justify-center w-14 h-14 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
                         😮
                     </button>
-                    <button className="flex items-center justify-center w-14 h-14 xl:w-18 xl:h-18  bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
+                    <button className="flex items-center justify-center w-14 h-14 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
                         ❤️
                     </button>
                 </div>
 
-                {/* Rating */}
-                <div className="flex justify-between items-center bg-white shadow-md rounded-lg p-4 mb-5 sm:px-14">
+                {/* Rating and Details */}
+                <div className="flex justify-between items-center bg-white shadow-md rounded-lg p-4 sm:px-14">
                     <div className="flex flex-col items-center">
-                        <span className="text-lg font-semibold text-gray-800 lg:text-xl">4.5/5</span>
-                        <span className="text-xs lg:text-md text-gray-500">Rating</span>
+                        <span className="text-lg font-semibold text-gray-800">4.5/5</span>
+                        <span className="text-xs text-gray-500">Rating</span>
                     </div>
                     <div className="h-8 w-px bg-gray-300"></div>
                     <div className="flex flex-col items-center">
-                        <span className="text-lg font-semibold text-gray-800 lg:text-xl">265</span>
-                        <span className="text-xs lg:text-md text-gray-500">Chapters</span>
+                        <span className="text-lg font-semibold text-gray-800">265</span>
+                        <span className="text-xs text-gray-500">Chapters</span>
                     </div>
                     <div className="h-8 w-px bg-gray-300"></div>
                     <div className="flex flex-col items-center">
-                        <span className="text-lg font-semibold text-gray-800 lg:text-xl">Eng</span>
-                        <span className="text-xs lg:text-md text-gray-500">Language</span>
+                        <span className="text-lg font-semibold text-gray-800">Eng</span>
+                        <span className="text-xs text-gray-500">Language</span>
                     </div>
                 </div>
-            </div>
 
-            <div className="md:my-2 lg:w-full xl:my-4 xl:mx-4">
                 {/* View Buttons */}
-                <div className="flex items-center bg-gray-200 rounded-full mb-4">
+                <div className="flex items-center bg-gray-200 rounded-full">
                     <button
                         onClick={() => setView("manga")}
-                        className={`flex-1 px-4 py-2 sm:py-2 xl:py-3 text-center  rounded-full transition-colors duration-300 ${view === "manga" ? "bg-orange-500 text-white" : "text-gray-500"
+                        className={`flex-1 px-4 py-1 sm:py-2 text-center rounded-full transition-colors duration-300 ${view === "manga" ? "bg-orange-500 text-white" : "text-gray-500"
                             }`}
                     >
                         Manga
                     </button>
                     <button
                         onClick={() => setView("chapters")}
-                        className={`flex-1 px-4 py-2 xl:py-3 text-center rounded-full transition-colors duration-300 ${view === "chapters" ? "bg-orange-500 text-white" : "text-gray-500"
+                        className={`flex-1 px-4 py-1 sm:py-2 text-center rounded-full transition-colors duration-300 ${view === "chapters" ? "bg-orange-500 text-white" : "text-gray-500"
                             }`}
                     >
                         Chapters
                     </button>
                 </div>
-
                 {/* Right Panel - Chapter List */}
-                <div className="lg:w-full mb-5 sm:px-4 md:w-full lg:w-full">
+                <div className="lg:w-2/3 sm:px-4 border border-red-500">
                     {view === "chapters" && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 ">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 border border-blue-500">
                             {chapters[0].chapters.map((chapter, index) => (
                                 <div
                                     key={index}
-                                    className="flex  items-center gap-4 p-2 bg-white shadow-md rounded-lg hover:shadow-lg sm:p-3 lgw-6/12"
+                                    className="flex items-center gap-4 p-2 bg-white shadow-md rounded-lg hover:shadow-lg sm:p-3 border border-green-500"
                                 >
                                     <img
                                         src={chapters[0].cover_photo}
                                         alt={chapter.title}
-                                        className="w-16 h-16 sm:w-24 sm:h-24 lg:w-auto lg:h-32 rounded-lg object-cover"
+                                        className="w-16 h-16 sm:w-24 sm:h-24 rounded-lg object-cover"
                                     />
                                     <div className="flex-1">
-                                        <h2 className="text-sm sm:text-lg lg:text-xl font-semibold text-gray-800">{chapter.title}</h2>
-                                        <div className="flex items-start gap-1">
+                                        <h2 className="text-sm sm:text-lg font-semibold text-gray-800">{chapter.title}</h2>
+                                        <div className="flex items-center gap-2">
                                             <button>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +175,7 @@ export default function Chapter() {
                                                     viewBox="0 0 24 24"
                                                     strokeWidth={1.5}
                                                     stroke="currentColor"
-                                                    className="size-4 sm:size-5 mt-1 text-gray-600"
+                                                    className="size-4 sm:size-6 mt-1 text-gray-600"
                                                 >
                                                     <path
                                                         strokeLinecap="round"
@@ -187,27 +185,27 @@ export default function Chapter() {
                                                 </svg>
                                             </button>
 
-                                            <p className="text-xs  sm:text-sm  mt-1 text-gray-500 ">
+                                            <p className="text-xs sm:text-sm mt-1 text-gray-500">
                                                 {chapter.pages.length} Pages
                                             </p>
                                         </div>
                                     </div>
-                                    <NavLink to="/details">
-                                    <button className="px-5 py-3 sm:mx-4  bg-orange-500 text-white rounded-3xl hover:bg-orange-400">
+                                    <button className="px-5 py-3 bg-orange-500 text-white rounded-3xl hover:bg-orange-400 sm:mx-4">
                                         Read
                                     </button>
-                                    </NavLink>
                                 </div>
                             ))}
                         </div>
                     )}
                     {view === "manga" && (
                         <>
-                            <p className="text-gray-500 p-2 md:p-3">{chapters[0].description}</p>
+                            <p className="text-gray-500">{chapters[0].description}</p>
                         </>
                     )}
                 </div>
             </div>
+
         </div>
+
     );
 }

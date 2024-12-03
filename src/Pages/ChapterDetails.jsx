@@ -72,7 +72,7 @@ const chapters = [
 ];
 
 export default function App() {
-  const [selectedChapter] = useState(chapters[0].chapters[0]); // Capítulo inicial
+  const [selectedChapter] = useState(chapters[0].chapters[0]);
 
   return (
     <div className="min-h-screen bg-white-900 pt-14 text-white">
@@ -105,8 +105,8 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
       <Swiper
         modules={[Navigation, Pagination]}
         navigation={{
-          prevEl: '.swiper-button-prev', // Cambiar color de la flecha anterior
-          nextEl: '.swiper-button-next', // Cambiar color de la flecha siguiente
+          prevEl: '.swiper-button-prev',
+          nextEl: '.swiper-button-next',
         }}
         onSlideChange={handleSlideChange}
         spaceBetween={10}
@@ -125,7 +125,7 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
       </Swiper>
 
       {/* Sección con número de página y comentarios */}
-      <div className="flex items-center justify-center gap-3 bg-white text-black py-1 px-4 rounded-full shadow-lg pb-4 z-10">
+      <div className=" relative bottom-12 flex items-center justify-center gap-3 bg-white text-black px-4 z-10">
         {/* Icono para comentarios */}
         <button className="text-2xl">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 mt-1">
@@ -138,7 +138,7 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
 
       {/* Flechas de navegación */}
       <div className="swiper-button-prev !text-orange-500"></div>
-<div className="swiper-button-next !text-orange-500"></div>
+      <div className="swiper-button-next !text-orange-500"></div>
     </div>
   );
 }
