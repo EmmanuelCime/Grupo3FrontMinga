@@ -2,7 +2,7 @@ export default function ButtonGoogle({name, onClick}) {
     return(
         <button
             type="button"
-            className="w-full border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center hover:bg-gray-100 transition-colors mt-2 gap-3"
+            className="w-full border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center hover:bg-gray-100 transition-colors mt-3 gap-3"
             onClick={onClick}
           >
             <img

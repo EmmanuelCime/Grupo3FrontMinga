@@ -6,14 +6,14 @@ import ButtonGoogle from "../Components/ButtonGoogle";
 
 export default function SignIn() {
   return (
-    <div className="flex h-screen border border-blue-500">
-      
+    <div className="flex h-screen">
+
       {/* Imagen lateral */}
       <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${imageSignIn})` }}
       ></div>
 
       {/* Contenedor del formulario */}
-           <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
         {/* Logo y título */}
         <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 flex items-center">
           <img className="h-16" src={MingaLogotype} alt="Minga Logotype" />
@@ -81,11 +81,12 @@ export default function SignIn() {
             </svg>
           </div>
 
-          {/* Botón de inicio de sesión */}
-          <ButtonPrimary name="Sign In"></ButtonPrimary>
-
-          {/* Botón de Google */}
-          <ButtonGoogle name="Sign in with Google"></ButtonGoogle>
+          <div>
+            {/* Botón de inicio de sesión */}
+            <ButtonPrimary name="Sign In"></ButtonPrimary>
+            {/* Botón de Google */}
+            <ButtonGoogle name="Sign in with Google"></ButtonGoogle>
+          </div>
         </form>
 
         {/* Texto de ayuda */}

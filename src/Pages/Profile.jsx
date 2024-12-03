@@ -11,7 +11,7 @@ export default function Profile() {
             >
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>
                 {/* Main Title */}
-                <div className="absolute inset-0 flex justify-center items-center mb-36">
+                <div className="absolute inset-0 flex justify-center items-center mb-36 lg:mb-52">
                     <h1 className="text-white text-5xl font-bold">Profile</h1>
                 </div>
             </div>

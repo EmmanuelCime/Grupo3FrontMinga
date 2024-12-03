@@ -10,6 +10,8 @@ import LayoutForms from "./Layouts/LayoutForms.jsx";
 import NewRole from "./Pages/NewRole.jsx";
 import AdminPanel from "./Pages/AdminPanel.jsx";
 import Profile from "./Pages/Profile.jsx";
+import Chapter from "./Pages/Chapter.jsx";
+import ChapterDetails from "./Pages/ChapterDetails.jsx";
 
 
 const router = createBrowserRouter([
@@ -22,6 +24,8 @@ const router = createBrowserRouter([
       { path: "/manager", element: <Manager /> },
       { path: "/adminpanel", element: <AdminPanel /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/chapter", element: <Chapter /> },
+      { path: "/details", element: <ChapterDetails /> },
     ]
   },
   {

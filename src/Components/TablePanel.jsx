@@ -26,16 +26,16 @@ export default function TablePanel() {
     return (
         <>
             {/* Table */}
-            <div className="border rounded-t-lg shadow-md bg-white w-full mx-auto overflow-x-auto">
-                <div className="flex justify-center border-none rounded-t-lg">
+            <div className="border rounded-t-lg shadow-md bg-white w-full md:w-8/12 mx-auto overflow-x-auto">
+                <div className="flex justify-center border-b-2 border-orange-500  rounded-t-lg">
                     <button
-                        className={`px-4 py-2 rounded-tl-lg w-full ${view === "companies" ? "bg-orange-500 text-white" : "bg-gray-200 text-gray-700"}`}
+                        className={`px-4 py-2 rounded-tl-lg w-full font-bold ${view === "companies" ? "bg-orange-500 text-white" : "bg-gray-200 text-orange-500"}`}
                         onClick={() => setView("companies")}
                     >
                         Companies
                     </button>
                     <button
-                        className={`px-4 py-2 rounded-tr-lg w-full ${view === "authors" ? "bg-orange-500 text-white" : "bg-gray-200 text-gray-700"}`}
+                        className={`px-4 py-2 rounded-tr-lg w-full font-bold ${view === "authors" ? "bg-orange-500 text-white" : "bg-gray-200 text-orange-500"}`}
                         onClick={() => setView("authors")}
                     >
                         Authors

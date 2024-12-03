@@ -15,7 +15,7 @@ export default function SignUp() {
         </h1>
         <h2 className="text-2xl md:text-4xl font-semibold mb-4">Welcome!</h2>
         <p className="text-gray-600 mb-6 text-center">
-          Discover manga, manhua and manhwa, track your progress, have fun, read manga.
+          Discover manga, manhua and manhwa, track your <br /> progress, have fun, read manga.
         </p>
 
         {/* Formulario */}
@@ -117,10 +117,12 @@ export default function SignUp() {
             </label>
           </div>
 
-          {/* Botón de registro */}
+          <div>
+            {/* Botón de registro */}
           <ButtonPrimary name="Sign Up"></ButtonPrimary>
           {/* Botón de Google */}
           <ButtonGoogle name="Sign up with Google"></ButtonGoogle>
+          </div>
 
         </form>
 
@@ -128,7 +130,7 @@ export default function SignUp() {
         <p className="font-semibold text-sm text-gray-500 mt-6 mb-1">
           Already have an account? <a href="#" className="text-orange-500">Log in</a>
         </p>
-        <p className="font-semibold text-gray-500">
+        <p className="font-semibold text-sm  text-gray-500">
           Go back to <a href="#" className="text-orange-500">home page</a>
         </p>
 

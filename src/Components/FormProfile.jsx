@@ -18,7 +18,7 @@ export default function ProfileEditor() {
     };
 
     return (
-        <div className="flex items-center justify-center p-4 gap-8 md:flex-row sm:gap-x-20  md:gap-x-28 flex-col-reverse">
+        <div className="flex items-center justify-center p-4 gap-8 md:flex-row sm:gap-x-20 lg:mt-20 lg:gap-x-60 md:gap-x-28 flex-col-reverse">
             {/* Formulario de edición */}
             <div className="w-full max-w-sm space-y-6 md:space-y-4">
                 <input
