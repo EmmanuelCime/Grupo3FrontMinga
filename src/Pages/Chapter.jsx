@@ -85,7 +85,7 @@ export default function Chapter() {
                 <img
                     src={chapters[0].cover_photo}
                     alt={chapters[0].title}
-                    className="rounded-lg shadow-lg w-full max-h-[75vh] object-cover xl:mr-8 xl:max-h-[65vh] border border-red-500 "
+                    className="rounded-lg shadow-lg w-full max-h-[75vh] object-cover xl:mr-8 xl:max-h-[65vh] "
                 />
             </div>
 
