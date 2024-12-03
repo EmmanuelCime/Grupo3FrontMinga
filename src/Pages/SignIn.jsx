@@ -1,23 +1,25 @@
 import React from "react";
 import imageSignIn from "../assets/imageSignIn.jpg";
+import MingaLogotype from "../assets/mingaLogotype.png";
+import ButtonPrimary from "../Components/ButtonPrimary";
+import ButtonGoogle from "../Components/ButtonGoogle";
 
 export default function SignIn() {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen border border-blue-500">
+      
       {/* Imagen lateral */}
-      <div
-        className="hidden md:block w-1/2 bg-cover bg-center"
-        style={{ backgroundImage: `url(${imageSignIn})` }}
+      <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${imageSignIn})` }}
       ></div>
 
       {/* Contenedor del formulario */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
+           <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
         {/* Logo y título */}
         <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 flex items-center">
-          Minga <span className="ml-2 text-black">雪</span>
+          <img className="h-16" src={MingaLogotype} alt="Minga Logotype" />
         </h1>
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4">Welcome back!</h2>
-        <p className="text-gray-600 mb-6 text-center">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
+        <p className="text-gray-600 mb-6 text-center text-sm">
           Discover manga, manhua and manhwa, track your progress, have fun, read manga.
         </p>
 
@@ -37,6 +39,18 @@ export default function SignIn() {
             >
               Email
             </label>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117]"
+            >
+              <path
+                fillRule="evenodd"
+                d="M17.834 6.166a8.25 8.25 0 1 0 0 11.668.75.75 0 0 1 1.06 1.06c-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788 3.807-3.808 9.98-3.808 13.788 0A9.722 9.722 0 0 1 21.75 12c0 .975-.296 1.887-.809 2.571-.514.685-1.28 1.179-2.191 1.179-.904 0-1.666-.487-2.18-1.164a5.25 5.25 0 1 1-.82-6.26V8.25a.75.75 0 0 1 1.5 0V12c0 .682.208 1.27.509 1.671.3.401.659.579.991.579.332 0 .69-.178.991-.579.3-.4.509-.99.509-1.671a8.222 8.222 0 0 0-2.416-5.834ZM15.75 12a3.75 3.75 0 1 0-7.5 0 3.75 3.75 0 0 0 7.5 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
 
           {/* Input de Password */}
@@ -53,35 +67,32 @@ export default function SignIn() {
             >
               Password
             </label>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117]"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
 
           {/* Botón de inicio de sesión */}
-          <button
-            type="submit"
-            className="w-full bg-[#f97117] text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors font-semibold mt-4"
-          >
-            Sign in
-          </button>
+          <ButtonPrimary name="Sign In"></ButtonPrimary>
 
           {/* Botón de Google */}
-          <button
-            type="button"
-            className="w-full border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center hover:bg-gray-100 transition-colors mt-2 gap-3"
-          >
-            <img
-                            src="https://webimages.mongodb.com/_com_assets/cms/kr6fvgdym4qzsgqo3-Google%20Icon.svg?auto=format%252Ccompress"
-                            className="w-5 h-5"
-                            alt="google_logo"
-                        />
-            <span className="text-gray-600">Sign in with Google</span>
-          </button>
+          <ButtonGoogle name="Sign in with Google"></ButtonGoogle>
         </form>
 
         {/* Texto de ayuda */}
-        <p className="text-sm text-gray-500 mt-6">
+        <p className="text-sm text-gray-500 mt-6 mb-2 font-semibold">
           You don’t have an account yet? <a href="#" className="text-orange-500">Sign up</a>
         </p>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 font-semibold">
           Go back to <a href="#" className="text-orange-500">home page</a>
         </p>
       </div>

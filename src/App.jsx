@@ -8,6 +8,9 @@ import SignUp from "./Pages/SignUp.jsx";
 import SignIn from "./Pages/SignIn.jsx";
 import LayoutForms from "./Layouts/LayoutForms.jsx";
 import NewRole from "./Pages/NewRole.jsx";
+import AdminPanel from "./Pages/AdminPanel.jsx";
+import Profile from "./Pages/Profile.jsx";
+import EditChapter from "./Pages/EditChapter.jsx";
 
 
 const router = createBrowserRouter([
@@ -17,7 +20,9 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/home", element: <Home /> },
       { path: "/mangas", element: <Mangas /> },
-      { path: "/manager", element: <Manager /> }
+      { path: "/manager", element: <Manager /> },
+      { path: "/adminpanel", element: <AdminPanel /> },
+      { path: "/profile", element: <Profile /> },
     ]
   },
   {
@@ -26,6 +31,7 @@ const router = createBrowserRouter([
       { path: "/signin", element: <SignIn></SignIn> },
       { path: "/signup", element: <SignUp></SignUp> },
       { path: "/newrole", element: <NewRole></NewRole> },
+      { path: "/editchapter", element: <EditChapter></EditChapter> },
     ]
   },
   { path: "/*", element: <NotFound /> }

@@ -1,5 +1,8 @@
 import React from "react";
 import imageSignUp from "../assets/imageSignUp.jpg";
+import MingaLogotype from "../assets/mingaLogotype.png";
+import ButtonPrimary from "../Components/ButtonPrimary";
+import ButtonGoogle from "../Components/ButtonGoogle";
 
 export default function SignUp() {
   return (
@@ -7,16 +10,16 @@ export default function SignUp() {
       {/* Contenedor del formulario */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
         {/* Logo y título */}
-        <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 flex items-center">
-          Minga <span className="ml-2 text-black">雪</span>
+        <h1 className=" mb-2 flex items-center">
+         <img className="h-14" src={MingaLogotype} alt="Minga Logotype" />
         </h1>
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4">Welcome!</h2>
+        <h2 className="text-2xl md:text-4xl font-semibold mb-4">Welcome!</h2>
         <p className="text-gray-600 mb-6 text-center">
           Discover manga, manhua and manhwa, track your progress, have fun, read manga.
         </p>
 
         {/* Formulario */}
-        <form className="w-full max-w-md space-y-6">
+        <form className="w-full max-w-md space-y-3">
           {/* Input de Email */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input
@@ -31,6 +34,18 @@ export default function SignUp() {
             >
               Email
             </label>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117]"
+            >
+              <path
+                fillRule="evenodd"
+                d="M17.834 6.166a8.25 8.25 0 1 0 0 11.668.75.75 0 0 1 1.06 1.06c-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788 3.807-3.808 9.98-3.808 13.788 0A9.722 9.722 0 0 1 21.75 12c0 .975-.296 1.887-.809 2.571-.514.685-1.28 1.179-2.191 1.179-.904 0-1.666-.487-2.18-1.164a5.25 5.25 0 1 1-.82-6.26V8.25a.75.75 0 0 1 1.5 0V12c0 .682.208 1.27.509 1.671.3.401.659.579.991.579.332 0 .69-.178.991-.579.3-.4.509-.99.509-1.671a8.222 8.222 0 0 0-2.416-5.834ZM15.75 12a3.75 3.75 0 1 0-7.5 0 3.75 3.75 0 0 0 7.5 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
 
           {/* Input de Photo URL */}
@@ -47,6 +62,19 @@ export default function SignUp() {
             >
               Photo URL
             </label>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117]"
+            >
+              <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+              <path
+                fillRule="evenodd"
+                d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                clipRule="evenodd"
+              />
+            </svg>
           </div>
 
           {/* Input de Password */}
@@ -63,36 +91,44 @@ export default function SignUp() {
             >
               Password
             </label>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117]"
+            >
+              <path
+                fillRule="evenodd"
+                d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+
+          {/* Checkbox */}
+          <div className="flex items-center">
+            <input
+              id="notifications"
+              type="checkbox"
+              className="w-4 h-4 text-orange-500 bg-gray-100 rounded border-gray-300 focus:ring-orange-400 focus:ring-2"
+            />
+            <label htmlFor="notifications" className="ml-2 text-sm text-gray-600">
+              Send notification to my email
+            </label>
           </div>
 
           {/* Botón de registro */}
-          <button
-            type="submit"
-            className="w-full bg-[#f97117] text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors font-semibold mt-4"
-          >
-            Sign Up
-          </button>
-
+          <ButtonPrimary name="Sign Up"></ButtonPrimary>
           {/* Botón de Google */}
-          <button
-            type="button"
-            className="w-full border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center hover:bg-gray-100 transition-colors mt-2 gap-3"
-          >
-            <img
-              src="https://webimages.mongodb.com/_com_assets/cms/kr6fvgdym4qzsgqo3-Google%20Icon.svg?auto=format%252Ccompress"
-              className="w-5 h-5"
-              alt="google_logo"
-            />
-            <span className="text-gray-600">Sign up with Google</span>
-          </button>
+          <ButtonGoogle name="Sign up with Google"></ButtonGoogle>
 
         </form>
 
         {/* Texto de ayuda */}
-        <p className="text-sm text-gray-500 mt-6">
+        <p className="font-semibold text-sm text-gray-500 mt-6 mb-1">
           Already have an account? <a href="#" className="text-orange-500">Log in</a>
         </p>
-        <p className="text-sm text-gray-500">
+        <p className="font-semibold text-gray-500">
           Go back to <a href="#" className="text-orange-500">home page</a>
         </p>
 
