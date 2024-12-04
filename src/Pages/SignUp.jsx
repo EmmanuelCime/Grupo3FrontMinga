@@ -8,18 +8,17 @@ export default function SignUp() {
   return (
     <div className="flex h-screen">
       {/* Contenedor del formulario */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:p-8 p-3 bg-white">
         {/* Logo y título */}
-        <h1 className=" mb-2 flex items-center">
-         <img className="h-14" src={MingaLogotype} alt="Minga Logotype" />
-        </h1>
-        <h2 className="text-2xl md:text-4xl font-semibold mb-4">Welcome!</h2>
-        <p className="text-gray-600 mb-6 text-center">
-          Discover manga, manhua and manhwa, track your progress, have fun, read manga.
+        <img className="h-10 lg:h-16" src={MingaLogotype} alt="Minga Logotype" />
+
+        <h2 className="text-lg sm:text-2xl lg:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
+        <p className="text-gray-600 mb-6 text-center lg:text-sm text-xs">
+          Discover manga, manhua and manhwa, track your <br className="hidden md:block" /> progress, have fun, read manga.
         </p>
 
         {/* Formulario */}
-        <form className="w-full max-w-md space-y-3">
+        <form className="w-full max-w-md lg:space-y-3 space-y-2">
           {/* Input de Email */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input
@@ -110,25 +109,27 @@ export default function SignUp() {
             <input
               id="notifications"
               type="checkbox"
-              className="w-4 h-4 text-orange-500 bg-gray-100 rounded border-gray-300 focus:ring-orange-400 focus:ring-2"
+              className="md:w-4 md:h-4 h-3 w-3 text-orange-500 bg-gray-100 rounded border-gray-300 focus:ring-orange-400 focus:ring-2"
             />
-            <label htmlFor="notifications" className="ml-2 text-sm text-gray-600">
+            <label htmlFor="notifications" className="ml-2 text-xs md:text-sm text-gray-600">
               Send notification to my email
             </label>
           </div>
 
-          {/* Botón de registro */}
-          <ButtonPrimary name="Sign Up"></ButtonPrimary>
-          {/* Botón de Google */}
-          <ButtonGoogle name="Sign up with Google"></ButtonGoogle>
+          <div>
+            {/* Botón de registro */}
+            <ButtonPrimary name="Sign Up"></ButtonPrimary>
+            {/* Botón de Google */}
+            <ButtonGoogle name="Sign up with Google"></ButtonGoogle>
+          </div>
 
         </form>
 
         {/* Texto de ayuda */}
-        <p className="font-semibold text-sm text-gray-500 mt-6 mb-1">
+        <p className="lg:text-sm text-xs text-gray-500 l:mt-6 mt-4 mb-2 font-semibold">
           Already have an account? <a href="#" className="text-orange-500">Log in</a>
         </p>
-        <p className="font-semibold text-gray-500">
+        <p className="lg:text-sm text-xs text-gray-500 font-semibold">
           Go back to <a href="#" className="text-orange-500">home page</a>
         </p>
 

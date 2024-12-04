@@ -6,25 +6,25 @@ import ButtonGoogle from "../Components/ButtonGoogle";
 
 export default function SignIn() {
   return (
-    <div className="flex h-screen border border-blue-500">
-      
+    <div className="flex h-screen">
+
       {/* Imagen lateral */}
       <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${imageSignIn})` }}
       ></div>
 
       {/* Contenedor del formulario */}
-           <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:p-8 p-3 bg-white">
         {/* Logo y título */}
-        <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 flex items-center">
-          <img className="h-16" src={MingaLogotype} alt="Minga Logotype" />
-        </h1>
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
-        <p className="text-gray-600 mb-6 text-center text-sm">
-          Discover manga, manhua and manhwa, track your progress, have fun, read manga.
+
+        <img className="h-10 lg:h-16" src={MingaLogotype} alt="Minga Logotype" />
+
+        <h2 className="text-lg sm:text-2xl lg:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
+        <p className="text-gray-600 mb-6 text-center lg:text-sm text-xs">
+          Discover manga, manhua and manhwa, track your <br className="hidden md:block" /> progress, have fun, read manga.
         </p>
 
         {/* Formulario */}
-        <form className="w-full max-w-md space-y-6">
+        <form className="w-full max-w-md lg:space-y-6 space-y-3">
           {/* Input de Email */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input
@@ -81,18 +81,19 @@ export default function SignIn() {
             </svg>
           </div>
 
-          {/* Botón de inicio de sesión */}
-          <ButtonPrimary name="Sign In"></ButtonPrimary>
-
-          {/* Botón de Google */}
-          <ButtonGoogle name="Sign in with Google"></ButtonGoogle>
+          <div>
+            {/* Botón de inicio de sesión */}
+            <ButtonPrimary name="Sign In"></ButtonPrimary>
+            {/* Botón de Google */}
+            <ButtonGoogle name="Sign in with Google"></ButtonGoogle>
+          </div>
         </form>
 
         {/* Texto de ayuda */}
-        <p className="text-sm text-gray-500 mt-6 mb-2 font-semibold">
+        <p className="lg:text-sm text-xs text-gray-500 lg:mt-6 mt-4 mb-2 font-semibold">
           You don’t have an account yet? <a href="#" className="text-orange-500">Sign up</a>
         </p>
-        <p className="text-sm text-gray-500 font-semibold">
+        <p className="lg:text-sm text-xs text-gray-500 font-semibold">
           Go back to <a href="#" className="text-orange-500">home page</a>
         </p>
       </div>
