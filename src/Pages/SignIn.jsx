@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import imageSignIn from "../assets/imageSignIn.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
 import ButtonPrimary from "../Components/ButtonPrimary";
 import ButtonGoogle from "../Components/ButtonGoogle";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signIn } from "../store/actions/authAction";
 
 export default function SignIn() {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const authState = useSelector((state) => state.authReducer)
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  })
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setCredentials({ ...credentials, [name]: value })
+  }
+ console.log(credentials);
+ 
+  const handleSignIn = async (e) => {
+    e.preventDefault()
+    dispatch(signIn(credentials))
+  }
+
   return (
     <div className="flex h-screen border border-blue-500">
-      
+
       {/* Imagen lateral */}
       <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${imageSignIn})` }}
       ></div>
 
       {/* Contenedor del formulario */}
-           <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
         {/* Logo y título */}
         <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 flex items-center">
           <img className="h-16" src={MingaLogotype} alt="Minga Logotype" />
@@ -24,13 +47,15 @@ export default function SignIn() {
         </p>
 
         {/* Formulario */}
-        <form className="w-full max-w-md space-y-6">
+        <form onSubmit={handleSignIn} className="w-full max-w-md space-y-6">
           {/* Input de Email */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input
               type="email"
               id="email"
               placeholder=" "
+              /*value={credentials.email}*/
+              onChange={handleInputChange}
               className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
             <label
@@ -59,6 +84,8 @@ export default function SignIn() {
               type="password"
               id="password"
               placeholder=" "
+              /*value={credentials.password}*/
+              onChange={handleInputChange}
               className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
             <label
@@ -80,7 +107,9 @@ export default function SignIn() {
               />
             </svg>
           </div>
-
+          {authState.error && <p
+            className="text-red-600 text-base text-center font-medium my-1"
+          >{authState.error}</p>}
           {/* Botón de inicio de sesión */}
           <ButtonPrimary name="Sign In"></ButtonPrimary>
 

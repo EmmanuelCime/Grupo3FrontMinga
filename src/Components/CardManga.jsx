@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 const BtnAuthCompanyTop = () => {
     return (
@@ -32,22 +33,20 @@ const BtnAuthCompanyBottom = () => {
 
 export default function CardManga({ manga, index}) {
 
-    //const categoryColor = getCategoryColor()
-
     return (
         <>
             <div key={index} className="w-64 h-36 md:w-80 md:h-44 flex items-center mt-4 rounded-2xl shadow-md">
                 <div className="w-3 h-24 md:h-32" style={{
-                        backgroundColor: manga.categoryId.color,
+                        backgroundColor: manga.categoryId.hover,
                 }}></div>
                 <div className="h-full w-full flex flex-col justify-around items-start pl-3 py-1">
                     {manga.role == 0 && (<BtnAuthCompanyTop />)}
                     <p className="text-xl font-semibold">{manga.title}</p>
                     <p className="font-semibold mr-5" style={{
-                        color: manga.categoryId.color,
-                        textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
+                        color: manga.categoryId.hover,
+                        
                     }}>{manga.categoryId.name}</p>
-                    {manga.role == 0 ? (<BtnAuthCompanyBottom />) : (<button className="font-medium py-1 px-4 rounded-full bg-green-200 text-green-600">Read</button>)}
+                    {manga.role == 0 ? (<BtnAuthCompanyBottom />) : (<Link to={`/manga/${manga._id}`} className="font-medium py-1 px-4 rounded-full bg-green-200 text-green-600">Read</Link>)}
                 </div>
                 <img className="min-w-28 sm:min-w-32 lg:min-w-40 h-full object-cover rounded-tl-full rounded-bl-full " src={manga.coverPhoto} alt={manga.title} />
             </div>

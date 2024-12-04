@@ -36,7 +36,7 @@ function NavBar() {
         <>
             <div className="absolute top-0 left-0 w-full flex justify-between items-center bg-transparent z-50 py-2">
                 <button onClick={toggleSidebar} className=" ps-8">
-                    <img src={MenuIcon} alt="Menu icon" className="w-9 md:w-14 lg:w-20 cursor-pointer" />
+                    <img src={MenuIcon} alt="Menu icon" className="w-9 md:w-11 lg:w-14 cursor-pointer" />
                 </button>
                 <div className={`${isOpen ? 'block' : 'hidden'} pr-3`}>
                     <ul className="space-x-3 flex text-black items-center">
