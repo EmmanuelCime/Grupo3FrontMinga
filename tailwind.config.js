@@ -11,6 +11,7 @@ export default {
       },
       backgroundImage: {
         'mangas': "url('./src/assets/mangaBackground.jpg')",
+        'manager': "url('./src/assets/managerBackground.jpg')",
       },
     },
   },
