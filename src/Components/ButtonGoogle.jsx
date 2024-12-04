@@ -10,7 +10,7 @@ export default function ButtonGoogle({name, onClick}) {
               className="w-5 h-5"
               alt="google_logo"
             />
-            <span className="text-gray-600">{name}</span>
+            <span className="text-gray-600 text-sm md:text-md">{name}</span>
           </button>
     )
 }

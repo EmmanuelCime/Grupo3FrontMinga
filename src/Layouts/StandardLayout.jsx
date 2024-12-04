@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../Components/NavBar.jsx";
 import Footer from "../Components/Footer.jsx";
+import SideBar from "../Components/SideBar.jsx";
 
 function StandardLayout() {
     return (
         <>
             <header className="absolute w-full">
-                <NavBar></NavBar>
+                <SideBar></SideBar>
             </header>
 
             <main>

@@ -29,13 +29,13 @@ export default function TablePanel() {
             <div className="border rounded-t-lg shadow-md bg-white w-full md:w-8/12 mx-auto overflow-x-auto">
                 <div className="flex justify-center border-b-2 border-orange-500  rounded-t-lg">
                     <button
-                        className={`px-4 py-2 rounded-tl-lg w-full font-bold ${view === "companies" ? "bg-orange-500 text-white" : "bg-gray-200 text-orange-500"}`}
+                        className={`px-4 py-2 rounded-tl-lg w-full font-bold text-xs sm:text-sm ${view === "companies" ? "bg-orange-500 text-white" : "bg-gray-200 text-orange-500"}`}
                         onClick={() => setView("companies")}
                     >
                         Companies
                     </button>
                     <button
-                        className={`px-4 py-2 rounded-tr-lg w-full font-bold ${view === "authors" ? "bg-orange-500 text-white" : "bg-gray-200 text-orange-500"}`}
+                        className={`px-4 py-2 rounded-tr-lg w-full font-bold text-xs sm:text-sm ${view === "authors" ? "bg-orange-500 text-white" : "bg-gray-200 text-orange-500"}`}
                         onClick={() => setView("authors")}
                     >
                         Authors
@@ -56,8 +56,8 @@ export default function TablePanel() {
                                             <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
                                         </svg>
                                     </td>
-                                    <td className="px-4 py-2">{company.name}</td>
-                                    <td className="hidden sm:table-cell px-4 py-2">{company.website}</td>
+                                    <td className="px-4 py-2 text-xs sm:text-sm">{company.name}</td>
+                                    <td className="hidden sm:table-cell px-4 py-2 text-xs sm:text-sm">{company.website}</td>
                                     <td className="hidden sm:table-cell px-4 py-2">
                                         <div
                                             className={`w-8 h-8 rounded-full ${company.color === "blue" ? "bg-blue-500" : company.color === "red" ? "bg-red-500" : company.color === "orange" ? "bg-orange-500" : "bg-purple-500"}`}

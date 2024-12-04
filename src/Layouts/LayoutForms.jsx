@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../Components/NavBar.jsx";
+import SideBar from "../Components/SideBar.jsx";
 
 function LayoutForms() {
     return (
         <>
             <header>
-                <NavBar></NavBar>
+                <SideBar></SideBar>
             </header>
             <main>
                 <Outlet></Outlet>

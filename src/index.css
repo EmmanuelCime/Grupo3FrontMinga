@@ -3,3 +3,22 @@
 @tailwind components;
 
 @tailwind utilities;
+
+@layer utilities {
+    .stroke-1 {
+      -webkit-text-stroke-width: 1px;
+      text-stroke-width: 1px;
+    }
+    .stroke-2 {
+      -webkit-text-stroke-width: 1px;
+      text-stroke-width: 1px;
+    }
+    .stroke-black {
+      -webkit-text-stroke-color: black;
+      text-stroke-color: black;
+    }
+    .stroke-white {
+      -webkit-text-stroke-color: white;
+      text-stroke-color: white;
+    }
+  }

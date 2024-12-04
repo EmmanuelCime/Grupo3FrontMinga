@@ -71,11 +71,12 @@ const chapters = [
   },
 ];
 
-export default function App() {
+
+export default function viewChapter() {
   const [selectedChapter] = useState(chapters[0].chapters[0]);
 
   return (
-    <div className="min-h-screen bg-white-900 pt-14 text-white">
+    <div className="min-h-screen bg-white-900 text-white">
       <ChapterDetails
         pages={selectedChapter.pages}
         chapterTitle={selectedChapter.title}
@@ -93,13 +94,13 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-screen flex flex-col items-center">
       {/* Encabezado */}
-      <header className="w-full flex text-center items-center justify-center px-4 py-2 bg-orange-500">
-        <div className="text-sm font-semibold">
+      <div className="w-full h-16 flex text-center items-center justify-center px-4 py-4 bg-orange-500">
+        <div className="text-xs sm:text-sm sm:text-base md:text-lg lg:text-xl font-semibold">
           Capítulo {chapterNumber} - {chapterTitle}
         </div>
-      </header>
+      </div>
 
       {/* Carrusel de imágenes */}
       <Swiper
@@ -111,29 +112,29 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
         onSlideChange={handleSlideChange}
         spaceBetween={10}
         slidesPerView={1}
-        className="w-full h-screen"
+        className="w-full h-[100vh]"
       >
         {pages.map((page, index) => (
           <SwiperSlide key={index}>
             <img
               src={page}
               alt={`Página ${index + 1}`}
-              className="w-full h-auto mx-auto object-contain"
+              className="h-full w-full mx-auto mt-6 sm:w-1/2 lg:w-1/3 border border-blue-500"
             />
           </SwiperSlide>
         ))}
       </Swiper>
 
       {/* Sección con número de página y comentarios */}
-      <div className=" relative bottom-12 flex items-center justify-center gap-3 bg-white text-black px-4 z-10">
+      <div className="relative flex items-center justify-center gap-3 bg-white text-black py-2 sm:py-4 z-10">
         {/* Icono para comentarios */}
-        <button className="text-2xl">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 mt-1">
+        <button className="text-lg sm:text-xl md:text-2xl">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
           </svg>
         </button>
         {/* Número de la página actual */}
-        <span className="text-lg font-bold">{currentPage}</span>
+        <span className="text-base sm:text-lg md:text-xl font-bold">{currentPage}</span>
       </div>
 
       {/* Flechas de navegación */}
