@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss-text-fill-stroke');
+
 export default {
   content: [
     "./index.html",
@@ -6,6 +9,14 @@ export default {
   ],
   theme: {
     extend: {
+      textStrokeWidth: {
+        1: '1px',
+        2: '2px',
+        4: '4px',
+      },
+      textStrokeColor: {
+        black: '#000000',
+      },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
       },
@@ -15,6 +26,6 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [plugin()],
 }
 

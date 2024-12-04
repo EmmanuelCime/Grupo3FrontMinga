@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import imageSignIn from "../assets/imageSignIn.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
 import ButtonPrimary from "../Components/ButtonPrimary";
 import ButtonGoogle from "../Components/ButtonGoogle";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { signIn } from "../store/actions/authAction";
 
 export default function SignIn() {
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
   const authState = useSelector((state) => state.authReducer)
   const [credentials, setCredentials] = useState({
     email: "",
@@ -38,12 +38,12 @@ export default function SignIn() {
       {/* Contenedor del formulario */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
         {/* Logo y título */}
-        <h1 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 flex items-center">
-          <img className="h-16" src={MingaLogotype} alt="Minga Logotype" />
-        </h1>
-        <h2 className="text-2xl md:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
-        <p className="text-gray-600 mb-6 text-center text-sm">
-          Discover manga, manhua and manhwa, track your progress, have fun, read manga.
+
+        <img className="h-10 lg:h-16" src={MingaLogotype} alt="Minga Logotype" />
+
+        <h2 className="text-lg sm:text-2xl lg:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
+        <p className="text-gray-600 mb-6 text-center lg:text-sm text-xs">
+          Discover manga, manhua and manhwa, track your <br className="hidden md:block" /> progress, have fun, read manga.
         </p>
 
         {/* Formulario */}
@@ -118,10 +118,10 @@ export default function SignIn() {
         </form>
 
         {/* Texto de ayuda */}
-        <p className="text-sm text-gray-500 mt-6 mb-2 font-semibold">
+        <p className="lg:text-sm text-xs text-gray-500 lg:mt-6 mt-4 mb-2 font-semibold">
           You don’t have an account yet? <a href="#" className="text-orange-500">Sign up</a>
         </p>
-        <p className="text-sm text-gray-500 font-semibold">
+        <p className="lg:text-sm text-xs text-gray-500 font-semibold">
           Go back to <a href="#" className="text-orange-500">home page</a>
         </p>
       </div>

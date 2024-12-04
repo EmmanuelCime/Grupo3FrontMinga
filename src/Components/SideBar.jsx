@@ -1,0 +1,105 @@
+import { useState } from "react";
+import avatarProfile from "../assets/avatarProfile.jpg";
+import mingaLogotype from "../assets/mingaLogotype.png";
+import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+
+const routes = [
+  { to: "/", text: "Home" },
+  { to: "/mangas", text: "Mangas" },
+  { to: "/manager", text: "Manager" },
+  { to: "/signup", text: "Register" },
+  { to: "/signin", text: "Sign In" },
+  { to: "/chapter", text: "Chapter" },
+]
+
+export default function SidebarWithToggle() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const location = useLocation();
+
+  const lineColor = location.pathname === "/details" ? "bg-white" : "bg-orange-500";
+
+  const handleLinkClick = () => {
+    setIsSidebarOpen(false);
+  };
+
+  return (
+    <div>
+      {/* Botón Hamburguesa */}
+      <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="p-2 bg-transparent text-white rounded-md absolute top-3 left-3 sm:left-8  md:left-14 z-20"
+        aria-label="Toggle Sidebar"
+      >
+        {/* Icono Hamburguesa */}
+        <span className={`block w-6 h-0.5 ${lineColor} mb-2`}></span>
+        <span className={`block w-6 h-0.5 ${lineColor} mb-2`}></span>
+        <span className={`block w-6 h-0.5 ${lineColor}`}></span>
+      </button>
+
+      {/* {Logo Minga} */}
+      <NavLink to="/" className="absolute top-2 lg:top-1 right-5 sm:right-10 z-30">
+        {/* Imagen para pantallas grandes */}
+        <img
+          src={mingaLogotype}
+          alt="logo minga"
+          className="hidden md:block h-14 z-50"
+        />
+        {/* Texto para pantallas pequeñas */}
+        <p
+          className="block md:hidden text-4xl text-white font-bold stroke-black stroke-2"
+        >
+          雪
+        </p>
+      </NavLink>
+
+      {/* Sidebar */}
+      {isSidebarOpen && (
+        <div className="fixed top-0 left-0 h-screen w-full sm:w-72 bg-gradient-to-b from-orange-500 to-orange-600 shadow-lg z-30">
+          <div className="flex flex-col items-center p-4 ">
+            {/* Perfil */}
+            <div className="mb-4 flex items-center gap-3 mt-2">
+              <img
+                src={avatarProfile}
+                alt="User"
+                className="h-12 w-12 rounded-full"
+              />
+              <p className="mt-2 text-white text-xs font-medium text-center pr-5">
+                lucasezequielsilva@gmail.com
+              </p>
+            </div>
+
+            {/* Opciones */}
+            <div className="mt-6 space-y-4 w-full">
+              {routes.map((route) => (
+                <NavLink
+                  key={route.to}
+                  to={route.to}
+                  className={({ isActive }) =>
+                    `w-full block py-2 text-white text-center font-medium font-semibold rounded-md ${isActive
+                      ? "bg-white !text-orange-500"
+                      : "hover:bg-white hover:text-orange-500"
+                    }`
+                  }
+                  onClick={handleLinkClick}
+                >
+                  {route.text}
+                </NavLink>
+              ))}
+            </div>
+
+            {/* Botón Cerrar */}
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="absolute top-4 right-5 text-white text-2xl font-bold hover:text-gray-200"
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
