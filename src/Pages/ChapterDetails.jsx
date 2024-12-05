@@ -71,7 +71,6 @@ const chapters = [
   },
 ];
 
-
 export default function viewChapter() {
   const [selectedChapter] = useState(chapters[0].chapters[0]);
 
@@ -119,7 +118,7 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
             <img
               src={page}
               alt={`Página ${index + 1}`}
-              className="h-full w-full mx-auto mt-6 sm:w-1/2 lg:w-1/3 border border-blue-500"
+              className="h-full w-full mx-auto mt-6 sm:w-1/2 lg:w-1/3"
             />
           </SwiperSlide>
         ))}
