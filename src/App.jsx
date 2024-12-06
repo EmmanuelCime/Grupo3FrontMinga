@@ -13,6 +13,11 @@ import Profile from "./Pages/Profile.jsx";
 import Chapter from "./Pages/Chapter.jsx";
 import ChapterDetails from "./Pages/ChapterDetails.jsx";
 import EditChapter from "./Pages/EditChapter.jsx";
+import EditManga from "./Pages/EditManga.jsx";
+import NewManga from "./Pages/NewManga.jsx";
+import NewChapter from "./Pages/NewChapter.jsx";
+import NewAuthor from "./Pages/NewAuthor.jsx";
+import NewCompany from "./Pages/NewCompany.jsx";
 
 
 const router = createBrowserRouter([
@@ -36,6 +41,11 @@ const router = createBrowserRouter([
       { path: "/signup", element: <SignUp></SignUp> },
       { path: "/newrole", element: <NewRole></NewRole> },
       { path: "/editchapter", element: <EditChapter></EditChapter> },
+      { path: "/editmanga", element: <EditManga></EditManga> },
+      { path: "/newmanga", element: <NewManga></NewManga> },
+      { path: "/newchapter", element: <NewChapter></NewChapter> },
+      { path: "/newauthor", element: <NewAuthor></NewAuthor> },
+      { path: "/newcompany", element: <NewCompany></NewCompany> },
     ]
   },
   { path: "/*", element: <NotFound /> }

@@ -14,11 +14,8 @@ const routes = [
 function LinkMenu() {
     return (
         routes.map((r, index) => (
-            <li key={index} className='hover:underline'>
-                <NavLink to={r.to}
-                    className={({ isActive }) => isActive ? "text-xl text-white font-bold" : "text-xl text-white"}>
-                    {r.text}
-                </NavLink>
+            <li key={index} className="hover:underline">
+                <NavLink to={r.to} className={({ isActive }) => isActive ? "text-xl text-white font-bold" : "text-xl text-white"}>{r.text}</NavLink>
             </li>
         ))
     )
@@ -26,27 +23,28 @@ function LinkMenu() {
 
 function NavBar() {
 
-    const [isOpen, setIsOpen] = useState(false)
+    let [isOpen, setIsOpen] = useState(false)
 
-    const toggleSidebar = () => {
+    let toggleSidebar = () => {
         setIsOpen(!isOpen)
     }
 
     return (
         <>
             <div className="absolute top-0 left-0 w-full flex justify-between items-center bg-transparent z-50 py-2">
-                <button onClick={toggleSidebar} className=" ps-8">
-                    <img src={MenuIcon} alt="Menu icon" className="w-9 md:w-11 lg:w-14 cursor-pointer" />
+                <button onClick={toggleSidebar} className="ps-8">
+                    <img src={MenuIcon} alt="Menu icon" className="w-9 md:w-11 lg:w-14 cursor-pointer"/>
                 </button>
                 <div className={`${isOpen ? 'block' : 'hidden'} pr-3`}>
                     <ul className="space-x-3 flex text-black items-center">
                         <LinkMenu routes={routes}></LinkMenu>
                     </ul>
                 </div>
-                <NavLink to="/home" className="pe-14"><img className="h-8 md:h-16 lg:h-20" src={MingaLogotype} alt="Minga Logotype" /></NavLink>
+                <NavLink to="/home" className="pe-14"><img className="h-8 md:h-16 lg:h-20" src={MingaLogotype} alt="Minga Logotype"/></NavLink>
             </div>
         </>
     )
 }
+
 
 export default NavBar

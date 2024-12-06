@@ -1,7 +1,8 @@
-import { useState } from "react";
-import avatarProfile from "../assets/avatarProfile.jpg";
-import ButtonSave from "./ButtonSave";
-import ButtonDelete from "./ButtonDelete";
+import { useState } from "react"
+import avatarProfile from "../assets/avatarProfile.jpg"
+import ButtonSave from "./ButtonSave"
+import ButtonDelete from "./ButtonDelete"
+
 
 export default function ProfileEditor() {
     const [formData, setFormData] = useState({
@@ -10,12 +11,12 @@ export default function ProfileEditor() {
         location: "Caseros, Buenos Aires",
         date: "28/12/2022",
         profileImage: avatarProfile,
-    });
+    })
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value })
+    }
 
     return (
         <div className="flex items-center justify-center p-4 gap-8 md:flex-row sm:gap-x-20 lg:mt-20 lg:gap-x-60 md:gap-x-28 flex-col-reverse">
@@ -74,7 +75,7 @@ export default function ProfileEditor() {
                     alt="Profile"
                     className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg"
                 />
-                <div className="hidden sm:block sm:flex flex-col items-start text-center space-y-1">
+                <div className="hidden sm:flex flex-col items-start text-center space-y-1">
                     <h2 className=" mt-4 ml-0.5 text-lg font-semibold">{`${formData.firstName} ${formData.lastName}`}</h2>
                     <p className=" text-gray-600 flex items-center gap-2">
                         <svg
@@ -118,5 +119,5 @@ export default function ProfileEditor() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

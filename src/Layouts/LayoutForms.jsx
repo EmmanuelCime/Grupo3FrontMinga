@@ -1,5 +1,6 @@
-import { Outlet } from "react-router-dom";
-import SideBar from "../Components/SideBar.jsx";
+import { Outlet } from "react-router-dom"
+import SideBar from "../Components/SideBar.jsx"
+
 
 function LayoutForms() {
     return (
@@ -13,5 +14,6 @@ function LayoutForms() {
         </>
     )
 }
+
 
 export default LayoutForms

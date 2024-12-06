@@ -1,6 +1,7 @@
-import { Outlet } from "react-router-dom";
-import Footer from "../Components/Footer.jsx";
-import SideBar from "../Components/SideBar.jsx";
+import { Outlet } from "react-router-dom"
+import Footer from "../Components/Footer.jsx"
+import SideBar from "../Components/SideBar.jsx"
+
 
 function StandardLayout() {
     return (
@@ -19,5 +20,6 @@ function StandardLayout() {
         </>
     )
 }
+
 
 export default StandardLayout
