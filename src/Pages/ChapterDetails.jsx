@@ -62,7 +62,7 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
     <div className="w-full h-screen flex flex-col items-center bg-[#EBEBEB]">
       {/* Encabezado */}
       <div className="w-full h-16 flex text-center items-center justify-center px-4 py-4 bg-orange-500">
-        <div className="text-xs sm:text-sm sm:text-base md:text-lg lg:text-xl font-semibold">
+        <div className="text-xs sm:text-base md:text-lg lg:text-xl font-semibold">
           Capítulo {chapterNumber} - {chapterTitle}
         </div>
       </div>
