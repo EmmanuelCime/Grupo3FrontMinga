@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-
-const plugin = require('tailwindcss-text-fill-stroke');
+import plugin from "tailwindcss-text-fill-stroke"
+//const plugin = require('tailwindcss-text-fill-stroke');
 
 export default {
   content: [
