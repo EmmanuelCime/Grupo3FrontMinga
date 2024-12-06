@@ -46,7 +46,7 @@ export default function CardManga({ manga, index}) {
                         color: manga.categoryId.hover,
                         
                     }}>{manga.categoryId.name}</p>
-                    {manga.role == 0 ? (<BtnAuthCompanyBottom />) : (<Link to={`/manga/${manga._id}`} className="font-medium py-1 px-4 rounded-full bg-green-200 text-green-600">Read</Link>)}
+                    {manga.role == 0 ? (<BtnAuthCompanyBottom />) : (<Link to={`/chapter/${manga._id}`} className="font-medium py-1 px-4 rounded-full bg-green-200 text-green-600">Read</Link>)}
                 </div>
                 <img className="min-w-28 sm:min-w-32 lg:min-w-40 h-full object-cover rounded-tl-full rounded-bl-full " src={manga.coverPhoto} alt={manga.title} />
             </div>
