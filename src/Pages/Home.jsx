@@ -1,5 +1,5 @@
-//import { NavLink } from "react-router-dom"
 import backgroundImage from "../assets/backgroundHome.png"
+import Carousel from "../Components/Carousel"
 
 function Home() {
 
@@ -14,9 +14,10 @@ function Home() {
                     </button>
                 </div>
             </div>
+            <Carousel></Carousel>
         </>
-
     )
 }
+
 
 export default Home
