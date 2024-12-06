@@ -1,10 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import imageSignUp from "../assets/imageSignUp.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
 import ButtonPrimary from "../Components/ButtonPrimary";
 import ButtonGoogle from "../Components/ButtonGoogle";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
+const uri_render = "http://localhost:8080"
 
 export default function SignUp() {
+
+  const initialState = {
+    email: '',
+    password: '',
+    photo: '',
+  }
+
+  const [formData, setFormData] = useState(initialState)
+  const [errors, setErrors] = useState({})
+  const [message, setMessage] = useState('')
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setErrors({ ...errors, [e.target.name]: "" })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios.post(`${uri_render}/api/users/register`, formData)
+      setMessage("User registered successfully!", response.data.response)
+      setErrors({})
+      setFormData(initialState)
+    } catch (error) {
+      if (error.response && error.response.data.errors) {
+        const backErrors = error.response.data.errors
+        const fieldErrors = {}
+        backErrors.forEach((error) => {
+          fieldErrors[error.field] = error.message
+        });
+        setErrors(fieldErrors)
+      } else {
+        setMessage("Error while registering user.", error.response)
+      }
+    }
+  }
+
+  console.log(formData);
+  
+
   return (
     <div className="flex h-screen">
       {/* Contenedor del formulario */}
@@ -18,13 +62,15 @@ export default function SignUp() {
         </p>
 
         {/* Formulario */}
-        <form className="w-full max-w-md lg:space-y-3 space-y-2">
+        <form onSubmit={handleSubmit} className="w-full max-w-md lg:space-y-3 space-y-2">
           {/* Input de Email */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input
               type="email"
               id="email"
+              name="email"
               placeholder=" "
+              value={formData.email} onChange={handleChange} required
               className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
             <label
@@ -46,13 +92,18 @@ export default function SignUp() {
               />
             </svg>
           </div>
-
+          {errors.email && <p className="text-red-600 text-base font-semibold text-shadow-full mt-2">
+            {errors.email}
+            <a href="/sign-in" className='text-black'> Login</a>
+          </p>}
           {/* Input de Photo URL */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input
               type="text"
               id="photo"
+              name="photo"
               placeholder=" "
+              value={formData.photo} onChange={handleChange} required
               className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
             <label
@@ -75,13 +126,15 @@ export default function SignUp() {
               />
             </svg>
           </div>
-
+          {errors.photo && <p className="text-red-600 text-base font-semibold text-shadow-full mt-2">{errors.photo}</p>}
           {/* Input de Password */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input
               type="password"
               id="password"
+              name="password"
               placeholder=" "
+              value={formData.password} onChange={handleChange} required
               className=" peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
             <label
@@ -103,7 +156,7 @@ export default function SignUp() {
               />
             </svg>
           </div>
-
+          {errors.password && <p className="text-red-600 text-base font-semibold text-shadow-full mt-2">{errors.password}</p>}
           {/* Checkbox */}
           <div className="flex items-center">
             <input
@@ -127,12 +180,12 @@ export default function SignUp() {
 
         {/* Texto de ayuda */}
         <p className="lg:text-sm text-xs text-gray-500 l:mt-6 mt-4 mb-2 font-semibold">
-          Already have an account? <a href="#" className="text-orange-500">Log in</a>
+          Already have an account? <Link to="/signin" className="text-orange-500">Log in</Link>
         </p>
         <p className="lg:text-sm text-xs text-gray-500 font-semibold">
-          Go back to <a href="#" className="text-orange-500">home page</a>
+          Go back to <Link to="/home" className="text-orange-500">home page</Link>
         </p>
-
+        {message && <p style={{ color: 'green' }}>{message}</p>}
       </div>
 
       {/* Imagen lateral */}

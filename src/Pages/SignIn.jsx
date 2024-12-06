@@ -6,6 +6,7 @@ import ButtonGoogle from "../Components/ButtonGoogle";
 import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
 import { signIn } from "../store/actions/authAction";
+import { Link } from "react-router-dom";
 
 const uri_render = "http://localhost:8080"
 
@@ -124,7 +125,7 @@ export default function SignIn() {
 
         {/* Texto de ayuda */}
         <p className="lg:text-sm text-xs text-gray-500 lg:mt-6 mt-4 mb-2 font-semibold">
-          You don’t have an account yet? <a href="#" className="text-orange-500">Sign up</a>
+          You don’t have an account yet? <Link to="/signup" className="text-orange-500">Sign up</Link>
         </p>
         <p className="lg:text-sm text-xs text-gray-500 font-semibold">
           Go back to <a href="#" className="text-orange-500">home page</a>
