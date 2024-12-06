@@ -16,6 +16,11 @@ import EditChapter from "./Pages/EditChapter.jsx";
 import EditAuthor from "./Pages/EditAuthor.jsx";
 import EditCompany from "./Pages/EditCompany.jsx";
 import Favorites from "./Pages/Favorites.jsx";
+import EditManga from "./Pages/EditManga.jsx";
+import NewManga from "./Pages/NewManga.jsx";
+import NewChapter from "./Pages/NewChapter.jsx";
+import NewAuthor from "./Pages/NewAuthor.jsx";
+import NewCompany from "./Pages/NewCompany.jsx";
 
 
 const router = createBrowserRouter([
@@ -41,7 +46,12 @@ const router = createBrowserRouter([
       { path: "/signin", element: <SignIn></SignIn> },
       { path: "/signup", element: <SignUp></SignUp> },
       { path: "/newrole", element: <NewRole></NewRole> },
-      { path: "/edit/chapter", element: <EditChapter></EditChapter> },
+      { path: "/editchapter", element: <EditChapter></EditChapter> },
+      { path: "/editmanga", element: <EditManga></EditManga> },
+      { path: "/newmanga", element: <NewManga></NewManga> },
+      { path: "/newchapter", element: <NewChapter></NewChapter> },
+      { path: "/newauthor", element: <NewAuthor></NewAuthor> },
+      { path: "/newcompany", element: <NewCompany></NewCompany> },
     ]
   },
   { path: "/*", element: <NotFound /> }

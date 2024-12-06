@@ -1,7 +1,9 @@
+
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import backgroundImage from "../assets/backgroundHome.png"
 import { useEffect, useState } from "react"
+import Carousel from "../Components/Carousel"
 
 function Home() {
 
@@ -48,9 +50,10 @@ function Home() {
                     </button>
                 </div>
             </div>
+            <Carousel></Carousel>
         </>
-
     )
 }
+
 
 export default Home
