@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
 import { signIn } from "../store/actions/authAction";
 
+const uri_render = "http://localhost:8080"
+
 export default function SignIn() {
 
   const dispatch = useDispatch()
@@ -21,12 +23,15 @@ export default function SignIn() {
     const { name, value } = e.target
     setCredentials({ ...credentials, [name]: value })
   }
- console.log(credentials);
  
   const handleSignIn = async (e) => {
     e.preventDefault()
     dispatch(signIn(credentials))
   }
+
+  const handleSignInGoogle = () => {
+    window.location.href = uri_render+"/api/auth/signin/google"
+}
 
   return (
     <div className="flex h-screen border border-blue-500">
@@ -111,10 +116,10 @@ export default function SignIn() {
             className="text-red-600 text-base text-center font-medium my-1"
           >{authState.error}</p>}
           {/* Botón de inicio de sesión */}
-          <ButtonPrimary name="Sign In"></ButtonPrimary>
+          <ButtonPrimary onClick={handleSignIn} name="Sign In"></ButtonPrimary>
 
           {/* Botón de Google */}
-          <ButtonGoogle name="Sign in with Google"></ButtonGoogle>
+          <ButtonGoogle onClick={handleSignInGoogle} name="Sign in with Google"></ButtonGoogle>
         </form>
 
         {/* Texto de ayuda */}
