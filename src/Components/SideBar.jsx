@@ -12,6 +12,10 @@ const routes = [
   { to: "/signup", text: "Register" },
   { to: "/signin", text: "Sign In" },
   { to: "/chapter", text: "Chapter" },
+  { to: "/details", text: "Details" },
+  { to: "/adminpanel", text: "Admin Panel"},
+  { to: "/newrole", text: "Change Role" },
+  { to: "/favorites", text: "Favorites" },
 ]
 
 export default function SidebarWithToggle() {
@@ -26,7 +30,7 @@ export default function SidebarWithToggle() {
 
   return (
     <div>
-      {/* Botón Hamburguesa */}
+      {/* Botón Hamburguesa */} 
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         className="p-2 bg-transparent text-white rounded-md absolute top-3 left-3 sm:left-8  md:left-14 z-20"
@@ -59,12 +63,15 @@ export default function SidebarWithToggle() {
         <div className="fixed top-0 left-0 h-screen w-full sm:w-72 bg-gradient-to-b from-orange-500 to-orange-600 shadow-lg z-30">
           <div className="flex flex-col items-center p-4 ">
             {/* Perfil */}
-            <div className="mb-4 flex items-center gap-3 mt-2">
+            <div className="mb-4 flex items-center gap-3 md:mt-2">
+              <NavLink to="/profile" className="h-10 w-10 md:h-12 md:w-12 mt-1">
               <img
                 src={avatarProfile}
                 alt="User"
-                className="h-12 w-12 rounded-full"
+                className="rounded-full h-10 w-10 md:h-12 md:w-12"
+                onClick={handleLinkClick}
               />
+              </NavLink>
               <p className="mt-2 text-white text-xs font-medium text-center pr-5">
                 lucasezequielsilva@gmail.com
               </p>
@@ -92,11 +99,11 @@ export default function SidebarWithToggle() {
             {/* Botón Cerrar */}
             <button
               onClick={() => setIsSidebarOpen(false)}
-              className="absolute top-4 right-5 text-white text-2xl font-bold hover:text-gray-200"
+              className="absolute top-6 md:top-3 right-5 text-white text-2xl font-bold hover:text-gray-200"
               aria-label="Close"
             >
               ×
-            </button>
+            </button> 
           </div>
         </div>
       )}
