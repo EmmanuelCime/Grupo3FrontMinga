@@ -3,7 +3,7 @@ import CardManga from "../Components/CardManga"
 import { getMangas, setSearch } from "../store/actions/mangasAction";
 import { useEffect } from "react";
 import { getCategory } from "../store/actions/categoryAction";
-import Category from "../Components/Category";
+import CategoryComponent from "../Components/Category";
 
 const categoryColorClasses = {
   red: "bg-red-300 text-red-300",
@@ -85,6 +85,7 @@ export default Mangas*/
 
 function Mangas() {
   const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer);
+  const { allCategory } = useSelector((state) => state.categoryReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -99,53 +100,68 @@ function Mangas() {
   const handleSearch = (e) => {
     const searchTerm = e.target.value
     dispatch(setSearch(searchTerm))
-  }
+  };
 
   const filteredMangas = search
     ? allMangas.filter((manga) =>
-      manga.title.toLowerCase().includes(search.toLowerCase())
-    )
+        manga.title.toLowerCase().includes(search.toLowerCase())
+      )
     : allMangas
+
+  /*const uniqueCategories = [
+    ...new Set(
+      allMangas.map((manga) => {
+        const category = allCategory.find((cat) => cat._id === manga.categoryId);
+        return category ? category.name : "Unknown"
+      })
+    )
+  ]*/
+
 
   return (
     <>
-      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center pb-8">
+      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center">
         <p className="w-auto mb-8 mt-36 text-6xl text-white font-bold">Mangas</p>
         <div className="relative w-full md:w-[70vw]">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
             className="absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
           >
-            <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-              clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
+              clipRule="evenodd"
+            />
           </svg>
-          <input type="search" value={search} onChange={handleSearch} placeholder="Find your manga here"
+          <input
+            type="search"
+            value={search}
+            onChange={handleSearch}
+            placeholder="Find your manga here"
             className="w-full py-2 pl-12 pr-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none"
           />
         </div>
       </div>
-      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-5 -mt-10 mx-auto shadow drop-shadow-md">
+      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-40 -mt-10 mx-auto shadow drop-shadow-md">
         <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
-          <Category></Category>
+          <CategoryComponent ></CategoryComponent>
         </div>
         <div className="flex flex-wrap justify-around">
           {loading && <p>Loading...</p>}
           {error && <p>Error: {error}</p>}
-          {filteredMangas.length > 0 ? (
-            filteredMangas.map((manga, index) => (
-              <CardManga key={index} manga={manga} categoryColorClasses={categoryColorClasses}
-              />
-            ))
-          ) : (
-            <div className="w-64 h-36 md:w-80 md:h-44 flex items-center mt-4 rounded-2xl shadow-md">
-            <p className="text-center text-3xl text-gray-500 font-bold">
-              {"We don't have that edition"}
-            </p>
-            </div>
-          )}
+          {filteredMangas.map((manga, index) => (
+            <CardManga
+              key={index}
+              manga={manga}
+              categoryColorClasses={categoryColorClasses}
+            />
+          ))}
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default Mangas;

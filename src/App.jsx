@@ -13,6 +13,7 @@ import Profile from "./Pages/Profile.jsx";
 import Chapter from "./Pages/Chapter.jsx";
 import ChapterDetails from "./Pages/ChapterDetails.jsx";
 import EditChapter from "./Pages/EditChapter.jsx";
+import EditAuthor from "./Pages/EditAuthor.jsx";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/adminpanel", element: <AdminPanel /> },
       { path: "/profile", element: <Profile /> },
       { path: "/chapter", element: <Chapter /> },
+      { path: "/edit/author", element: <EditAuthor /> },
       { path: "/details", element: <ChapterDetails /> },
     ]
   },
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
       { path: "/signin", element: <SignIn></SignIn> },
       { path: "/signup", element: <SignUp></SignUp> },
       { path: "/newrole", element: <NewRole></NewRole> },
-      { path: "/editchapter", element: <EditChapter></EditChapter> },
+      { path: "/edit/chapter", element: <EditChapter></EditChapter> },
     ]
   },
   { path: "/*", element: <NotFound /> }

@@ -3,7 +3,7 @@ import avatarProfile from "../assets/avatarProfile.jpg";
 import ButtonSave from "./ButtonSave";
 import ButtonDelete from "./ButtonDelete";
 
-export default function ProfileEditor() {
+export default function FormAuthor({className}) {
     const [formData, setFormData] = useState({
         firstName: "Lucas Ezequiel",
         lastName: "Silva",
@@ -18,7 +18,8 @@ export default function ProfileEditor() {
     };
 
     return (
-        <div className="flex items-center justify-center p-4 gap-8 md:flex-row sm:gap-x-20 lg:mt-20 lg:gap-x-60 md:gap-x-28 flex-col-reverse">
+        <div 
+        className={`flex items-center justify-center p-4 gap-8 md:flex-row sm:gap-x-20 lg:mt-66 md:mt-60 lg:gap-x-60 md:gap-x-28 flex-col-reverse bg-[#EBEBEB]  sm:bg-white ${className}`}>
             {/* Formulario de edición */}
             <div className="w-full max-w-sm space-y-6 md:space-y-4">
                 <input
@@ -26,7 +27,7 @@ export default function ProfileEditor() {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
-                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600"
+                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600  sm:bg-white bg-[#EBEBEB]"
                     placeholder="Nombre"
                 />
                 <input
@@ -34,7 +35,7 @@ export default function ProfileEditor() {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600"
+                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600  sm:bg-white bg-[#EBEBEB]"
                     placeholder="Apellido"
                 />
                 <input
@@ -42,7 +43,7 @@ export default function ProfileEditor() {
                     name="location"
                     value={formData.location}
                     onChange={handleInputChange}
-                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600"
+                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600  sm:bg-white bg-[#EBEBEB]"
                     placeholder="Ubicación"
                 />
                 <input
@@ -50,7 +51,7 @@ export default function ProfileEditor() {
                     name="date"
                     value={formData.date}
                     onChange={handleInputChange}
-                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600"
+                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600  sm:bg-white bg-[#EBEBEB]"
                     placeholder="Fecha"
                 />
                 <input
@@ -58,7 +59,7 @@ export default function ProfileEditor() {
                     name="profileImage"
                     value={formData.profileImage}
                     onChange={handleInputChange}
-                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600 mb-10"
+                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600  sm:bg-white bg-[#EBEBEB] mb-10"
                     placeholder="URL de Imagen de Perfil"
                 />
                 <div className="flex flex-col items-center gap-4">

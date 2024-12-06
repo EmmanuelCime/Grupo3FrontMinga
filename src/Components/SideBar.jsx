@@ -14,8 +14,7 @@ const routes = [
   { to: "/chapter", text: "Chapter" },
   { to: "/details", text: "Details" },
   { to: "/adminpanel", text: "Admin Panel"},
-  { to: "/profile", text: "Profile" },
-  { to: "/newrole", text: "New Role" },
+  { to: "/newrole", text: "Change Role" },
 ]
 
 export default function SidebarWithToggle() {
@@ -64,11 +63,14 @@ export default function SidebarWithToggle() {
           <div className="flex flex-col items-center p-4 ">
             {/* Perfil */}
             <div className="mb-4 flex items-center gap-3 md:mt-2">
+              <NavLink to="/profile" className="h-10 w-10 md:h-12 md:w-12 mt-1">
               <img
                 src={avatarProfile}
                 alt="User"
-                className="h-10 w-10 md:h-12 md:w-12 rounded-full"
+                className="rounded-full h-10 w-10 md:h-12 md:w-12"
+                onClick={handleLinkClick}
               />
+              </NavLink>
               <p className="mt-2 text-white text-xs font-medium text-center pr-5">
                 lucasezequielsilva@gmail.com
               </p>
