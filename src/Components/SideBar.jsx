@@ -15,6 +15,7 @@ const routes = [
   { to: "/details", text: "Details" },
   { to: "/adminpanel", text: "Admin Panel"},
   { to: "/newrole", text: "Change Role" },
+  { to: "/favorites", text: "Favorites" },
 ]
 
 export default function SidebarWithToggle() {

@@ -14,6 +14,8 @@ import Chapter from "./Pages/Chapter.jsx";
 import ChapterDetails from "./Pages/ChapterDetails.jsx";
 import EditChapter from "./Pages/EditChapter.jsx";
 import EditAuthor from "./Pages/EditAuthor.jsx";
+import EditCompany from "./Pages/EditCompany.jsx";
+import Favorites from "./Pages/Favorites.jsx";
 
 
 const router = createBrowserRouter([
@@ -28,7 +30,9 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/chapter", element: <Chapter /> },
       { path: "/edit/author", element: <EditAuthor /> },
+      { path: "/edit/company", element: <EditCompany /> },
       { path: "/details", element: <ChapterDetails /> },
+      { path: "/favorites", element: <Favorites /> },
     ]
   },
   {

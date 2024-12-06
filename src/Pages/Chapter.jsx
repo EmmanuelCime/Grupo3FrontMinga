@@ -12,7 +12,14 @@ export default function Chapter() {
     const [selectedChapter, setSelectedChapter] = useState(null);
     const [comments, setComments] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedReaction, setSelectedReaction] = useState("");
 
+    const reactions = [
+        { id: "like", img: emojiLike, alt: "Like" },
+        { id: "dislike", img: emojiDislike, alt: "Dislike" },
+        { id: "wow", img: emojiWow, alt: "Wow" },
+        { id: "love", img: emojiLove, alt: "Love" },
+    ];
 
     const mockComments = {
         1: [
@@ -36,31 +43,36 @@ export default function Chapter() {
         setSelectedChapter(null);
     };
 
+    const handleChange = (reactionId) => {
+        setSelectedReaction(reactionId);
+    };
+
     const chapters = [
         {
-    
+
             title: 'Alice in Borderland',
             cover_photo: 'https://i.postimg.cc/PqQHYqrL/main-alice-in-borderland.jpg',
             description: 'Arisu Ryouhei will be leaving high school soon, but he tries to avoid thinking about his future. One night, when he is with his partner Karube and his friend Chouta, they see some fireworks. After a blinding explosion, they wake up in another world, called Borderland. Here people are forced to participate in violent games, where the participants must fight to survive. Will Arisu, Karube and Chouta be able to survive in this dangerous new world and find their way back to their true world?',
             category_id: 'shonen',
             author_id: 'alejandro',
             chapters: [
-                {   id: 1,
+                {
+                    id: 1,
                     title: 'Welcome - part 1',
                     pages: ['https://i.postimg.cc/q76GttJr/alice-in-borderland-001-01.jpg', 'https://i.postimg.cc/c41MRkxX/alice-in-borderland-001-02.jpg', 'https://i.postimg.cc/wvhcVSRb/alice-in-borderland-001-03.jpg', 'https://i.postimg.cc/Zn4PDVrY/alice-in-borderland-001-04.jpg', 'https://i.postimg.cc/SNZLDLjq/alice-in-borderland-001-05.jpg', 'https://i.postimg.cc/GmHFNBsD/alice-in-borderland-001-06.jpg', 'https://i.postimg.cc/nVGGQfJX/alice-in-borderland-001-07.jpg', 'https://i.postimg.cc/QCmgL1bQ/alice-in-borderland-001-08.jpg', 'https://i.postimg.cc/JzvNW1b2/alice-in-borderland-001-09.jpg', 'https://i.postimg.cc/8k4LzdRW/alice-in-borderland-001-10.jpg', 'https://i.postimg.cc/SNKC2XdP/alice-in-borderland-001-11.jpg', 'https://i.postimg.cc/BnrKVm3W/alice-in-borderland-001-12.jpg', 'https://i.postimg.cc/g03ZF3cx/alice-in-borderland-001-13.jpg', 'https://i.postimg.cc/zB5RJ330/alice-in-borderland-001-14.jpg', 'https://i.postimg.cc/4y2Kb5PS/alice-in-borderland-001-15.jpg', 'https://i.postimg.cc/fyRt9Fcd/alice-in-borderland-001-16.jpg', 'https://i.postimg.cc/QtbKVsTs/alice-in-borderland-001-17.jpg', 'https://i.postimg.cc/kMTtmJCv/alice-in-borderland-001-18.jpg', 'https://i.postimg.cc/TYh52zYM/alice-in-borderland-001-19.jpg', 'https://i.postimg.cc/9FSRDLr4/alice-in-borderland-001-20.jpg', 'https://i.postimg.cc/4x9KVp9W/alice-in-borderland-001-21.jpg', 'https://i.postimg.cc/1z18H40s/alice-in-borderland-001-22.jpg', 'https://i.postimg.cc/CLZdpbmw/alice-in-borderland-001-23.jpg', 'https://i.postimg.cc/mr3t6RVM/alice-in-borderland-001-24.jpg', 'https://i.postimg.cc/nzHMy5wW/alice-in-borderland-001-25.jpg', 'https://i.postimg.cc/c4VCx6bw/alice-in-borderland-001-26.jpg', 'https://i.postimg.cc/cHX60mpL/alice-in-borderland-001-27.jpg', 'https://i.postimg.cc/qqqqRKrX/alice-in-borderland-001-28.jpg', 'https://i.postimg.cc/fWqkP87H/alice-in-borderland-001-29.jpg', 'https://i.postimg.cc/6qP3GQ5s/alice-in-borderland-001-30.jpg', 'https://i.postimg.cc/dVr1LvbX/alice-in-borderland-001-31.jpg'],
                     order: 1,
                 }, {
-                    id:2,
+                    id: 2,
                     title: 'Welcome - part 2',
                     pages: ['https://i.postimg.cc/jScjzvjQ/alice-in-borderland-002-01.jpg', 'https://i.postimg.cc/rppwgW06/alice-in-borderland-002-02.jpg', 'https://i.postimg.cc/pd1XSTzm/alice-in-borderland-002-03.jpg', 'https://i.postimg.cc/VLjvNzQh/alice-in-borderland-002-04.jpg', 'https://i.postimg.cc/8zN5JxTz/alice-in-borderland-002-05.jpg', 'https://i.postimg.cc/vBgHwst3/alice-in-borderland-002-06.jpg', 'https://i.postimg.cc/Bb2StByF/alice-in-borderland-002-07.jpg', 'https://i.postimg.cc/nzyVHPdZ/alice-in-borderland-002-08.jpg', 'https://i.postimg.cc/G3DhMb2p/alice-in-borderland-002-09.jpg', 'https://i.postimg.cc/9FjXKsRY/alice-in-borderland-002-10.jpg', 'https://i.postimg.cc/X7cNbx9S/alice-in-borderland-002-11.jpg', 'https://i.postimg.cc/rwVVFW9d/alice-in-borderland-002-12.jpg', 'https://i.postimg.cc/9M7VNBck/alice-in-borderland-002-13.jpg', 'https://i.postimg.cc/6pM973HM/alice-in-borderland-002-14.jpg', 'https://i.postimg.cc/TPSf9svm/alice-in-borderland-002-15.jpg', 'https://i.postimg.cc/bvdq1hWp/alice-in-borderland-002-16.jpg', 'https://i.postimg.cc/j2YKVJ5S/alice-in-borderland-002-17.jpg', 'https://i.postimg.cc/Kj7bmvkr/alice-in-borderland-002-18.jpg', 'https://i.postimg.cc/SQck6VT2/alice-in-borderland-002-19.jpg', 'https://i.postimg.cc/X733QFm2/alice-in-borderland-002-20.jpg', 'https://i.postimg.cc/BQg3ybGJ/alice-in-borderland-002-21.jpg', 'https://i.postimg.cc/Jzz8W81Z/alice-in-borderland-002-22.jpg', 'https://i.postimg.cc/Mp3S6LT4/alice-in-borderland-002-23.jpg'],
                     order: 2,
                 }, {
-                    id:3,
+                    id: 3,
                     title: '3 of clubs - part 1',
                     pages: ['https://i.postimg.cc/QC84WXYq/alice-in-borderland-003-01.jpg', 'https://i.postimg.cc/5ysPBZZW/alice-in-borderland-003-02.jpg', 'https://i.postimg.cc/5t8n7HZ3/alice-in-borderland-003-03.jpg', 'https://i.postimg.cc/W1B5wmfz/alice-in-borderland-003-04.jpg', 'https://i.postimg.cc/15z7m3qm/alice-in-borderland-003-05.jpg', 'https://i.postimg.cc/VLHGdPqj/alice-in-borderland-003-06.jpg', 'https://i.postimg.cc/7ZGBzt9j/alice-in-borderland-003-07.jpg', 'https://i.postimg.cc/qBwZH3gD/alice-in-borderland-003-08.jpg', 'https://i.postimg.cc/PxhKBXHk/alice-in-borderland-003-09.jpg', 'https://i.postimg.cc/KzNQb6c3/alice-in-borderland-003-10.jpg', 'https://i.postimg.cc/kGgsgTD1/alice-in-borderland-003-11.jpg', 'https://i.postimg.cc/QCYb9cTX/alice-in-borderland-003-12.jpg', 'https://i.postimg.cc/ZK0jksG0/alice-in-borderland-003-13.jpg', 'https://i.postimg.cc/MZ9tFJrh/alice-in-borderland-003-14.jpg', 'https://i.postimg.cc/jd9cRQTc/alice-in-borderland-003-15.jpg', 'https://i.postimg.cc/CxqN5BLg/alice-in-borderland-003-16.jpg', 'https://i.postimg.cc/CKp4qhzf/alice-in-borderland-003-17.jpg', 'https://i.postimg.cc/PqbQbgwV/alice-in-borderland-003-18.jpg', 'https://i.postimg.cc/qRkX11cJ/alice-in-borderland-003-19.jpg', 'https://i.postimg.cc/NMp8SRb1/alice-in-borderland-003-20.jpg', 'https://i.postimg.cc/mkk3sh6K/alice-in-borderland-003-21.jpg', 'https://i.postimg.cc/9XgtBtD2/alice-in-borderland-003-22.jpg', 'https://i.postimg.cc/8cYRPD2c/alice-in-borderland-003-23.jpg', 'https://i.postimg.cc/657Vb2Zv/alice-in-borderland-003-24.jpg', 'https://i.postimg.cc/Fs2yMrbn/alice-in-borderland-003-25.jpg', 'https://i.postimg.cc/7Z03DFmP/alice-in-borderland-003-26.jpg', 'https://i.postimg.cc/d0F805x2/alice-in-borderland-003-27.jpg', 'https://i.postimg.cc/k5yWRW0k/alice-in-borderland-003-28.jpg', 'https://i.postimg.cc/FRs3y7m1/alice-in-borderland-003-29.jpg', 'https://i.postimg.cc/xCxHtnT5/alice-in-borderland-003-30.jpg', 'https://i.postimg.cc/Gt4DfV4C/alice-in-borderland-003-31.jpg', 'https://i.postimg.cc/HWNXMYNs/alice-in-borderland-003-32.jpg', 'https://i.postimg.cc/28Bv7ppd/alice-in-borderland-003-33.jpg', 'https://i.postimg.cc/fRndHHZG/alice-in-borderland-003-34.jpg', 'https://i.postimg.cc/Mp7Qgypv/alice-in-borderland-003-35.jpg', 'https://i.postimg.cc/zfqgNVyp/alice-in-borderland-003-36.jpg', 'https://i.postimg.cc/g0462mRp/alice-in-borderland-003-37.jpg', 'https://i.postimg.cc/Kzz3KwrM/alice-in-borderland-003-38.jpg', 'https://i.postimg.cc/Y9sGQRby/alice-in-borderland-003-39.jpg', 'https://i.postimg.cc/WzqD8Zyp/alice-in-borderland-003-40.jpg', 'https://i.postimg.cc/BtWjV6WT/alice-in-borderland-003-41.jpg', 'https://i.postimg.cc/J7sKv2V0/alice-in-borderland-003-42.jpg'],
                     order: 3,
                 }, {
-                    
+
                     title: '3 of clubs - part 2',
                     pages: ['https://i.postimg.cc/B6XcWXzk/alice-in-borderland-004-01.jpg', 'https://i.postimg.cc/JhTcdbpj/alice-in-borderland-004-02.jpg', 'https://i.postimg.cc/mk9YDKBS/alice-in-borderland-004-03.jpg', 'https://i.postimg.cc/Ss3LmmFs/alice-in-borderland-004-04.jpg', 'https://i.postimg.cc/RVr18CLp/alice-in-borderland-004-05.jpg', 'https://i.postimg.cc/SQY7DYCz/alice-in-borderland-004-06.jpg', 'https://i.postimg.cc/3JgjHML8/alice-in-borderland-004-07.jpg', 'https://i.postimg.cc/y8sm1f5F/alice-in-borderland-004-08.png', 'https://i.postimg.cc/vZhWcrFC/alice-in-borderland-004-09.png', 'https://i.postimg.cc/VNNXMJzv/alice-in-borderland-004-10.png', 'https://i.postimg.cc/pd1zBPdZ/alice-in-borderland-004-11.png', 'https://i.postimg.cc/tTZPS8ZH/alice-in-borderland-004-12.png', 'https://i.postimg.cc/4dDcrwVH/alice-in-borderland-004-13.png', 'https://i.postimg.cc/DfGLqk3r/alice-in-borderland-004-14.png', 'https://i.postimg.cc/T1nbGmJ7/alice-in-borderland-004-15.jpg', 'https://i.postimg.cc/28fvGcCP/alice-in-borderland-004-16.jpg', 'https://i.postimg.cc/dtmCx21D/alice-in-borderland-004-17.jpg', 'https://i.postimg.cc/rwV4XD0j/alice-in-borderland-004-18.jpg', 'https://i.postimg.cc/SxgMymch/alice-in-borderland-004-19.jpg', 'https://i.postimg.cc/k5DtGLyt/alice-in-borderland-004-20.jpg', 'https://i.postimg.cc/9fSw71xg/alice-in-borderland-004-21.jpg', 'https://i.postimg.cc/gJZXqRQz/alice-in-borderland-004-22.jpg', 'https://i.postimg.cc/Rhx3Phxc/alice-in-borderland-004-23.jpg', 'https://i.postimg.cc/6qV8FKBF/alice-in-borderland-004-24.jpg', 'https://i.postimg.cc/jqynDHyv/alice-in-borderland-004-25.jpg', 'https://i.postimg.cc/dtvkrhBF/alice-in-borderland-004-26.jpg', 'https://i.postimg.cc/3JByB3Sv/alice-in-borderland-004-27.jpg', 'https://i.postimg.cc/jSSD3Bmk/alice-in-borderland-004-28.jpg', 'https://i.postimg.cc/XY1pRQ0N/alice-in-borderland-004-29.jpg', 'https://i.postimg.cc/SKXJkCy6/alice-in-borderland-004-30.jpg', 'https://i.postimg.cc/3wPWRNRP/alice-in-borderland-004-31.jpg', 'https://i.postimg.cc/KzBjgb34/alice-in-borderland-004-32.jpg', 'https://i.postimg.cc/gjK0NKDW/alice-in-borderland-004-33.jpg', 'https://i.postimg.cc/j2T5H1yc/alice-in-borderland-004-34.jpg', 'https://i.postimg.cc/9XPzmWjn/alice-in-borderland-004-35.jpg', 'https://i.postimg.cc/Fs9z12rs/alice-in-borderland-004-36.jpg', 'https://i.postimg.cc/WbX3ZXzm/alice-in-borderland-004-37.jpg'],
                     order: 4,
@@ -128,18 +140,26 @@ export default function Chapter() {
 
                 {/* Reaction Icons */}
                 <div className="flex justify-around px-2">
-                    <button className="flex items-center justify-center w-14 h-14 p-2  xl:w-18 xl:h-18 bg-white text-white rounded-full shadow-md hover:bg-orange-400">
-                        <img src={emojiLike} alt="like" />
-                    </button>
-                    <button className="flex items-center justify-center w-14 h-14 p-2  xl:w-18 xl:h-18 bg-white text-white rounded-full shadow-md hover:bg-orange-400">
-                    <img src={emojiDislike} alt="like" />
-                    </button>
-                    <button className="flex items-center justify-center w-14 h-14 p-2  xl:w-18 xl:h-18 bg-white text-white rounded-full shadow-md hover:bg-orange-400">
-                    <img src={emojiWow} alt="like" />
-                    </button>
-                    <button className="flex items-center justify-center w-14 h-14 p-2  xl:w-18 xl:h-18 bg-white text-white rounded-full shadow-md hover:bg-orange-400">
-                    <img src={emojiLove} alt="like" />
-                    </button>
+                    {reactions.map((reaction) => (
+                        <label key={reaction.id} className="flex items-center">
+                            <input
+                                type="radio"
+                                name="reaction"
+                                value={reaction.id}
+                                checked={selectedReaction === reaction.id}
+                                onChange={() => handleChange(reaction.id)}
+                                className="hidden" 
+                            />
+                            <div
+                                className={`flex items-center justify-center w-14 h-14 p-2 xl:w-18 xl:h-18 rounded-full shadow-md cursor-pointer transition-colors ${selectedReaction === reaction.id
+                                        ? "bg-orange-400"
+                                        : "bg-white hover:bg-gray-200"
+                                    }`}
+                            >
+                                <img src={reaction.img} alt={reaction.alt} />
+                            </div>
+                        </label>
+                    ))}
                 </div>
 
                 {/* Rating */}
@@ -237,7 +257,7 @@ export default function Chapter() {
                             <p className="text-gray-500 p-2 md:p-3">{chapters[0].description}</p>
                         </>
                     )}
-                    
+
                 </div>
             </div>
             {/* Modal Comments */}

@@ -1,72 +1,73 @@
 import { NavLink } from "react-router-dom";
 
-export default function ProfileMobile({ className }) {
+export default function ProfileMobileCompany({ className }) {
+    const companyProfile = {
+        name: "Toei Animation",
+        webSite: "www.toeianimation.com",
+        description: "Toel Animation is a japanese company studio owned by Toei Company, Limited...",
+        photo: "https://randomuser.me/api/portraits/men/32.jpg",
+        city: "Gynza",
+        country: "Japon",
+        active: true,
+        userId: "",
+    };
+
     return (
-        <div
-            className={`min-h-screen mt-7 flex flex-col ${className}`}>
+        <div className={`min-h-screen mt-7 flex flex-col ${className}`}>
             {/* Perfil */}
             <div className="flex items-center gap-4 mb-6 mt-2">
                 <img
-                    src="https://randomuser.me/api/portraits/men/12.jpg"
+                    src={companyProfile.photo}
                     alt="Avatar"
                     className="w-12 h-12 rounded-full border border-gray-300"
                 />
                 <div className="flex flex-col w-full">
-                    <h1 className="font-bold text-md mb-">Lucas Ezequiel Silva</h1>
-                    <p className="text-gray-600 text-xs flex mb-1">
+                    <h1 className="font-bold text-md mb-1">{companyProfile.name}</h1>
+                    <p className="text-gray-500 text-xs flex items-center">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="size-4"
+                            className="w-5 h-5 mr-1"
                         >
                             <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                                d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025 1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 0 1-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525"
                             />
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                            />
-                        </svg>Caseros, Buenos Aires</p>
-                    <p className="text-gray-500 text-xs flex "> <svg
+                        </svg>
+                        {companyProfile.webSite}
+                    </p>
+                </div>
+                <NavLink to="/edit/company">
+                    <button>
+                        <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="size-4"
+                            className="w-5 h-5"
                         >
                             <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75-1.5.75a3.354 3.354 0 0 1-3 0 3.354 3.354 0 0 0-3 0 3.354 3.354 0 0 1-3 0 3.354 3.354 0 0 0-3 0 3.354 3.354 0 0 1-3 0L3 16.5m15-3.379a48.474 48.474 0 0 0-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 0 1 3 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 0 1 6 13.12M12.265 3.11a.375.375 0 1 1-.53 0L12 2.845l.265.265Zm-3 0a.375.375 0 1 1-.53 0L9 2.845l.265.265Zm6 0a.375.375 0 1 1-.53 0L15 2.845l.265.265Z"
+                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
                             />
-                        </svg>16/02/2000</p>
-
-
-                </div>
-                <NavLink to="/edit/author">
-                <button>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                </svg>
-                </button>
+                        </svg>
+                    </button>
                 </NavLink>
             </div>
 
+            <p className="text-gray-500 text-xs text-center">{companyProfile.description || "No hay descripción disponible."}</p>
+
             {/* Switch New/Old */}
-            <div className="flex justify-center  items-center mb-6 border-t border-gray-600 pt-3">
+            <div className="flex justify-center items-center mb-6 border-t border-gray-600 pt-3">
                 <span className="text-gray-600 text-xs font-semibold">new</span>
                 <label className="relative inline-block w-12 h-6 mx-3">
-                    <input
-                        type="checkbox"
-                        className="opacity-0 w-0 h-0 peer"
-                    />
+                    <input type="checkbox" className="opacity-0 w-0 h-0 peer" />
                     <span className="absolute inset-0 bg-gray-300 rounded-full cursor-pointer peer-checked:bg-orange-500"></span>
                     <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-6"></span>
                 </label>
@@ -75,7 +76,6 @@ export default function ProfileMobile({ className }) {
 
             {/* Lista de Animes */}
             <div className="grid grid-cols-2 gap-4">
-                {/* Tarjeta de Anime */}
                 {[
                     { title: "Komi san Cant Communicate", img: "https://via.placeholder.com/120" },
                     { title: "Boruto", img: "https://via.placeholder.com/120" },
@@ -95,10 +95,10 @@ export default function ProfileMobile({ className }) {
 
             {/* Botón de "Manage" */}
             <div className="mt-4 text-center ">
-            <NavLink to="/edit/author">
-                <button className="px-10 py-1 bg-orange-500 text-white text-xs font- rounded-full">
-                    Manage!
-                </button>
+                <NavLink to="/edit/company">
+                    <button className="px-10 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
+                        Manage!
+                    </button>
                 </NavLink>
             </div>
         </div>

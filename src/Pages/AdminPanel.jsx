@@ -18,7 +18,7 @@ export default function AdminPanel() {
             </div>
 
             {/* Contenido principal */}
-            <div className="flex flex-col relative justify-center items-center bg-white p-6 w-11/12 sm:w-10/12 md:w-11/12 lg:w-6/12 mt-[-100px] rounded-lg shadow-lg">
+            <div className="flex flex-col relative justify-center items-center bg-white p-6 w-11/12 sm:w-10/12 md:w-11/12 lg:w-11/12 mt-[-100px] rounded-lg shadow-lg">
                 <h2 className="text-center text-2xl sm:text-3xl font-bold text-orange-500 mb-6 underline decoration-[#f97117] decoration-4 underline-offset-8">
                     Entities
                 </h2>

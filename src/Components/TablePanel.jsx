@@ -26,7 +26,7 @@ export default function TablePanel() {
     return (
         <>
             {/* Table */}
-            <div className="border rounded-t-lg shadow-md bg-white w-full mx-auto overflow-x-auto h-full mb-10">
+            <div className="border rounded-t-lg shadow-md bg-white w-full md:max-w-xl lg:max-w-2xl mx-auto overflow-x-auto h-full mb-10">
                 <div className="flex justify-center border-b-2 border-orange-500  rounded-t-lg h-full">
                     <button
                         className={`px-4 py-2 rounded-tl-lg w-full font-bold text-xs sm:text-sm ${view === "companies" ? "bg-orange-500 text-white" : "bg-gray-200 text-orange-500"}`}

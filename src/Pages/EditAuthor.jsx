@@ -1,5 +1,4 @@
 import imageProfile from "../assets/imageProfile.jpg";
-import ProfileMobile from "../Components/ProfileMobile";
 import FormAuthor from "../Components/FormAuthor";
 
 export default function EditAuthor() {
