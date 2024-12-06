@@ -30,8 +30,8 @@ const router = createBrowserRouter([
       { path: "/manager", element: <Manager /> },
       { path: "/adminpanel", element: <AdminPanel /> },
       { path: "/profile", element: <Profile /> },
-      { path: "/chapter", element: <Chapter /> },
-      { path: "/details", element: <ChapterDetails /> },
+      { path: "/chapter/:id", element: <Chapter /> },
+      { path: "/details/:id", element: <ChapterDetails /> },
     ]
   },
   {
