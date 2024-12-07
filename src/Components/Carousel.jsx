@@ -42,7 +42,7 @@ function Carousel() {
     useEffect(() => {
         const interval = setInterval(() => {
             NextSlide()
-        }, 20000)
+        }, 5000)
 
         return () => clearInterval(interval)
     }, [currentIndex])
