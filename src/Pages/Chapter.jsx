@@ -2,35 +2,69 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getChapter } from "../store/actions/chapterAction";
-
-function Badge({ category }) {
-    return (
-        <span className="bg-[#FFE0DF] text-[#EF8481] text-sm font-medium px-4 py-2 rounded-full shadow-md">
-            {category}
-        </span>
-    )
-}
+import ModalComments from "../Components/ModelComments";
+// import Badge from "../Components/Badge";
+import emojiLike from "../assets/emojiLike.png";
+import emojiDislike from "../assets/emojiDislike.png";
+import emojiLove from "../assets/emojiLove.png";
+import emojiWow from "../assets/emojiWow.png";
 
 export default function Chapter() {
-    const dispatch = useDispatch()
-    const { chapters, loading, error } = useSelector((state) => state.chapterReducer)
-    const [view, setView] = useState("manga")
-    const { id } = useParams()
-    
+    const dispatch = useDispatch();
+    const { chapters, loading, error } = useSelector((state) => state.chapterReducer);
+    const [view, setView] = useState("manga");
+    const { id } = useParams();
+
     useEffect(() => {
         dispatch(getChapter(id))
             .unwrap()
             .catch((err) => console.error("Error fetching chapter:", err));
-    }, [dispatch, id])
+    }, [dispatch, id]);
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error: {error}</p>
+    const [selectedChapter, setSelectedChapter] = useState(null);
+    const [comments, setComments] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedReaction, setSelectedReaction] = useState("");
+
+    const reactions = [
+        { id: "like", img: emojiLike, alt: "Like" },
+        { id: "dislike", img: emojiDislike, alt: "Dislike" },
+        { id: "wow", img: emojiWow, alt: "Wow" },
+        { id: "love", img: emojiLove, alt: "Love" },
+    ];
+
+    const mockComments = {
+        1: [
+            { user: "Juan", text: "¡Me encantó este capítulo!" },
+            { user: "Ana", text: "La historia está mejorando mucho." },
+        ],
+        2: [
+            { user: "Carlos", text: "El final estuvo increíble." },
+            { user: "Laura", text: "¿Cuándo sale el siguiente?" },
+        ],
+    };
+
+    const openCommentsModal = (chapter) => {
+        setSelectedChapter(chapter);
+        setComments(mockComments[chapter.id] || []);
+        setIsModalOpen(true);
+    };
+
+    const closeCommentsModal = () => {
+        setIsModalOpen(false);
+        setSelectedChapter(null);
+    };
+
+    const handleChange = (reactionId) => {
+        setSelectedReaction(reactionId);
+    };
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     if (!chapters || chapters.length === 0) {
-        return <div>Cargando capítulos...</div>
+        return <div>Loading Chapter...</div>;
     }
-    console.log(chapters);
-    
 
     return (
         <div className="flex flex-col md:flex-row flex-wrap mx-auto p-3 pt-14 lg:px-16 sm:p-4 sm:pt-16 bg-[#EBEBEB] ">
@@ -47,9 +81,9 @@ export default function Chapter() {
             <div className="md:w-1/2 flex flex-col gap-6 md:p-2">
                 <div>
                     <h1 className="text-4xl font-bold text-gray-800 mt-4 md:text-5xl ">{chapters[0].mangaId.title}</h1>
-                    <div className="flex flex-wrap gap-2 mt-4 lg:py-3">
-                        {//<Badge category={chapters[0].mangaId.categoryId.name} />
-                        }
+                    <div className="flex space-x-32 md:space-x-50 lg:space-x-60 mt-4 lg:py-3">
+                        {/*<Badge category={chapters[0].mangaId.categoryId.name} />*/}
+                        {/* <p className="text-sm py-2 font-semibold text-gray-500">Name Company</p> */}
                     </div>
                 </div>
 
@@ -63,12 +97,12 @@ export default function Chapter() {
                                 value={reaction.id}
                                 checked={selectedReaction === reaction.id}
                                 onChange={() => handleChange(reaction.id)}
-                                className="hidden" 
+                                className="hidden"
                             />
                             <div
                                 className={`flex items-center justify-center w-14 h-14 p-2 xl:w-18 xl:h-18 rounded-full shadow-md cursor-pointer transition-colors ${selectedReaction === reaction.id
-                                        ? "bg-orange-400"
-                                        : "bg-white hover:bg-gray-200"
+                                    ? "bg-orange-400"
+                                    : "bg-white hover:bg-gray-200"
                                     }`}
                             >
                                 <img src={reaction.img} alt={reaction.alt} />
@@ -152,7 +186,6 @@ export default function Chapter() {
                                                     />
                                                 </svg>
                                             </button>
-
                                             <p className="text-xs sm:text-sm mt-1 text-gray-500 ">
                                                 {chapter.pages.length} Pages
                                             </p>
@@ -168,28 +201,20 @@ export default function Chapter() {
                         </div>
                     )}
                     {view === "manga" && (
-                        <>
-                            <p className="text-gray-500 p-2 md:p-3">{chapters[0].mangaId.description}</p>
-                        </>
+                        <p className="text-gray-500 p-2 md:p-3">{chapters[0].mangaId.description}</p>
                     )}
-
                 </div>
             </div>
+
             {/* Modal Comments */}
             <div className="flex flex-col gap-4">
-
-                {/* Modal de comentarios */}
                 <ModalComments
                     isOpen={isModalOpen}
                     onClose={closeCommentsModal}
-                    chapter={selectedChapter}
+                    chapterId={selectedChapter?._id}
                     comments={comments}
                 />
             </div>
         </div>
     );
 }
-
-
-
-

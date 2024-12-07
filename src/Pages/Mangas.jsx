@@ -7,7 +7,6 @@ import CategoryComponent from "../Components/Category";
 
 function Mangas() {
   const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer);
-  const { allCategory } = useSelector((state) => state.categoryReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -68,7 +67,7 @@ function Mangas() {
       </div>
       <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-40 -mt-10 mx-auto shadow drop-shadow-md">
         <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
-          <CategoryComponent ></CategoryComponent>
+          <CategoryComponent></CategoryComponent>
         </div>
         <div className="flex flex-wrap justify-around">
           {loading && <p>Loading...</p>}

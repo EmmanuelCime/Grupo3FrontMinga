@@ -33,13 +33,11 @@ const router = createBrowserRouter([
       { path: "/manager", element: <Manager /> },
       { path: "/adminpanel", element: <AdminPanel /> },
       { path: "/profile", element: <Profile /> },
-      { path: "/chapter", element: <Chapter /> },
-      { path: "/edit/author", element: <EditAuthor /> },
-      { path: "/edit/company", element: <EditCompany /> },
-      { path: "/details", element: <ChapterDetails /> },
-      { path: "/favorites", element: <Favorites /> },
       { path: "/chapter/:id", element: <Chapter /> },
       { path: "/details/:id", element: <ChapterDetails /> },
+      { path: "/edit/author", element: <EditAuthor /> },
+      { path: "/edit/company", element: <EditCompany /> },
+      { path: "/favorites", element: <Favorites /> }
     ]
   },
   {
@@ -48,7 +46,6 @@ const router = createBrowserRouter([
       { path: "/signin", element: <SignIn></SignIn> },
       { path: "/signup", element: <SignUp></SignUp> },
       { path: "/newrole", element: <NewRole></NewRole> },
-      { path: "/edit/chapter", element: <EditChapter></EditChapter> },
       { path: "/editchapter", element: <EditChapter></EditChapter> },
       { path: "/editmanga", element: <EditManga></EditManga> },
       { path: "/newmanga", element: <NewManga></NewManga> },

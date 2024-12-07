@@ -7,7 +7,8 @@ import "swiper/css/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAllChapter } from "../store/actions/chapterAction";
-
+import { EffectFlip } from "swiper/modules"; // Importa el módulo del efecto Flip
+import "swiper/css/effect-flip";
 
 export default function ViewChapter() {
   const dispatch = useDispatch()
@@ -61,7 +62,7 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
     <div className="w-full h-screen flex flex-col items-center bg-[#EBEBEB]">
       {/* Encabezado */}
       <div className="w-full h-16 flex text-center items-center justify-center px-4 py-4 bg-orange-500">
-        <div className="text-xs sm:text-sm sm:text-base md:text-lg lg:text-xl font-semibold">
+        <div className="text-xs sm:text-base md:text-lg lg:text-xl font-semibold">
           Capítulo {chapterNumber} - {chapterTitle}
         </div>
       </div>

@@ -11,7 +11,6 @@ const routes = [
   { to: "/manager", text: "Manager" },
   { to: "/signup", text: "Register" },
   { to: "/signin", text: "Sign In" },
-  { to: "/chapter", text: "Chapter" },
   { to: "/details", text: "Details" },
   { to: "/adminpanel", text: "Admin Panel"},
   { to: "/newrole", text: "Change Role" },
