@@ -6,7 +6,7 @@ function PrivateRoute({ children }) {
     const isAuthenticated = !!token && token !== "expired"
 
     if (!isAuthenticated) {
-        return <Navigate to="/signin" replace />
+        return <Navigate to="/home" replace />
     }
     return children
 }

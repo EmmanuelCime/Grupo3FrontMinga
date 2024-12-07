@@ -1,10 +1,11 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getUser } from "../actions/userAction";
+import { getUser, signUp } from "../actions/userAction";
 
 const initialState = {
     allUser: [],
-    loading: null,
+    loading: false,
     error: null,
+    user: null,
 }
 
 export const userReducer = createReducer(initialState, (builder) => {
@@ -22,4 +23,18 @@ export const userReducer = createReducer(initialState, (builder) => {
             state.loading = null
             state.error = action.error.message
         })
+
+        .addCase(signUp.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(signUp.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = action.payload
+            state.error = null;
+          })
+          .addCase(signUp.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload
+          })
 })
