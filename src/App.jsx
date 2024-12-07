@@ -21,6 +21,8 @@ import NewManga from "./Pages/NewManga.jsx";
 import NewChapter from "./Pages/NewChapter.jsx";
 import NewAuthor from "./Pages/NewAuthor.jsx";
 import NewCompany from "./Pages/NewCompany.jsx";
+import PrivateRoute from "./Components/PrivateRoutes.jsx";
+import SignRoute from "./Components/SignRoute.jsx";
 
 
 const router = createBrowserRouter([
@@ -28,30 +30,30 @@ const router = createBrowserRouter([
     element: <StandardLayout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/home", element: <Home /> },
-      { path: "/mangas", element: <Mangas /> },
-      { path: "/manager", element: <Manager /> },
-      { path: "/adminpanel", element: <AdminPanel /> },
-      { path: "/profile", element: <Profile /> },
-      { path: "/chapter/:id", element: <Chapter /> },
-      { path: "/details/:id", element: <ChapterDetails /> },
-      { path: "/edit/author", element: <EditAuthor /> },
-      { path: "/edit/company", element: <EditCompany /> },
-      { path: "/favorites", element: <Favorites /> }
+      { path: "/home", element: <PrivateRoute><Home /></PrivateRoute> },
+      { path: "/mangas", element: <PrivateRoute><Mangas /></PrivateRoute> },
+      { path: "/manager", element: <PrivateRoute><Manager /></PrivateRoute> },
+      { path: "/adminpanel", element: <PrivateRoute><AdminPanel /></PrivateRoute> },
+      { path: "/profile", element: <PrivateRoute><Profile /></PrivateRoute> },
+      { path: "/chapter/:id", element: <PrivateRoute><Chapter /></PrivateRoute> },
+      { path: "/details/:id", element: <PrivateRoute><ChapterDetails /></PrivateRoute> },
+      { path: "/edit/author", element: <PrivateRoute><EditAuthor /></PrivateRoute> },
+      { path: "/edit/company", element: <PrivateRoute> <EditCompany /></PrivateRoute> },
+      { path: "/favorites", element: <PrivateRoute><Favorites /></PrivateRoute> }
     ]
   },
   {
     element: <LayoutForms />,
     children: [
-      { path: "/signin", element: <SignIn></SignIn> },
-      { path: "/signup", element: <SignUp></SignUp> },
-      { path: "/newrole", element: <NewRole></NewRole> },
-      { path: "/editchapter", element: <EditChapter></EditChapter> },
-      { path: "/editmanga/:id", element: <EditManga></EditManga> },
-      { path: "/newmanga", element: <NewManga></NewManga> },
-      { path: "/newchapter/:id", element: <NewChapter></NewChapter> },
-      { path: "/newauthor", element: <NewAuthor></NewAuthor> },
-      { path: "/newcompany", element: <NewCompany></NewCompany> },
+      { path: "/signin", element: <SignRoute><SignIn></SignIn></SignRoute> },
+      { path: "/signup", element: <SignRoute><SignUp></SignUp></SignRoute> },
+      { path: "/newrole", element: <PrivateRoute> <NewRole></NewRole></PrivateRoute> },
+      { path: "/editchapter", element: <PrivateRoute><EditChapter></EditChapter></PrivateRoute> },
+      { path: "/editmanga/:id", element: <PrivateRoute><EditManga></EditManga></PrivateRoute> },
+      { path: "/newmanga", element: <PrivateRoute><NewManga></NewManga></PrivateRoute> },
+      { path: "/newchapter/:id", element: <PrivateRoute><NewChapter></NewChapter></PrivateRoute> },
+      { path: "/newauthor", element: <PrivateRoute><NewAuthor></NewAuthor></PrivateRoute> },
+      { path: "/newcompany", element: <PrivateRoute><NewCompany></NewCompany></PrivateRoute> },
     ]
   },
   { path: "/*", element: <NotFound /> }
