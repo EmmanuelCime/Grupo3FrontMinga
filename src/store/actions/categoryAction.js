@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const uri_render = "https://v7g9j4-8080.csb.app/"
+const uri_render = "http://localhost:8080/"
 
 export const getCategory = createAsyncThunk("GET_CATEGORY", async (_, { rejectWithValue }) => {
     try {
