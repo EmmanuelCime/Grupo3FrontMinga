@@ -4,12 +4,32 @@ import { useNavigate } from "react-router-dom"
 import backgroundImage from "../assets/backgroundHome.png"
 import { useEffect, useState } from "react"
 import Carousel from "../Components/Carousel"
+import { useDispatch, useSelector } from "react-redux"
+import { setUser } from "../store/actions/authAction"
+import axios from "axios"
+
+const uri_render = "https://grupo3backminga.onrender.com/"
+
+const loginWithToken = async (token) => {
+    try {
+        const response = await axios.get(uri_render+"api/auth/validateToken",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            }
+        )
+        return response.data.response
+    } catch (error) {
+        console.error("Error validando el token", error)
+        return null
+    }
+}
 
 function Home() {
-
+    const { user, token, loading, error } = useSelector((state) => state.authReducer)
     const navigate = useNavigate()
-    const [token, setToken] = useState(null)
-    //const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search)
@@ -17,20 +37,14 @@ function Home() {
         const tokenUrl = params.get("token")
         if (tokenUrl) {
             localStorage.setItem("token", tokenUrl)
-            setToken(tokenUrl)
-            //     loginWithToken(token)
-            //         .then((user) => {
-            //             dispatch(setUser({ user, token }))
-            //         })
+                loginWithToken(token)
+                    .then((user) => {
+                        dispatch(setUser({ user, token }))
+                    })
         }
-        //navigate("/home")
-    }, [/*dispatch, navigate*/])
+        navigate("/home")
+    }, [])
 
-    useEffect(() => {
-        if (token) {
-            navigate("/home")
-        }
-    }, [token, navigate])
 
     return (
         <>
@@ -45,8 +59,7 @@ function Home() {
                             </Link>
                         ) : (<Link to={"/mangas"}>
                             Explore!
-                        </Link>
-                        )}
+                        </Link>)}
                     </button>
                 </div>
             </div>

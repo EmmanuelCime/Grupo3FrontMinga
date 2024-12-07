@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const uri_render = "http://localhost:8080/"
+const uri_render = "https://grupo3backminga.onrender.com/"
 
 export const getChapter = createAsyncThunk("GET_CHAPTER", async (id, { rejectWithValue }) => {
     try {
