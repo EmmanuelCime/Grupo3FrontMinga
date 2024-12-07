@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     element: <StandardLayout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/home", element: <PrivateRoute><Home /></PrivateRoute> },
+      { path: "/home", element: <Home /> },
       { path: "/mangas", element: <PrivateRoute><Mangas /></PrivateRoute> },
       { path: "/manager", element: <PrivateRoute><Manager /></PrivateRoute> },
       { path: "/adminpanel", element: <PrivateRoute><AdminPanel /></PrivateRoute> },
