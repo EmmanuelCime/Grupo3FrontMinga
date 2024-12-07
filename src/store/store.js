@@ -3,6 +3,7 @@ import { mangaReducer } from "./reducers/mangaReducer";
 import { categoryReducer } from "./reducers/categoryReducer";
 import authReducer from "./reducers/authReducer";
 import { chapterReducer } from "./reducers/chapterReducer";
+import commentsReducer from "./reducers/commentsReducer";
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         mangaReducer,
         categoryReducer,
         chapterReducer,
+        comments: commentsReducer,
     }
 })
 

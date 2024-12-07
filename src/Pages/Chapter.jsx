@@ -2,14 +2,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getChapter } from "../store/actions/chapterAction";
+import ModalComments from "../Components/ListComment";
+//import Badge from "../Components/Badge";
+import emojiLike from "../assets/emojiLike.png";
+import emojiDislike from "../assets/emojiDislike.png";
+import emojiLove from "../assets/emojiLove.png";
+import emojiWow from "../assets/emojiWow.png"
 
-function Badge({ category }) {
+/*function Badge({ category }) {
     return (
         <span className="bg-[#FFE0DF] text-[#EF8481] text-sm font-medium px-4 py-2 rounded-full shadow-md">
             {category}
         </span>
     )
-}
+}*/
 
 export default function Chapter() {
     const dispatch = useDispatch()
@@ -23,17 +29,53 @@ export default function Chapter() {
             .catch((err) => console.error("Error fetching chapter:", err));
     }, [dispatch, id])
 
+    const [selectedChapter, setSelectedChapter] = useState(null);
+    const [comments, setComments] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedReaction, setSelectedReaction] = useState("");
+
+    const reactions = [
+        { id: "like", img: emojiLike, alt: "Like" },
+        { id: "dislike", img: emojiDislike, alt: "Dislike" },
+        { id: "wow", img: emojiWow, alt: "Wow" },
+        { id: "love", img: emojiLove, alt: "Love" },
+    ]
+
+    const mockComments = {
+        1: [
+            { user: "Juan", text: "¡Me encantó este capítulo!" },
+            { user: "Ana", text: "La historia está mejorando mucho." },
+        ],
+        2: [
+            { user: "Carlos", text: "El final estuvo increíble." },
+            { user: "Laura", text: "¿Cuándo sale el siguiente?" },
+        ],
+    }
+
+    const openCommentsModal = (chapter) => {
+        setSelectedChapter(chapter)
+        setComments(mockComments[chapter.id] || [])
+        setIsModalOpen(true)
+    }
+
+    const closeCommentsModal = () => {
+        setIsModalOpen(false)
+        setSelectedChapter(null)
+    }
+
+    const handleChange = (reactionId) => {
+        setSelectedReaction(reactionId)
+    }
+
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error: {error}</p>
 
     if (!chapters || chapters.length === 0) {
-        return <div>Cargando capítulos...</div>
+        return <div>Loading Chapter...</div>
     }
-    console.log(chapters);
-    
 
     return (
-        <div className="flex flex-col md:flex-row flex-wrap max-w-7xl mx-auto p-3 pt-14 sm:p-4 sm:pt-16 ">
+        <div className="flex flex-col md:flex-row flex-wrap mx-auto p-3 pt-14 lg:px-16 sm:p-4 sm:pt-16 bg-[#EBEBEB] ">
             {/* Left Panel - Manga Image */}
             <div className="md:w-1/2 flex justify-center md:pr-3 md:mb-4 ">
                 <img
@@ -45,29 +87,37 @@ export default function Chapter() {
 
             {/* Right Panel - Details */}
             <div className="md:w-1/2 flex flex-col gap-6 md:p-2">
-                {/* Title and Badge */}
                 <div>
                     <h1 className="text-4xl font-bold text-gray-800 mt-4 md:text-5xl ">{chapters[0].mangaId.title}</h1>
-                    <div className="flex flex-wrap gap-2 mt-4 lg:py-3">
-                        {//<Badge category={chapters[0].mangaId.categoryId.name} />
-                        }
+                        <div className="flex space-x-32 md:space-x-50 lg:space-x-60 mt-4 lg:py-3">
+                       { /*<Badge category={chapters[0].mangaId.categoryId.name} />*/}
+                        
+                        {/* <p className="text-sm py-2 font-semibold text-gray-500">Name Company</p> */}
                     </div>
                 </div>
 
                 {/* Reaction Icons */}
-                <div className="flex justify-around">
-                    <button className="flex items-center justify-center w-14 h-14 xl:w-18 xl:h-18 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
-                        👍
-                    </button>
-                    <button className="flex items-center justify-center w-14 h-14 xl:w-18 xl:h-18 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
-                        👎
-                    </button>
-                    <button className="flex items-center justify-center w-14 h-14 xl:w-18 xl:h-18 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
-                        😮
-                    </button>
-                    <button className="flex items-center justify-center w-14 h-14 xl:w-18 xl:h-18  bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400">
-                        ❤️
-                    </button>
+                <div className="flex justify-around px-2">
+                    {reactions.map((reaction) => (
+                        <label key={reaction.id} className="flex items-center">
+                            <input
+                                type="radio"
+                                name="reaction"
+                                value={reaction.id}
+                                checked={selectedReaction === reaction.id}
+                                onChange={() => handleChange(reaction.id)}
+                                className="hidden" 
+                            />
+                            <div
+                                className={`flex items-center justify-center w-14 h-14 p-2 xl:w-18 xl:h-18 rounded-full shadow-md cursor-pointer transition-colors ${selectedReaction === reaction.id
+                                        ? "bg-orange-400"
+                                        : "bg-white hover:bg-gray-200"
+                                    }`}
+                            >
+                                <img src={reaction.img} alt={reaction.alt} />
+                            </div>
+                        </label>
+                    ))}
                 </div>
 
                 {/* Rating */}
@@ -91,10 +141,10 @@ export default function Chapter() {
 
             <div className="md:my-2 lg:w-full xl:my-4 xl:mx-4">
                 {/* View Buttons */}
-                <div className="flex items-center bg-gray-200 rounded-full mb-4">
+                <div className="flex items-center bg-gray-300 rounded-full mb-4">
                     <button
                         onClick={() => setView("manga")}
-                        className={`flex-1 px-4 py-2 sm:py-2 xl:py-3 text-center  rounded-full transition-colors duration-300 ${view === "manga" ? "bg-orange-500 text-white" : "text-gray-500"
+                        className={`flex-1 px-4 py-2 sm:py-2 xl:py-3 text-center rounded-full transition-colors duration-300 ${view === "manga" ? "bg-orange-500 text-white" : "text-gray-500"
                             }`}
                     >
                         Manga
@@ -115,7 +165,7 @@ export default function Chapter() {
                             {chapters.map((chapter, index) => (
                                 <div
                                     key={index}
-                                    className="flex  items-center gap-4 p-2 bg-white shadow-md rounded-lg hover:shadow-lg sm:p-3 lgw-6/12"
+                                    className="flex items-center gap-4 p-2 bg-white shadow-md rounded-lg hover:shadow-lg sm:p-3 lgw-6/12"
                                 >
                                     <img
                                         src={chapter.coverPhoto}
@@ -123,9 +173,13 @@ export default function Chapter() {
                                         className="w-16 h-16 sm:w-24 sm:h-24 lg:w-auto lg:h-32 rounded-lg object-cover"
                                     />
                                     <div className="flex-1">
-                                        <h2 className="text-sm sm:text-lg lg:text-xl font-semibold text-gray-800">{chapter.title}</h2>
+                                        <h2 className="text-sm sm:text-lg lg:text-xl font-semibold text-gray-800">
+                                            {chapter.title}
+                                        </h2>
                                         <div className="flex items-start gap-1">
-                                            <button>
+                                            <button
+                                                onClick={() => openCommentsModal(chapter)}
+                                            >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
@@ -142,7 +196,7 @@ export default function Chapter() {
                                                 </svg>
                                             </button>
 
-                                            <p className="text-xs  sm:text-sm  mt-1 text-gray-500 ">
+                                            <p className="text-xs sm:text-sm mt-1 text-gray-500 ">
                                                 {chapter.pages.length} Pages
                                             </p>
                                         </div>
@@ -161,8 +215,24 @@ export default function Chapter() {
                             <p className="text-gray-500 p-2 md:p-3">{chapters[0].mangaId.description}</p>
                         </>
                     )}
+
                 </div>
+            </div>
+            {/* Modal Comments */}
+            <div className="flex flex-col gap-4">
+
+                {/* Modal de comentarios */}
+                <ModalComments
+                    isOpen={isModalOpen}
+                    onClose={closeCommentsModal}
+                    chapter={selectedChapter}
+                    comments={comments}
+                />
             </div>
         </div>
     );
 }
+
+
+
+

@@ -1,17 +1,17 @@
 import { Link, useLocation } from "react-router-dom"
 
-const BtnAuthCompanyTop = () => {
+const BtnAuthCompanyTop = ({id}) => {
     return (
         <div className="flex">
             <button className="rounded-full border-2 border-solid border-black p-1 ml-2">
-                <Link to={"/newChapter"}>
+                <Link to={`/newChapter/${id}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-3">
                         <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
                     </svg>
                 </Link>
             </button>
             <button className="rounded-full border-2 border-solid border-black p-1 ml-2">
-                <Link to={"/editManga"}>
+                <Link to={`/editManga/${id}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-3">
                         <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                     </svg>
@@ -51,7 +51,7 @@ export default function CardManga({ manga, index }) {
                     backgroundColor: manga.categoryId.hover,
                 }}></div>
                 <div className="h-full w-full flex flex-col justify-around items-start pl-3 py-1">
-                    {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyTop />):("")}
+                    {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyTop id={manga._id} />):("")}
                     <p className="text-xl font-semibold">{manga.title}</p>
                     <p className="font-semibold mr-5" style={{
                         color: manga.categoryId.hover,

@@ -13,6 +13,9 @@ import Profile from "./Pages/Profile.jsx";
 import Chapter from "./Pages/Chapter.jsx";
 import ChapterDetails from "./Pages/ChapterDetails.jsx";
 import EditChapter from "./Pages/EditChapter.jsx";
+import EditAuthor from "./Pages/EditAuthor.jsx";
+import EditCompany from "./Pages/EditCompany.jsx";
+import Favorites from "./Pages/Favorites.jsx";
 import EditManga from "./Pages/EditManga.jsx";
 import NewManga from "./Pages/NewManga.jsx";
 import NewChapter from "./Pages/NewChapter.jsx";
@@ -32,6 +35,9 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile /> },
       { path: "/chapter/:id", element: <Chapter /> },
       { path: "/details/:id", element: <ChapterDetails /> },
+      { path: "/edit/author", element: <EditAuthor /> },
+      { path: "/edit/company", element: <EditCompany /> },
+      { path: "/favorites", element: <Favorites /> }
     ]
   },
   {
@@ -41,9 +47,9 @@ const router = createBrowserRouter([
       { path: "/signup", element: <SignUp></SignUp> },
       { path: "/newrole", element: <NewRole></NewRole> },
       { path: "/editchapter", element: <EditChapter></EditChapter> },
-      { path: "/editmanga", element: <EditManga></EditManga> },
+      { path: "/editmanga/:id", element: <EditManga></EditManga> },
       { path: "/newmanga", element: <NewManga></NewManga> },
-      { path: "/newchapter", element: <NewChapter></NewChapter> },
+      { path: "/newchapter/:id", element: <NewChapter></NewChapter> },
       { path: "/newauthor", element: <NewAuthor></NewAuthor> },
       { path: "/newcompany", element: <NewCompany></NewCompany> },
     ]

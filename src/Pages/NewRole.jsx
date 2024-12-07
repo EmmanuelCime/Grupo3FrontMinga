@@ -119,7 +119,7 @@ export default function NewRole() {
                 <p
                   className={`text-xs sm:text-sm ${selectedRole === "company" ? "text-orange-500" : "text-gray-700"}`}
                 >
-                  I’m a company and I want <br /> to publish my comics
+                  I’m a company and I want <br className="block md:hidden"/> to publish my comics
                 </p>
               </div>
             </div>

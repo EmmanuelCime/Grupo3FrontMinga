@@ -54,7 +54,7 @@ export default function SignUp() {
       {/* Contenedor del formulario */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:p-8 p-3 bg-white">
         {/* Logo y título */}
-        <img className="h-10 lg:h-16" src={MingaLogotype} alt="Minga Logotype" />
+        <img className="h-10 lg:h-14" src={MingaLogotype} alt="Minga Logotype" />
 
         <h2 className="text-lg sm:text-2xl lg:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
         <p className="text-gray-600 mb-6 text-center lg:text-sm text-xs">

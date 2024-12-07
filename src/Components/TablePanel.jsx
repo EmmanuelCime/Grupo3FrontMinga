@@ -26,8 +26,8 @@ export default function TablePanel() {
     return (
         <>
             {/* Table */}
-            <div className="border rounded-t-lg shadow-md bg-white w-full md:w-8/12 mx-auto overflow-x-auto">
-                <div className="flex justify-center border-b-2 border-orange-500  rounded-t-lg">
+            <div className="border rounded-t-lg shadow-md bg-white w-full md:max-w-xl lg:max-w-2xl mx-auto overflow-x-auto h-full mb-10">
+                <div className="flex justify-center border-b-2 border-orange-500  rounded-t-lg h-full">
                     <button
                         className={`px-4 py-2 rounded-tl-lg w-full font-bold text-xs sm:text-sm ${view === "companies" ? "bg-orange-500 text-white" : "bg-gray-200 text-orange-500"}`}
                         onClick={() => setView("companies")}
@@ -41,7 +41,7 @@ export default function TablePanel() {
                         Authors
                     </button>
                 </div>
-                <table className="w-full text-left border-collapse">
+                <table className="w-full h-full text-left border-collapse">
                     <tbody>
                         {view === "companies"
                             ? data.companies.map((company, index) => (

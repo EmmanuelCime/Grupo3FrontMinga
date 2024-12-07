@@ -1,8 +1,24 @@
 import ButtonSave from "../Components/ButtonSave"
 import ButtonDelete from "../Components/ButtonDelete"
+/*import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { getMangas } from "../store/action/mangasAction"
+import { useParams } from "react-router-dom"*/
 
 
 function EditManga() {
+    /*const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer)
+    const dispatch = useDispatch()
+    const {id} = useParams()
+
+    useEffect(() => {
+        dispatch(getMangas())
+            .unwrap()
+            .catch((err) => console.error("Error fetching mangas:", err))
+    }, [dispatch])
+
+    const manga = allMangas.find((manga) => manga._id === id)
+console.log(manga);*/
 
     return (
         <>
@@ -48,7 +64,7 @@ function EditManga() {
                         <ButtonDelete name="Delete" />
                     </div>
                 </div>
-                
+
                 <div className="hidden sm:block mt-24">
                     <h3 className="text-center text-xl mb-7 font-light">Title of the manga</h3>
                     <img src="https://athenaposters.ca/wp-content/uploads/2022/01/RP21114-HUNTER-X-HUNTER-BOOK-KEY-ART.png" alt="" />
