@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import avatarProfile from "../assets/avatarProfile.jpg";
 import mingaLogotype from "../assets/mingaLogotype.png";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../store/actions/userAction";
 
 
 const routes = [
@@ -13,14 +15,31 @@ const routes = [
   { to: "/signin", text: "Sign In" },
   { to: "/chapter", text: "Chapter" },
   { to: "/details", text: "Details" },
-  { to: "/adminpanel", text: "Admin Panel"},
+  { to: "/adminpanel", text: "Admin Panel" },
   { to: "/newrole", text: "Change Role" },
   { to: "/favorites", text: "Favorites" },
 ]
 
 export default function SidebarWithToggle() {
+  const { allUser, loading, error } = useSelector((state) => state.userReducer)
+  const { user } = useSelector((state) => state.authReducer)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUser)
+  }, [dispatch])
+
+  /*if (loading) return <p>Loading...</p>
+  if (error) return <p>Error: {error}</p>
+
+  if (!allUser || allUser.length === 0) {
+    return <div>Loading User...</div>
+  }*/
+
+  console.log(user);
+
 
   const lineColor = location.pathname === "/details" ? "bg-white" : "bg-orange-500";
 
@@ -30,7 +49,7 @@ export default function SidebarWithToggle() {
 
   return (
     <div>
-      {/* Botón Hamburguesa */} 
+      {/* Botón Hamburguesa */}
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         className="p-2 bg-transparent text-white rounded-md absolute top-3 left-3 sm:left-8  md:left-14 z-20"
@@ -65,15 +84,15 @@ export default function SidebarWithToggle() {
             {/* Perfil */}
             <div className="mb-4 flex items-center gap-3 md:mt-2">
               <NavLink to="/profile" className="h-10 w-10 md:h-12 md:w-12 mt-1">
-              <img
-                src={avatarProfile}
-                alt="User"
-                className="rounded-full h-10 w-10 md:h-12 md:w-12"
-                onClick={handleLinkClick}
-              />
+                <img
+                  src={avatarProfile}
+                  alt="User"
+                  className="rounded-full h-10 w-10 md:h-12 md:w-12"
+                  onClick={handleLinkClick}
+                />
               </NavLink>
               <p className="mt-2 text-white text-xs font-medium text-center pr-5">
-                lucasezequielsilva@gmail.com
+                {/*user.email*/}
               </p>
             </div>
 
@@ -103,7 +122,7 @@ export default function SidebarWithToggle() {
               aria-label="Close"
             >
               ×
-            </button> 
+            </button>
           </div>
         </div>
       )}

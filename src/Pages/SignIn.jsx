@@ -14,7 +14,7 @@ export default function SignIn() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {user,token,loading,error} = useSelector((state) => state.authReducer)
+  const { user, token, loading, error } = useSelector((state) => state.authReducer)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -22,9 +22,9 @@ export default function SignIn() {
     setEmail(e.target.value)
   }
 
-if (token != "" && user?.email) {
-  navigate("/home")
-}
+  if (token != "" && user?.email) {
+    navigate("/home")
+  }
 
   const handlePassword = (e) => {
     setPassword(e.target.value)
