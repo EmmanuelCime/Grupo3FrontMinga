@@ -42,7 +42,7 @@ function Manager() {
 
   return (
     <>
-      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center pb-8">
+      <div className="bg-manager bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center pb-8">
         <p className="w-auto mb-8 mt-36 text-6xl text-white font-bold">{nameCreator}</p>
         <div className="relative w-full md:w-[70vw]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -56,14 +56,25 @@ function Manager() {
           />
         </div>
       </div>
-      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-5 -mt-10 mx-auto shadow drop-shadow-md">
+      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-20 -mt-10 mx-auto shadow drop-shadow-md">
         <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
           <Category></Category>
         </div>
         <div className="flex flex-wrap justify-around">
-          {loading && <p>Loading...</p>}
-          {error && <p>Error: {error}</p>}
-          {filteredMangas.length > 0 ? (
+        {loading ? (
+            <div className="min-h-screen flex items-center justify-center">
+              <svg
+                viewBox="0 0 1024 1024"
+                fill="currentColor"
+                className="animate-spin h-20 w-20 mr-3"
+              >
+                <path d="M512 1024c-69.1 0-136.2-13.5-199.3-40.2C251.7 958 197 921 150 874c-47-47-84-101.7-109.8-162.7C13.5 648.2 0 581.1 0 512c0-19.9 16.1-36 36-36s36 16.1 36 36c0 59.4 11.6 117 34.6 171.3 22.2 52.4 53.9 99.5 94.3 139.9 40.4 40.4 87.5 72.2 139.9 94.3C395 940.4 452.6 952 512 952c59.4 0 117-11.6 171.3-34.6 52.4-22.2 99.5-53.9 139.9-94.3 40.4-40.4 72.2-87.5 94.3-139.9C940.4 629 952 571.4 952 512c0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.2C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3s-13.5 136.2-40.2 199.3C958 772.3 921 827 874 874c-47 47-101.8 83.9-162.7 109.7-63.1 26.8-130.2 40.3-199.3 40.3z" />
+              </svg>
+              <p className="text-orange-500 text-xl font-semibold">Loading...</p>
+            </div>
+          ) : error ? (
+            <p className="text-red-500 text-lg font-semibold">Error: {error}</p>
+          ) : filteredMangas.length > 0 ? (
             filteredMangas.map((manga, index) => (
               <CardManga key={index} manga={manga} />
             ))
