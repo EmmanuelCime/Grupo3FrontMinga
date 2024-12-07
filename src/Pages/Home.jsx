@@ -12,7 +12,7 @@ const uri_render = "https://grupo3backminga.onrender.com/"
 
 const loginWithToken = async (token) => {
     try {
-        const response = await axios.get(uri_render+"api/auth/validateToken",
+        const response = await axios.get(`${uri_render}api/auth/tokenVerification`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -28,6 +28,7 @@ const loginWithToken = async (token) => {
 
 function Home() {
     const { user, token, loading, error } = useSelector((state) => state.authReducer)
+    const { allCategory } = useSelector((state) => state.categoryReducer)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -37,10 +38,10 @@ function Home() {
         const tokenUrl = params.get("token")
         if (tokenUrl) {
             localStorage.setItem("token", tokenUrl)
-                loginWithToken(token)
-                    .then((user) => {
-                        dispatch(setUser({ user, token }))
-                    })
+            loginWithToken(token)
+                .then((user) => {
+                    dispatch(setUser({ user, token }))
+                })
         }
         navigate("/home")
     }, [])

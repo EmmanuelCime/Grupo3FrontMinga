@@ -42,7 +42,7 @@ function Manager() {
 
   return (
     <>
-      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center pb-8">
+      <div className="bg-manager bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center pb-8">
         <p className="w-auto mb-8 mt-36 text-6xl text-white font-bold">{nameCreator}</p>
         <div className="relative w-full md:w-[70vw]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
