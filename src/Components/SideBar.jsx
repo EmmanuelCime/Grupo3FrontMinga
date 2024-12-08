@@ -1,8 +1,10 @@
 import { useState } from "react";
 import avatarProfile from "../assets/avatarProfile.jpg";
 import mingaLogotype from "../assets/mingaLogotype.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "../store/actions/authAction"
 
 
 const routes = [
@@ -12,24 +14,34 @@ const routes = [
   { to: "/signup", text: "Register" },
   { to: "/signin", text: "Sign In" },
   { to: "/details", text: "Details" },
-  { to: "/adminpanel", text: "Admin Panel"},
+  { to: "/adminpanel", text: "Admin Panel" },
   { to: "/newrole", text: "Change Role" },
   { to: "/favorites", text: "Favorites" },
 ]
 
 export default function SidebarWithToggle() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const location = useLocation();
+  const { user, token } = useSelector((state) => state.authReducer)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const lineColor = location.pathname === "/details" ? "bg-white" : "bg-orange-500";
+  const lineColor = location.pathname.startsWith("/details") ? "bg-white" : "bg-orange-500";
+  const isUser = user?._doc?.role === 0 && token;
+  const isManager = user?._doc?.role !== 0 && token;
 
   const handleLinkClick = () => {
-    setIsSidebarOpen(false);
-  };
+    setIsSidebarOpen(false)
+  }
+
+  const handleSignOut = ()=> {
+    dispatch(signOut())
+    navigate("/home")
+  }
 
   return (
     <div>
-      {/* Botón Hamburguesa */} 
+      {/* Botón Hamburguesa */}
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         className="p-2 bg-transparent text-white rounded-md absolute top-3 left-3 sm:left-8  md:left-14 z-20"
@@ -62,20 +74,45 @@ export default function SidebarWithToggle() {
         <div className="fixed top-0 left-0 h-screen w-full sm:w-72 bg-gradient-to-b from-orange-500 to-orange-600 shadow-lg z-30">
           <div className="flex flex-col items-center p-4 ">
             {/* Perfil */}
-            <div className="mb-4 flex items-center gap-3 md:mt-2">
-              <NavLink to="/profile" className="h-10 w-10 md:h-12 md:w-12 mt-1">
-              <img
-                src={avatarProfile}
-                alt="User"
-                className="rounded-full h-10 w-10 md:h-12 md:w-12"
-                onClick={handleLinkClick}
-              />
-              </NavLink>
-              <p className="mt-2 text-white text-xs font-medium text-center pr-5">
-                lucasezequielsilva@gmail.com
-              </p>
-            </div>
-
+            {isUser ? (
+              <>
+              <div className="mb-4 flex items-center gap-3 md:mt-2">
+                <div className="h-10 w-10 md:h-12 md:w-12 mt-1">
+                  <img
+                    src={user?._doc?.photo || avatarProfile}
+                    alt="User"
+                    className="rounded-full h-10 w-10 md:h-12 md:w-12"
+                    
+                  />
+                </div>
+                <p className="mt-2 text-white text-xs font-medium text-center pr-5">
+                  {user?._doc?.email}
+                </p>
+                </div>
+                <button
+                  onClick={handleSignOut}
+                  className="w-full text-white font-semibold py-2 rounded-md hover:bg-white hover:text-orange-500"
+                >
+                  Sign Out
+                </button>
+              
+              </>
+            ):("")}
+            {isManager && (
+              <div className="mb-4 flex items-center gap-3 md:mt-2">
+                <NavLink to={`/profile/${user?._doc?.email}`} className="h-10 w-10 md:h-12 md:w-12 mt-1">
+                  <img
+                    src={user?._doc?.photo || avatarProfile}
+                    alt="User"
+                    className="rounded-full h-10 w-10 md:h-12 md:w-12"
+                    onClick={handleLinkClick}
+                  />
+                </NavLink>
+                <p className="mt-2 text-white text-xs font-medium text-center pr-5">
+                  {user?._doc?.email}
+                </p>
+              </div>
+            )}
             {/* Opciones */}
             <div className="mt-6 space-y-4 w-full">
               {routes.map((route) => (
@@ -102,7 +139,7 @@ export default function SidebarWithToggle() {
               aria-label="Close"
             >
               ×
-            </button> 
+            </button>
           </div>
         </div>
       )}
