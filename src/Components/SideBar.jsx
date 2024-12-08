@@ -27,8 +27,8 @@ export default function SidebarWithToggle() {
   const navigate = useNavigate()
 
   const lineColor = location.pathname.startsWith("/details") ? "bg-white" : "bg-orange-500";
-  const isUser = user?._doc?.role === 0 && token;
-  const isManager = user?._doc?.role !== 0 && token;
+  const isUser = user?.role === 0 && token;
+  const isManager = user?.role !== 0 && token;
 
   const handleLinkClick = () => {
     setIsSidebarOpen(false)
@@ -79,14 +79,14 @@ export default function SidebarWithToggle() {
                 <div className="mb-4 flex items-center gap-3 md:mt-2">
                   <div className="h-10 w-10 md:h-12 md:w-12 mt-1">
                     <img
-                      src={user?._doc?.photo || avatarProfile}
+                      src={user?.photo || avatarProfile}
                       alt="User"
                       className="rounded-full h-10 w-10 md:h-12 md:w-12"
 
                     />
                   </div>
                   <p className="mt-2 text-white text-xs font-medium text-center pr-5">
-                    {user?._doc?.email}
+                    {user?.email}
                   </p>
                 </div>
                 <button
@@ -103,14 +103,14 @@ export default function SidebarWithToggle() {
                 <div className="mb-4 flex items-center gap-3 md:mt-2">
                   <NavLink to={`/profile`} className="h-10 w-10 md:h-12 md:w-12 mt-1">
                     <img
-                      src={user?._doc?.photo || avatarProfile}
+                      src={user?.photo || avatarProfile}
                       alt="User"
                       className="rounded-full h-10 w-10 md:h-12 md:w-12"
                       onClick={handleLinkClick}
                     />
                   </NavLink>
                   <p className="mt-2 text-white text-xs font-medium text-center pr-5">
-                    {user?._doc?.email}
+                    {user?.email}
                   </p>
                 </div>
                 <button
