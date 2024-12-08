@@ -1,22 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
-import CardManga from "../Components/CardManga"
-import Category from "../Components/Category";
 import { useEffect, useMemo } from "react";
 import { getMangas, setSearch } from "../store/actions/mangasAction";
-import { getCategory } from "../store/actions/categoryAction";
+import CardManga from "../Components/CardManga";
+import Category from "../Components/Category";
 
 
 function Manager() {
   const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer);
-  const dispatch = useDispatch();
+  const { selectedCategory } = useSelector((state) => state.categoryReducer)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getMangas())
       .unwrap()
       .catch((err) => console.error("Error fetching mangas:", err))
-    dispatch(getCategory())
-      .unwrap()
-      .catch((err) => console.error("Error fetching categories:", err));
   }, [dispatch])
 
   const creator = useMemo(
@@ -24,16 +21,24 @@ function Manager() {
     [allMangas]
   )
 
-  const handleSearch = (e) => {
-    const searchTerm = e.target.value
-    dispatch(setSearch(searchTerm))
-  }
+  // Filtrado de mangas por categoría y búsqueda
+  const filteredMangas = useMemo(() => {
+    let filtered = creator
 
-  const filteredMangas = search
-    ? creator.filter((manga) =>
-      manga.title.toLowerCase().includes(search.toLowerCase())
-    )
-    : creator
+    // Filtro por categoría
+    if (selectedCategory) {
+      filtered = filtered.filter(
+        (manga) => manga.categoryId?.name.toLowerCase() === selectedCategory.toLowerCase()
+      )
+    }
+    // Filtro por búsqueda
+    if (search) {
+      filtered = filtered.filter((manga) =>
+        manga.title.toLowerCase().includes(search.toLowerCase())
+      )
+    }
+    return filtered
+  }, [creator, selectedCategory, search])
 
 
   const nameCreator = useMemo(() => {
@@ -51,17 +56,17 @@ function Manager() {
             <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
               clipRule="evenodd" />
           </svg>
-          <input type="search" value={search} onChange={handleSearch} placeholder="Find your manga here"
+          <input type="search" value={search} onChange={(e) => dispatch(setSearch(e.target.value))} placeholder="Find your manga here"
             className="w-full py-2 pl-12 pr-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none"
           />
         </div>
       </div>
       <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-10 pt-5 pb-20 -mt-10 mx-auto shadow drop-shadow-md">
         <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
-          <Category></Category>
+          <Category />
         </div>
         <div className="flex flex-wrap justify-evenly">
-        {loading ? (
+          {loading ? (
             <div className="min-h-screen flex items-center justify-center px-3">
               <svg
                 viewBox="0 0 1024 1024"
