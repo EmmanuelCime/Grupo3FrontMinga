@@ -20,7 +20,7 @@ function Manager() {
   }, [dispatch])
 
   const creator = useMemo(
-    () => allMangas.filter((manga) => manga.authorId?._id === "674d5fcf4e75429504006e1c"),
+    () => allMangas.filter((manga) => manga.authorId?._id === "674d5fcf4e75429504006e21"),
     [allMangas]
   )
 
@@ -56,13 +56,13 @@ function Manager() {
           />
         </div>
       </div>
-      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-20 -mt-10 mx-auto shadow drop-shadow-md">
+      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-10 pt-5 pb-20 -mt-10 mx-auto shadow drop-shadow-md">
         <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
           <Category></Category>
         </div>
-        <div className="flex flex-wrap justify-around">
+        <div className="flex flex-wrap justify-evenly">
         {loading ? (
-            <div className="min-h-screen flex items-center justify-center">
+            <div className="min-h-screen flex items-center justify-center px-3">
               <svg
                 viewBox="0 0 1024 1024"
                 fill="currentColor"

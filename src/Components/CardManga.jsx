@@ -24,12 +24,12 @@ const BtnAuthCompanyTop = ({id}) => {
 const BtnAuthCompanyBottom = () => {
     return (
         <div className="flex">
-            <button className="rounded-2xl font-medium bg-purple-200 text-purple-500 py-1 px-3">
+            <button className="rounded-2xl font-base bg-purple-200 text-purple-500 px-2">
                 <Link to={"/editManga"}>
                     Edit
                 </Link>
             </button>
-            <button className="rounded-2xl font-medium bg-red-200 text-red-500 py-1 px-3 ml-2">
+            <button className="rounded-2xl font-base bg-red-200 text-red-500  px-2 ml-2">
                 <Link to={"/deleteManga"}>
                     Delete
                 </Link>
@@ -46,7 +46,7 @@ export default function CardManga({ manga, index }) {
 
     return (
         <>
-            <div key={index} className="w-64 h-36 lg:w-96 lg:h-48 flex lg:m-3 items-center mt-4 rounded-2xl shadow-md">
+            <div key={index} className="w-64 h-36 md:w-56 md:h-44 lg:w-96 lg:h-48 flex sm:m-3 items-center mt-4 rounded-2xl shadow-md">
                 <div className="min-w-1 h-24 md:h-28" style={{
                     backgroundColor: manga.categoryId.hover,
                 }}></div>
@@ -57,7 +57,7 @@ export default function CardManga({ manga, index }) {
                         color: manga.categoryId.hover,
 
                     }}>{manga.categoryId.name}</p>
-                    {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyBottom />) : (<Link to={`/chapter/${manga._id}`} className="font-medium py-1 px-4 rounded-full bg-green-200 text-green-600">Read</Link>)}
+                    {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyBottom />) : (<Link to={`/chapter/${manga._id}`} className="font-base py-1 px-4 rounded-full bg-green-200 text-green-600">Read</Link>)}
                 </div>
                 <img className="min-w-28 sm:min-w-32 lg:min-w-40 h-full object-cover rounded-tl-full rounded-bl-full " src={manga.coverPhoto} alt={manga.title} />
             </div>
