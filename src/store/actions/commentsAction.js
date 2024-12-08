@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const uri_render = "https://v7g9j4-8080.csb.app";
+const uri_render = "https://grupo3backminga.onrender.com/";
 
 // Async thunk para crear un comentario
 export const createComment = createAsyncThunk(
@@ -9,7 +9,7 @@ export const createComment = createAsyncThunk(
   async ({ chapterId, message }, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${uri_render}/api/comment/create`, { 
-        chapterId, 
+        chapterId,
         message 
       });
       return response.data;
@@ -25,7 +25,7 @@ export const fetchCommentsByChapter = createAsyncThunk(
   async (chapterId, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${uri_render}/api/comment/commentByChapter/${chapterId}`);
-      return response.data.comments || response.data; // Ajusta según la estructura de tu respuesta
+      return response.data.comments || response.data; 
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -61,18 +61,17 @@ export const deleteComment = createAsyncThunk(
   async (commentId, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`${uri_render}/api/comment/delete`, { 
-        data: { _id: commentId }  // Asegúrate de que el parámetro se llame '_id' si así lo espera el backend
+        data: { _id: commentId }  
       });
 
       // Si la respuesta es exitosa, devuelve el commentId
       if (response.data.success) {
-        return commentId; // Aquí se regresa el commentId para actualizar el estado
+        return commentId;
       } else {
-        // Si la respuesta indica un fallo, se rechaza la promesa con el mensaje de error
+       
         return rejectWithValue(response.data.message);
       }
     } catch (error) {
-      // En caso de error, se maneja y se rechaza la promesa
       return rejectWithValue(error.response?.data?.message || "Something went wrong");
     }
   }
