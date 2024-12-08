@@ -5,6 +5,7 @@ import authReducer from "./reducers/authReducer";
 import { chapterReducer } from "./reducers/chapterReducer";
 import commentsReducer from "./reducers/commentsReducer";
 import { userReducer } from "./reducers/userReducer";
+import { authorReducer } from "./reducers/authorReducer";
 
 
 const store = configureStore({
@@ -15,6 +16,7 @@ const store = configureStore({
         chapterReducer,
         comments: commentsReducer,
         userReducer,
+        authorReducer,
     }
 })
 

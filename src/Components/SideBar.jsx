@@ -101,7 +101,7 @@ export default function SidebarWithToggle() {
             ):("")}
             {isManager && (
               <div className="mb-4 flex items-center gap-3 md:mt-2">
-                <NavLink to={`/profile/${user?._doc?.email}`} className="h-10 w-10 md:h-12 md:w-12 mt-1">
+                <NavLink to={`/profile`} className="h-10 w-10 md:h-12 md:w-12 mt-1">
                   <img
                     src={user?._doc?.photo || avatarProfile}
                     alt="User"
@@ -121,7 +121,7 @@ export default function SidebarWithToggle() {
                   key={route.to}
                   to={route.to}
                   className={({ isActive }) =>
-                    `w-full block py-2 text-white text-center font-medium font-semibold rounded-md ${isActive
+                    `w-full block py-2 text-white text-center font-semibold rounded-md ${isActive
                       ? "bg-white !text-orange-500"
                       : "hover:bg-white hover:text-orange-500"
                     }`
