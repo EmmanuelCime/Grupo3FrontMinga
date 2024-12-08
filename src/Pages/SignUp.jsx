@@ -1,18 +1,18 @@
-
 import imageSignUp from "../assets/imageSignUp.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
 import ButtonPrimary from "../Components/ButtonPrimary";
 import ButtonGoogle from "../Components/ButtonGoogle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "../store/actions/userAction";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+import { signUp } from "../store/actions/authAction";
 
 
 export default function SignUp() {
-
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {loading,error} = useSelector((state) => state.userReducer)
+  const {loading,error, user} = useSelector((state) => state.authReducer)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -30,14 +30,22 @@ export default function SignUp() {
 
   const handleSignUp = async (e) => {
     e.preventDefault()
+    console.log("entrooooo");
+    
     dispatch(signUp({password: password, email: email, photo: photo}))
   }
+
+  useEffect(()=>{
+    if (user) {
+      navigate("/home")
+    }
+  },[user])
 
   return (
     <div className="flex h-screen">
       {/* Contenedor del formulario */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:p-8 p-3 bg-white">
-        {/* Logo y título */}
+        {/* Logo y tÃ­tulo */}
         <img className="h-10 lg:h-14" src={MingaLogotype} alt="Minga Logotype" />
 
         <h2 className="text-lg sm:text-2xl lg:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
@@ -151,9 +159,9 @@ export default function SignUp() {
           </div>
 
           <div>
-            {/* Botón de registro */}
+            {/* BotÃ³n de registro */}
             <ButtonPrimary onClick={handleSignUp} name="Sign Up"></ButtonPrimary>
-            {/* Botón de Google */}
+            {/* BotÃ³n de Google */}
             <ButtonGoogle name="Sign up with Google"></ButtonGoogle>
           </div>
 
@@ -176,6 +184,8 @@ export default function SignUp() {
     </div>
   );
 }
+
+
 
 
 

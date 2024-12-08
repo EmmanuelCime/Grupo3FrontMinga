@@ -22,3 +22,11 @@ export const signIn = createAsyncThunk("login", async ({ email, password }, { re
         return rejectWithValue(error.response?.data?.message || "Login Error credentials invalid")
     }
 })
+export const signUp = createAsyncThunk("register", async (user, { rejectWithValue }) => {
+    try {
+        const response = await axios.post(`${uri_render}api/users/register`, user)
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Registration failed")
+    }
+})
