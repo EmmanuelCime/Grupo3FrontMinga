@@ -47,7 +47,7 @@ export default function SignIn() {
       ></div>
 
       {/* Contenedor del formulario */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 bg-white">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-5 bg-white">
         {/* Logo y título */}
 
         <img className="h-10 lg:h-14" src={MingaLogotype} alt="Minga Logotype" />
@@ -120,6 +120,7 @@ export default function SignIn() {
               />
             </svg>
           </div>
+          <div>
           {error && <p
             className="text-red-600 text-base text-center font-medium my-1"
           >{error}</p>}
@@ -128,6 +129,7 @@ export default function SignIn() {
 
           {/* Botón de Google */}
           <ButtonGoogle onClick={handleSignInGoogle} name="Sign in with Google"></ButtonGoogle>
+          </div>
         </form>
 
         {/* Texto de ayuda */}
@@ -135,7 +137,7 @@ export default function SignIn() {
           You don’t have an account yet? <Link to="/signup" className="text-orange-500">Sign up</Link>
         </p>
         <p className="lg:text-sm text-xs text-gray-500 font-semibold">
-          Go back to <a href="#" className="text-orange-500">home page</a>
+          Go back to  <Link to="/home" className="text-orange-500">home page</Link>
         </p>
       </div>
     </div>
