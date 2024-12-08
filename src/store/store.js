@@ -6,7 +6,8 @@ import { chapterReducer } from "./reducers/chapterReducer";
 import commentsReducer from "./reducers/commentsReducer";
 import { userReducer } from "./reducers/userReducer";
 import { authorReducer } from "./reducers/authorReducer";
-import { reactionReducer } from "./reducers/reactionReducer";
+// import reactionReducer from "./reducers/reactionReducer";
+
 
 const store = configureStore({
     reducer: {
@@ -15,7 +16,7 @@ const store = configureStore({
         categoryReducer,
         chapterReducer,
         comments: commentsReducer,
-        reaction: reactionReducer,
+        // reaction: reactionReducer,
         userReducer,
         authorReducer,
     }

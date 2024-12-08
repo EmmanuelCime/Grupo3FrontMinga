@@ -1,9 +1,9 @@
 import { Link, useLocation } from "react-router-dom"
 
-const BtnAuthCompanyTop = ({id}) => {
+const BtnAuthCompanyTop = ({ id }) => {
     return (
         <div className="flex">
-            <button className="rounded-full border-2 border-solid border-black p-1 ml-2">
+            <button className="rounded-full border-2 border-solid border-black p-1 ml-2 border-blue">
                 <Link to={`/newChapter/${id}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-3">
                         <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
@@ -46,20 +46,24 @@ export default function CardManga({ manga, index }) {
 
     return (
         <>
-            <div key={index} className="w-64 h-36 md:w-56 md:h-44 lg:w-96 lg:h-48 flex sm:m-3 items-center mt-4 rounded-2xl shadow-md">
-                <div className="min-w-1 h-24 md:h-28" style={{
+            <div key={index} className="w-64 h-36 md:w-72 md:h-44 lg:w-96 lg:h-48 flex justify-between sm:m-3 items-center mt-4 mb-1 rounded-2xl shadow-md overflow-hidden ">
+                <div className="min-w-1 h-24 md:h-28 text-xs " style={{
                     backgroundColor: manga.categoryId.hover,
                 }}></div>
-                <div className="h-full w-full flex flex-col justify-around items-start pl-3 py-1">
-                    {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyTop id={manga._id} />):("")}
-                    <p className="text-xl font-semibold">{manga.title}</p>
-                    <p className="font-semibold mr-5" style={{
-                        color: manga.categoryId.hover,
+                <div>
+                    <div className="h-full min-w-36 lg:min-w-52 flex flex-col justify-center space-y-2 lg:space-y-1 items-start pl-2 pt-6 lg:pt-8 mt-3 mr-3 mb-2 ">
+                        {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyTop id={manga._id} />) : ("")}
+                        <p className="text-xs md:text-lg font-bold">{manga.title}</p>
+                        <p className="text-xs md:text-lg font-semibold " style={{
+                            color: manga.categoryId.hover,
 
-                    }}>{manga.categoryId.name}</p>
-                    {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyBottom />) : (<Link to={`/chapter/${manga._id}`} className="font-base py-1 px-4 rounded-full bg-green-200 text-green-600">Read</Link>)}
+                        }}>{manga.categoryId.name}</p>
+                    </div>
+                    <div className="flex justify-start ml-2 pb-2">
+                    {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyBottom />) : (<Link to={`/chapter/${manga._id}`} className="text-xs py-1 px-4 rounded-full bg-green-200 text-green-600 mt-3 md:text-sm lg:mt-6">Read</Link>)}
+                    </div>
                 </div>
-                <img className="min-w-28 sm:min-w-32 lg:min-w-40 h-full object-cover rounded-tl-full rounded-bl-full " src={manga.coverPhoto} alt={manga.title} />
+                <img className="max-w-28 sm:min-w-32 lg:min-w-40 h-full object-cover rounded-tl-full rounded-bl-full  " src={manga.coverPhoto} alt={manga.title} />
             </div>
         </>
     )
