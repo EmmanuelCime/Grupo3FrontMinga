@@ -1,33 +1,39 @@
 import { useDispatch, useSelector } from "react-redux";
-import CardManga from "../Components/CardManga"
 import { getMangas, setSearch } from "../store/actions/mangasAction";
-import { useEffect } from "react";
-import { getCategory } from "../store/actions/categoryAction";
-import CategoryComponent from "../Components/Category";
+import { useEffect, useMemo } from "react";
+import CardManga from "../Components/CardManga"
+import Category from "../Components/Category";
 
 function Mangas() {
   const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer)
+  const {selectedCategory} = useSelector((state) => state.categoryReducer)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getMangas())
       .unwrap()
       .catch((err) => console.error("Error fetching mangas:", err))
-    dispatch(getCategory())
-      .unwrap()
-      .catch((err) => console.error("Error fetching categories:", err))
   }, [dispatch])
 
-  const handleSearch = (e) => {
-    const searchTerm = e.target.value
-    dispatch(setSearch(searchTerm))
-  };
 
-  const filteredMangas = search
-    ? allMangas.filter((manga) =>
-      manga.title.toLowerCase().includes(search.toLowerCase())
-    )
-    : allMangas
+  // Filtrado de mangas por categoría y búsqueda
+  const filteredMangas = useMemo(() => {
+    let filtered = allMangas
+
+    // Filtro por categoría
+    if (selectedCategory) {
+      filtered = filtered.filter(
+        (manga) => manga.categoryId?.name.toLowerCase() === selectedCategory.toLowerCase()
+      )
+    }
+    // Filtro por búsqueda
+    if (search) {
+      filtered = filtered.filter((manga) =>
+        manga.title.toLowerCase().includes(search.toLowerCase())
+      )
+    }
+    return filtered
+  }, [allMangas, selectedCategory, search])
 
   return (
     <>
@@ -49,7 +55,7 @@ function Mangas() {
           <input
             type="search"
             value={search}
-            onChange={handleSearch}
+            onChange={(e) => dispatch(setSearch(e.target.value))}
             placeholder="Find your manga here"
             className="w-full py-2 pl-12 pr-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none"
           />
@@ -57,7 +63,7 @@ function Mangas() {
       </div>
       <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-20 -mt-10 mx-auto shadow drop-shadow-md">
         <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
-          <CategoryComponent></CategoryComponent>
+          <Category />
         </div>
         <div className="flex flex-wrap justify-around">
           {loading ? (
