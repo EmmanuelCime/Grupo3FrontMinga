@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getChapter } from "../store/actions/chapterAction";
+import {
+    fetchCommentsByChapter,
+    createComment,
+    updateComment,
+    deleteComment
+} from "../store/actions/commentsAction";
 import ModalComments from "../Components/ModelComments";
-// import Badge from "../Components/Badge";
 import emojiLike from "../assets/emojiLike.png";
 import emojiDislike from "../assets/emojiDislike.png";
 import emojiLove from "../assets/emojiLove.png";
@@ -12,6 +17,7 @@ import emojiWow from "../assets/emojiWow.png";
 export default function Chapter() {
     const dispatch = useDispatch();
     const { chapters, loading, error } = useSelector((state) => state.chapterReducer);
+    const { comments, loading: commentsLoading, error: commentsError } = useSelector((state) => state.comments);
     const [view, setView] = useState("manga");
     const { id } = useParams();
 
@@ -22,9 +28,10 @@ export default function Chapter() {
     }, [dispatch, id]);
 
     const [selectedChapter, setSelectedChapter] = useState(null);
-    const [comments, setComments] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedReaction, setSelectedReaction] = useState("");
+    const [newComment, setNewComment] = useState("");
+    const [editingComment, setEditingComment] = useState(null);
 
     const reactions = [
         { id: "like", img: emojiLike, alt: "Like" },
@@ -33,26 +40,63 @@ export default function Chapter() {
         { id: "love", img: emojiLove, alt: "Love" },
     ];
 
-    const mockComments = {
-        1: [
-            { user: "Juan", text: "¡Me encantó este capítulo!" },
-            { user: "Ana", text: "La historia está mejorando mucho." },
-        ],
-        2: [
-            { user: "Carlos", text: "El final estuvo increíble." },
-            { user: "Laura", text: "¿Cuándo sale el siguiente?" },
-        ],
-    };
-
     const openCommentsModal = (chapter) => {
         setSelectedChapter(chapter);
-        setComments(mockComments[chapter.id] || []);
+        dispatch(fetchCommentsByChapter(chapter._id));
         setIsModalOpen(true);
     };
 
     const closeCommentsModal = () => {
         setIsModalOpen(false);
         setSelectedChapter(null);
+        setNewComment("");
+        setEditingComment(null);
+    };
+
+    const handleCreateComment = () => {
+        if (selectedChapter && newComment.trim()) {
+            dispatch(
+                createComment({
+                    chapterId: selectedChapter._id,
+                    message: newComment,
+                })
+            ).then(() => {
+                dispatch(fetchCommentsByChapter(selectedChapter._id));
+                setNewComment("");
+            });
+        }
+    };
+
+    const handleUpdateComment = () => {
+        if (!editingComment?.message.trim()) {
+            console.error("Datos inválidos para actualizar el comentario");
+            return;
+        }
+        dispatch(updateComment({ commentId: editingComment._id, message: editingComment.message }))
+            .then((result) => {
+                if (updateComment.fulfilled.match(result)) {
+                    dispatch(fetchCommentsByChapter(selectedChapter._id));
+                    setEditingComment(null);
+                } else {
+                    console.error("Error al actualizar el comentario:", result.payload);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al manejar la actualización:", error);
+            });
+    };
+    
+
+    const handleDeleteComment = (commentId) => {
+        dispatch(deleteComment(commentId)).then(() => {
+            if (selectedChapter) {
+                dispatch(fetchCommentsByChapter(selectedChapter._id));
+            }
+        });
+    };
+
+    const startEditing = (comment) => {
+        setEditingComment({ ...comment });
     };
 
     const handleChange = (reactionId) => {
@@ -65,6 +109,7 @@ export default function Chapter() {
     if (!chapters || chapters.length === 0) {
         return <div>Loading Chapter...</div>;
     }
+
 
     return (
         <div className="flex flex-col md:flex-row flex-wrap mx-auto p-3 pt-14 lg:px-16 sm:p-4 sm:pt-16 bg-[#EBEBEB] ">
@@ -168,6 +213,7 @@ export default function Chapter() {
                                             {chapter.title}
                                         </h2>
                                         <div className="flex items-start gap-1">
+                                            {/* button que abre el modal de comentarios */}
                                             <button
                                                 onClick={() => openCommentsModal(chapter)}
                                             >
@@ -212,7 +258,17 @@ export default function Chapter() {
                     isOpen={isModalOpen}
                     onClose={closeCommentsModal}
                     chapterId={selectedChapter?._id}
-                    comments={comments}
+                    comments={comments} 
+                    
+                    newComment={newComment}
+                    setNewComment={setNewComment}
+                    onCreateComment={handleCreateComment}
+                    onUpdateComment={handleUpdateComment}
+                    onDeleteComment={handleDeleteComment}
+                    editingComment={editingComment}
+                    setEditingComment={setEditingComment}
+                    loading={commentsLoading}
+                    error={commentsError}
                 />
             </div>
         </div>

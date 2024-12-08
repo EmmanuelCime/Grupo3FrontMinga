@@ -1,79 +1,123 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCommentsByChapter } from "../store/actions/commentsAction";
-
-export default function ModalComments({ isOpen, onClose, chapterId }) {
-  const dispatch = useDispatch();
-  const { comments, loading, error } = useSelector((state) => state.comments);
-  const [newComment, setNewComment] = useState("");
-
-  useEffect(() => {
-    if (isOpen && chapterId) {
-      console.log("Fetching comments for chapter:", chapterId); // Debug
-      dispatch(fetchCommentsByChapter(chapterId));
-    }
-  }, [isOpen, chapterId, dispatch]);
-
-  const handleAddComment = () => {
-    if (newComment.trim() === "") return;
-    // Aquí puedes agregar lógica para enviar el nuevo comentario al backend
-    setNewComment("");
-  };
-
+export default function ModalComments({
+  isOpen,
+  onClose,
+  comments = [],
+  newComment,
+  setNewComment,
+  onCreateComment,
+  onUpdateComment,
+  onDeleteComment,
+  editingComment,
+  setEditingComment,
+  loading,
+  error
+}) {
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-lg relative">
-        <h2 className="text-2xl font-bold mb-4">Comments</h2>
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
-        >
-          ✖️
-        </button>
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (editingComment) {
+      setEditingComment({ ...editingComment, message: value });
+    } else {
+      setNewComment(value);
+    }
+  };
 
-        {loading ? (
-          <p>Loading comments...</p>
-        ) : error ? (
-          <p className="text-red-500">{error}</p>
-        ) : (
-          <div className="space-y-6 overflow-y-auto h-full">
-            {comments && comments.length > 0 ? (
-              comments.map((comment, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
-                  <div className="flex items-start gap-4">
-                    <img
-                      src={comment.authorId?.photo || "https://via.placeholder.com/50"}
-                      alt="Avatar"
-                      className="w-12 h-12 rounded-full border border-gray-300"
-                    />
-                    <div>
-                      <p className="font-semibold text-gray-800">{comment.authorId?.name}</p>
-                      <p className="text-gray-700 mt-1">{comment.text}</p>
+  const handleAction = () => {
+    if (editingComment) {
+      onUpdateComment(editingComment._id);
+    } else {
+      onCreateComment();
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-[80vh] overflow-y-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">Comments</h2>
+          <button 
+            onClick={onClose} 
+            className="text-gray-600 hover:text-gray-900"
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* Loading/Error Indicators */}
+        {loading && <p>Loading comments...</p>}
+        {error && <p className="text-red-500">Error: {error}</p>}
+
+        {/* Comments List */}
+        <div className="space-y-4 mb-4">
+          {comments.length === 0 ? (
+            <p className="text-gray-500">No comments yet</p>
+          ) : (
+            comments.map((comment) => (
+              <div 
+                key={comment._id} 
+                className="bg-gray-100 p-3 rounded-lg shadow-md"
+              >
+                <div className="flex items-start space-x-3">
+                  <img 
+                    src="https://randomuser.me/api/portraits/men/32.jpg" 
+                    alt="User Avatar" 
+                    className="w-10 h-10 rounded-full object-cover" 
+                  />
+                  <div className="flex-grow">
+                    <p className="font-semibold">Ignacio Borraz</p> {/* Replace with dynamic name */}
+                    <p>{comment.message}</p>
+                    <div className="flex space-x-2 mt-2">
+                      <button 
+                        onClick={() => setEditingComment(comment)}
+                        className="text-blue-500 hover:text-blue-700 flex items-center space-x-1"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 20h9"></path>
+                          <path d="M12 4h9"></path>
+                          <path d="M5 4h4"></path>
+                          <path d="M5 20h4"></path>
+                        </svg>
+                        <span>Edit</span>
+                      </button>
+                      <button 
+                        onClick={() => onDeleteComment(comment._id)}
+                        className="text-red-500 hover:text-red-700 flex items-center space-x-1"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M18 6L6 18"></path>
+                          <path d="M6 6L18 18"></path>
+                        </svg>
+                        <span>Delete</span>
+                      </button>
                     </div>
                   </div>
                 </div>
-              ))
-            ) : (
-              <p>No comments available.</p>
-            )}
-          </div>
-        )}
+              </div>
+            ))
+          )}
+        </div>
 
-        <div className="flex items-center mt-4 border-t pt-3">
-          <input
-            type="text"
-            placeholder="Say something here..."
-            className="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none"
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
+        {/* Input Section */}
+        <div className="flex items-center space-x-3 mt-4">
+          <img 
+            src="https://randomuser.me/api/portraits/men/32.jpg" 
+            alt="User Avatar" 
+            className="w-10 h-10 rounded-full object-cover" 
           />
-          <button
-            onClick={handleAddComment}
-            className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600"
+          <input 
+            type="text"
+            value={editingComment ? editingComment.message : newComment}
+            onChange={handleInputChange}
+            placeholder="Say something here..."
+            className="flex-grow p-3 border rounded-lg shadow-md"
+          />
+          <button 
+            onClick={handleAction}
+            className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600"
           >
-            Add
+            {editingComment ? 'Update' : 'Send'}
           </button>
         </div>
       </div>
