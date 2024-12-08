@@ -34,10 +34,10 @@ export default function Chapter() {
     const [editingComment, setEditingComment] = useState(null);
 
     const reactions = [
-        { id: "like", img: emojiLike, alt: "Like" },
-        { id: "dislike", img: emojiDislike, alt: "Dislike" },
-        { id: "wow", img: emojiWow, alt: "Wow" },
-        { id: "love", img: emojiLove, alt: "Love" },
+        { id: "1", img: emojiLike, alt: "Like" },
+        { id: "2", img: emojiDislike, alt: "Dislike" },
+        { id: "3", img: emojiWow, alt: "Wow" },
+        { id: "4", img: emojiLove, alt: "Love" },
     ];
 
     const openCommentsModal = (chapter) => {

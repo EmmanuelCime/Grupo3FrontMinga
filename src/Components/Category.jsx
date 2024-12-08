@@ -22,7 +22,7 @@ const Category = () => {
             {/* Botón de "All" */}
             <button
                 onClick={() => handleCategorySelect(null)} // null representa "todas las categorías"
-                className={`px-2 m-1 rounded-full font-medium ${
+                className={`px-2 m-1 rounded-full text-xs  md:font-semmibold ${
                     !selectedCategory ? "ring-2 ring-orange-400" : "bg-gray-400"
                 }`}
             >
@@ -34,7 +34,7 @@ const Category = () => {
                 <button
                     key={category._id}
                     onClick={() => handleCategorySelect(category.name)}
-                    className={`px-2 m-1 rounded-full font-medium ${
+                    className={`py-2 px-3 m-1 rounded-full text-xs md:font-semmibold ${
                         selectedCategory === category.name ? "ring-2 ring-orange-400" : ""
                     }`}
                     style={{
