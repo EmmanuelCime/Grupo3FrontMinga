@@ -2,25 +2,64 @@ import { useState } from "react"
 import avatarProfile from "../assets/avatarProfile.jpg"
 import ButtonSave from "./ButtonSave"
 import ButtonDelete from "./ButtonDelete"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAuthor } from "../store/actions/authorAction";
 
 
-export default function FormAuthor({className}) {
+export default function FormAuthor({ className }) {
+    const { allAuthor, loading, error } = useSelector((state) => state.authorReducer)
+    const dispatch = useDispatch()
+
     const [formData, setFormData] = useState({
-        firstName: "Lucas Ezequiel",
-        lastName: "Silva",
-        location: "Caseros, Buenos Aires",
-        date: "28/12/2022",
+        firstName: "",
+        lastName: "",
+        city: "",
+        country: "",
+        date: "",
         profileImage: avatarProfile,
     })
+
+    useEffect(() => {
+        dispatch(getAuthor())
+            .unwrap()
+            .then(() => console.log("Authors fetched successfully"))
+            .catch((err) => console.error("Error fetching authors:", err))
+    }, [dispatch])
+
+    useEffect(() => {
+        if (allAuthor && allAuthor.length > 0) {
+            const author = allAuthor?.find((author) => author.userId === "67535b12fbb8780454bac7df");
+            console.log("Author:", author);
+            if (author) {
+                setFormData({
+                    firstName: author?.name,
+                    lastName: author?.lastName,
+                    city: author?.city,
+                    country: author?.country,
+                    date: author?.dateBorn,
+                    profileImage: author?.photo || avatarProfile,
+                })
+            }
+        }
+    },[allAuthor])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
     }
 
+    if (loading) {
+        return <div>Cargando autores...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
     return (
-        <div 
-        className={`flex items-center justify-center p-4 gap-8 md:flex-row sm:gap-x-20 lg:mt-66 md:mt-60 lg:gap-x-60 md:gap-x-28 flex-col-reverse bg-[#EBEBEB]  sm:bg-white ${className}`}>
+        <div
+            className={`flex items-center justify-center p-4 gap-8 md:flex-row sm:gap-x-20 lg:mt-66 md:mt-60 lg:gap-x-60 md:gap-x-28 flex-col-reverse bg-[#EBEBEB]  sm:bg-white ${className}`}>
             {/* Formulario de edición */}
             <div className="w-full max-w-sm space-y-6 md:space-y-4">
                 <input
@@ -41,8 +80,16 @@ export default function FormAuthor({className}) {
                 />
                 <input
                     type="text"
-                    name="location"
-                    value={formData.location}
+                    name="city"
+                    value={formData.city}
+                    onChange={handleInputChange}
+                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600  sm:bg-white bg-[#EBEBEB]"
+                    placeholder="Ubicación"
+                />
+                <input
+                    type="text"
+                    name="country"
+                    value={formData.country}
                     onChange={handleInputChange}
                     className="w-full border-b border-gray-400 outline-none focus:border-gray-600  sm:bg-white bg-[#EBEBEB]"
                     placeholder="Ubicación"
@@ -98,7 +145,7 @@ export default function FormAuthor({className}) {
                                 d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
                             />
                         </svg>
-                        {formData.location}
+                        {`${formData.city}, ${formData.country}`}
                     </p>
                     <p className=" text-gray-600 flex items-center gap-2">
                         <svg
