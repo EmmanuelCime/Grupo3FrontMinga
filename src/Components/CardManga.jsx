@@ -46,25 +46,48 @@ export default function CardManga({ manga, index }) {
 
     return (
         <>
-            <div key={index} className="w-64 h-36 md:w-72 md:h-44 lg:w-96 lg:h-48 flex justify-between sm:m-3 items-center mt-4 mb-1 rounded-2xl shadow-md overflow-hidden ">
-                <div className="min-w-1 h-24 md:h-28 text-xs " style={{
-                    backgroundColor: manga.categoryId.hover,
-                }}></div>
-                <div>
-                    <div className="h-full min-w-36 lg:min-w-52 flex flex-col justify-center space-y-2 lg:space-y-1 items-start pl-2 pt-6 lg:pt-8 mt-3 mr-3 mb-2 ">
-                        {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyTop id={manga._id} />) : ("")}
-                        <p className="text-xs md:text-lg font-bold">{manga.title}</p>
-                        <p className="text-xs md:text-lg font-semibold " style={{
-                            color: manga.categoryId.hover,
+            <div
+  key={index}
+  className="w-64 h-36 md:w-80 md:h-44 lg:w-96 lg:h-48 flex justify-between sm:m-3 items-center mt-4 mb-1 rounded-2xl shadow-md overflow-hidden relative"
+>
+  <div
+    className="min-w-1 h-24 md:h-28 text-xs"
+    style={{
+      backgroundColor: manga.categoryId.hover,
+    }}
+  ></div>
+  <div>
+    <div className="h-full min-w-40 lg:min-w-52 flex flex-col justify-center space-y-1 lg:space-y-1 items-start pl-3">
+      {isEditPage && manga.role !== 0 ? <BtnAuthCompanyTop id={manga._id} /> : ""}
+      <p className="text-xs md:text-lg font-bold">{manga.title}</p>
+      <p
+        className="text-xs md:text-md font-semibold"
+        style={{
+          color: manga.categoryId.hover,
+        }}
+      >
+        {manga.categoryId.name}
+      </p>
+    </div>
 
-                        }}>{manga.categoryId.name}</p>
-                    </div>
-                    <div className="flex justify-start ml-2 pb-2">
-                    {isEditPage && manga.role !== 0 ? (<BtnAuthCompanyBottom />) : (<Link to={`/chapter/${manga._id}`} className="text-xs py-1 px-4 rounded-full bg-green-200 text-green-600 mt-3 md:text-sm lg:mt-6">Read</Link>)}
-                    </div>
-                </div>
-                <img className="max-w-28 sm:min-w-32 lg:min-w-40 h-full object-cover rounded-tl-full rounded-bl-full  " src={manga.coverPhoto} alt={manga.title} />
-            </div>
+    {isEditPage && manga.role !== 0 ? (
+      <BtnAuthCompanyBottom />
+    ) : (
+      <Link
+        to={`/chapter/${manga._id}`}
+        className="text-xs py-1.5 px-4 rounded-full bg-green-200 text-green-600 md:text-sm absolute bottom-3   left-3"
+      >
+        Read
+      </Link>
+    )}
+  </div>
+  <img
+    className="max-w-28 sm:min-w-32 lg:min-w-40 h-full object-cover rounded-tl-full rounded-bl-full"
+    src={manga.coverPhoto}
+    alt={manga.title}
+  />
+</div>
+
         </>
     )
 }
