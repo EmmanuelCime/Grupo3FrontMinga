@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       { path: "/mangas", element: <PrivateRoute><Mangas /></PrivateRoute> },
       { path: "/manager", element: <PrivateRoute><Manager /></PrivateRoute> },
       { path: "/adminpanel", element: <PrivateRoute><AdminPanel /></PrivateRoute> },
-      { path: "/profile", element: <Profile /> },
+      { path: "/profile", element: <PrivateRoute><Profile /></PrivateRoute> },
       { path: "/chapter/:id", element: <PrivateRoute><Chapter /></PrivateRoute> },
       { path: "/details/:id", element: <PrivateRoute><ChapterDetails /></PrivateRoute> },
       { path: "/edit/author", element: <PrivateRoute><EditAuthor /></PrivateRoute> },
