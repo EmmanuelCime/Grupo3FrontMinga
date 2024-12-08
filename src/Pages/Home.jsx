@@ -39,8 +39,8 @@ function Home() {
         if (tokenUrl) {
             localStorage.setItem("token", tokenUrl)
             loginWithToken(token)
-                .then((user) => {
-                    dispatch(setUser({ user, token }))
+                .then((data) => {
+                    dispatch(setUser({ data, token }))
                 })
         }
         navigate("/home")

@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
-const uri_render = "https://grupo3backminga.onrender.com/"
+const uri_render = "http://localhost:8080/"
 
 export const setUser = createAction("setUser", (datos) => {
     return { payload: datos }
@@ -17,6 +17,8 @@ export const signIn = createAsyncThunk("login", async ({ email, password }, { re
         return {
             user: response.data.user,
             token: response.data.token,
+            company: response.data.company,
+            author: response.data.author
         }
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || "Login Error credentials invalid")

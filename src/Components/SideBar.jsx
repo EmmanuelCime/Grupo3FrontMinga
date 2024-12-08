@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import avatarProfile from "../assets/avatarProfile.jpg";
 import mingaLogotype from "../assets/mingaLogotype.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../store/actions/authAction"
+import { setUser, signOut } from "../store/actions/authAction"
+import axios from "axios";
 
 
 const routes = [
@@ -18,6 +19,25 @@ const routes = [
   { to: "/newrole", text: "Change Role" },
   { to: "/favorites", text: "Favorites" },
 ]
+const loginWithToken = async (token) => {
+  const uri_render = "http://localhost:8080/"
+  try {
+      const response = await axios.get(`${uri_render}api/auth/tokenVerification`,
+          {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              },
+          }
+      )
+      console.log(response.data);
+      
+      return response.data
+  } catch (error) {
+      console.error("Error validando el token", error)
+      return null
+  }
+}
+
 
 export default function SidebarWithToggle() {
   const { user, token } = useSelector((state) => state.authReducer)
@@ -25,6 +45,17 @@ export default function SidebarWithToggle() {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    
+    const tokenLocal = localStorage.getItem("token")
+    if (tokenLocal) {
+        loginWithToken(tokenLocal)
+            .then((data) => {
+                dispatch(setUser({ data, token:tokenLocal }))
+            })
+    }
+}, [])
 
   const lineColor = location.pathname.startsWith("/details") ? "bg-white" : "bg-orange-500";
   const isUser = user?.role === 0 && token;
