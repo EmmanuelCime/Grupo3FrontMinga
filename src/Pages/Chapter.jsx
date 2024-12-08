@@ -2,77 +2,114 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getChapter } from "../store/actions/chapterAction";
-import ModalComments from "../Components/ListComment";
-//import Badge from "../Components/Badge";
+import {
+    fetchCommentsByChapter,
+    createComment,
+    updateComment,
+    deleteComment
+} from "../store/actions/commentsAction";
+import ModalComments from "../Components/ModelComments";
 import emojiLike from "../assets/emojiLike.png";
 import emojiDislike from "../assets/emojiDislike.png";
 import emojiLove from "../assets/emojiLove.png";
-import emojiWow from "../assets/emojiWow.png"
-
-/*function Badge({ category }) {
-    return (
-        <span className="bg-[#FFE0DF] text-[#EF8481] text-sm font-medium px-4 py-2 rounded-full shadow-md">
-            {category}
-        </span>
-    )
-}*/
+import emojiWow from "../assets/emojiWow.png";
 
 export default function Chapter() {
-    const dispatch = useDispatch()
-    const { chapters, loading, error } = useSelector((state) => state.chapterReducer)
-    const [view, setView] = useState("manga")
-    const { id } = useParams()
-    
+    const dispatch = useDispatch();
+    const { chapters, loading, error } = useSelector((state) => state.chapterReducer);
+    const { comments, loading: commentsLoading, error: commentsError } = useSelector((state) => state.comments);
+    const [view, setView] = useState("manga");
+    const { id } = useParams();
+
     useEffect(() => {
         dispatch(getChapter(id))
             .unwrap()
             .catch((err) => console.error("Error fetching chapter:", err));
-    }, [dispatch, id])
+    }, [dispatch, id]);
 
     const [selectedChapter, setSelectedChapter] = useState(null);
-    const [comments, setComments] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedReaction, setSelectedReaction] = useState("");
+    const [newComment, setNewComment] = useState("");
+    const [editingComment, setEditingComment] = useState(null);
 
     const reactions = [
         { id: "like", img: emojiLike, alt: "Like" },
         { id: "dislike", img: emojiDislike, alt: "Dislike" },
         { id: "wow", img: emojiWow, alt: "Wow" },
         { id: "love", img: emojiLove, alt: "Love" },
-    ]
-
-    const mockComments = {
-        1: [
-            { user: "Juan", text: "¡Me encantó este capítulo!" },
-            { user: "Ana", text: "La historia está mejorando mucho." },
-        ],
-        2: [
-            { user: "Carlos", text: "El final estuvo increíble." },
-            { user: "Laura", text: "¿Cuándo sale el siguiente?" },
-        ],
-    }
+    ];
 
     const openCommentsModal = (chapter) => {
-        setSelectedChapter(chapter)
-        setComments(mockComments[chapter.id] || [])
-        setIsModalOpen(true)
-    }
+        setSelectedChapter(chapter);
+        dispatch(fetchCommentsByChapter(chapter._id));
+        setIsModalOpen(true);
+    };
 
     const closeCommentsModal = () => {
-        setIsModalOpen(false)
-        setSelectedChapter(null)
-    }
+        setIsModalOpen(false);
+        setSelectedChapter(null);
+        setNewComment("");
+        setEditingComment(null);
+    };
+
+    const handleCreateComment = () => {
+        if (selectedChapter && newComment.trim()) {
+            dispatch(
+                createComment({
+                    chapterId: selectedChapter._id,
+                    message: newComment,
+                })
+            ).then(() => {
+                dispatch(fetchCommentsByChapter(selectedChapter._id));
+                setNewComment("");
+            });
+        }
+    };
+
+    const handleUpdateComment = () => {
+        if (!editingComment?.message.trim()) {
+            console.error("Datos inválidos para actualizar el comentario");
+            return;
+        }
+        dispatch(updateComment({ commentId: editingComment._id, message: editingComment.message }))
+            .then((result) => {
+                if (updateComment.fulfilled.match(result)) {
+                    dispatch(fetchCommentsByChapter(selectedChapter._id));
+                    setEditingComment(null);
+                } else {
+                    console.error("Error al actualizar el comentario:", result.payload);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al manejar la actualización:", error);
+            });
+    };
+    
+
+    const handleDeleteComment = (commentId) => {
+        dispatch(deleteComment(commentId)).then(() => {
+            if (selectedChapter) {
+                dispatch(fetchCommentsByChapter(selectedChapter._id));
+            }
+        });
+    };
+
+    const startEditing = (comment) => {
+        setEditingComment({ ...comment });
+    };
 
     const handleChange = (reactionId) => {
-        setSelectedReaction(reactionId)
-    }
+        setSelectedReaction(reactionId);
+    };
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error: {error}</p>
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     if (!chapters || chapters.length === 0) {
-        return <div>Loading Chapter...</div>
+        return <div>Loading Chapter...</div>;
     }
+
 
     return (
         <div className="flex flex-col md:flex-row flex-wrap mx-auto p-3 pt-14 lg:px-16 sm:p-4 sm:pt-16 bg-[#EBEBEB] ">
@@ -89,9 +126,8 @@ export default function Chapter() {
             <div className="md:w-1/2 flex flex-col gap-6 md:p-2">
                 <div>
                     <h1 className="text-4xl font-bold text-gray-800 mt-4 md:text-5xl ">{chapters[0].mangaId.title}</h1>
-                        <div className="flex space-x-32 md:space-x-50 lg:space-x-60 mt-4 lg:py-3">
-                       { /*<Badge category={chapters[0].mangaId.categoryId.name} />*/}
-                        
+                    <div className="flex space-x-32 md:space-x-50 lg:space-x-60 mt-4 lg:py-3">
+                        {/*<Badge category={chapters[0].mangaId.categoryId.name} />*/}
                         {/* <p className="text-sm py-2 font-semibold text-gray-500">Name Company</p> */}
                     </div>
                 </div>
@@ -106,12 +142,12 @@ export default function Chapter() {
                                 value={reaction.id}
                                 checked={selectedReaction === reaction.id}
                                 onChange={() => handleChange(reaction.id)}
-                                className="hidden" 
+                                className="hidden"
                             />
                             <div
                                 className={`flex items-center justify-center w-14 h-14 p-2 xl:w-18 xl:h-18 rounded-full shadow-md cursor-pointer transition-colors ${selectedReaction === reaction.id
-                                        ? "bg-orange-400"
-                                        : "bg-white hover:bg-gray-200"
+                                    ? "bg-orange-400"
+                                    : "bg-white hover:bg-gray-200"
                                     }`}
                             >
                                 <img src={reaction.img} alt={reaction.alt} />
@@ -177,6 +213,7 @@ export default function Chapter() {
                                             {chapter.title}
                                         </h2>
                                         <div className="flex items-start gap-1">
+                                            {/* button que abre el modal de comentarios */}
                                             <button
                                                 onClick={() => openCommentsModal(chapter)}
                                             >
@@ -195,7 +232,6 @@ export default function Chapter() {
                                                     />
                                                 </svg>
                                             </button>
-
                                             <p className="text-xs sm:text-sm mt-1 text-gray-500 ">
                                                 {chapter.pages.length} Pages
                                             </p>
@@ -211,28 +247,30 @@ export default function Chapter() {
                         </div>
                     )}
                     {view === "manga" && (
-                        <>
-                            <p className="text-gray-500 p-2 md:p-3">{chapters[0].mangaId.description}</p>
-                        </>
+                        <p className="text-gray-500 p-2 md:p-3">{chapters[0].mangaId.description}</p>
                     )}
-
                 </div>
             </div>
+
             {/* Modal Comments */}
             <div className="flex flex-col gap-4">
-
-                {/* Modal de comentarios */}
                 <ModalComments
                     isOpen={isModalOpen}
                     onClose={closeCommentsModal}
-                    chapter={selectedChapter}
-                    comments={comments}
+                    chapterId={selectedChapter?._id}
+                    comments={comments} 
+                    
+                    newComment={newComment}
+                    setNewComment={setNewComment}
+                    onCreateComment={handleCreateComment}
+                    onUpdateComment={handleUpdateComment}
+                    onDeleteComment={handleDeleteComment}
+                    editingComment={editingComment}
+                    setEditingComment={setEditingComment}
+                    loading={commentsLoading}
+                    error={commentsError}
                 />
             </div>
         </div>
     );
 }
-
-
-
-

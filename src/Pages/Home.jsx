@@ -28,6 +28,7 @@ const loginWithToken = async (token) => {
 
 function Home() {
     const { user, token, loading, error } = useSelector((state) => state.authReducer)
+    const { allCategory } = useSelector((state) => state.categoryReducer)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
