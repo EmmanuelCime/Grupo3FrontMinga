@@ -4,8 +4,16 @@ import axios from "axios";
 const uri_render = "https://grupo3backminga.onrender.com/"
 
 export const getChapter = createAsyncThunk("GET_CHAPTER", async (id, { rejectWithValue }) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        throw new Error("User is not logged in.")
+    }
     try {
-        const response = await axios.get(`${uri_render}api/chapter/chapterByManga/${id}`)
+        const response = await axios.get(`${uri_render}api/chapter/chapterByManga/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
         
         return response.data.chapters
     } catch (error) {
@@ -14,8 +22,16 @@ export const getChapter = createAsyncThunk("GET_CHAPTER", async (id, { rejectWit
 })
 
 export const getAllChapter = createAsyncThunk("GET_All_CHAPTER", async (_, { rejectWithValue }) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        throw new Error("User is not logged in.")
+    }
     try {
-        const response = await axios.get(`${uri_render}api/chapter/all`)
+        const response = await axios.get(`${uri_render}api/chapter/all`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
 
         return response.data.chapters
     } catch (error) {
