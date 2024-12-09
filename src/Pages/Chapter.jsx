@@ -24,22 +24,26 @@ export default function Chapter() {
     const dispatch = useDispatch();
     const { chapters, loading, error } = useSelector((state) => state.chapterReducer);
     const { comments, loading: commentsLoading, error: commentsError } = useSelector((state) => state.comments);
+    const { author, company, user, role } = useSelector((state) => state.authReducer);
+
+     // Debug logs for authentication
+     console.log("Authentication Debug:");
+     console.log("Author:", author);
+     console.log("Company:", company);
+     console.log("User:", user);
+     console.log("Role:", role);
+    
     const [view, setView] = useState("manga");
     const { id } = useParams();
-    // const { reactions, userReaction, loading: reactionsLoading } = useSelector((state) => state.reactions);
-
-
-    useEffect(() => {
-        dispatch(getChapter(id))
-            .unwrap()
-            .catch((err) => console.error("Error fetching chapter:", err));
-    }, [dispatch, id]);
-
+    
     const [selectedChapter, setSelectedChapter] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedReaction, setSelectedReaction] = useState("");
     const [newComment, setNewComment] = useState("");
     const [editingComment, setEditingComment] = useState(null);
+
+    // Determine if the user has permission to interact
+    const canInteract = user && (role === 1 || role === 2); // Author or Company
 
     const reactions = [
         { id: "1", img: emojiLike, alt: "Like" },
@@ -48,11 +52,18 @@ export default function Chapter() {
         { id: "4", img: emojiLove, alt: "Love" },
     ];
 
-    const openCommentsModal = (chapter) => {
+    useEffect(() => {
+        dispatch(getChapter(id))
+            .unwrap()
+            .catch((err) => console.error("Error fetching chapter:", err));
+    }, [dispatch, id]);
+
+    const openCommentsModal = (chapter) => {    
         setSelectedChapter(chapter);
         dispatch(fetchCommentsByChapter(chapter._id));
         setIsModalOpen(true);
     };
+
 
     const closeCommentsModal = () => {
         setIsModalOpen(false);
@@ -87,19 +98,27 @@ export default function Chapter() {
     //     }
     // };
 
-    const handleCreateComment = () => {
-        if (selectedChapter && newComment.trim()) {
-            dispatch(
-                createComment({
-                    chapterId: selectedChapter._id,
-                    message: newComment,
-                })
-            ).then(() => {
+   const handleCreateComment = () => {
+    if (newComment.trim()) {
+        dispatch(
+            createComment({
+                chapterId: selectedChapter._id,
+                message: newComment,
+                authorId: author?._id,
+                companyId: company?._id,
+            })
+        )
+            .then(() => {
                 dispatch(fetchCommentsByChapter(selectedChapter._id));
                 setNewComment("");
+            })
+            .catch((error) => {
+                console.error("Error creating comment:", error);
             });
-        }
-    };
+    } else {
+        console.warn("Comment message cannot be empty.");
+    }
+};
 
     const handleUpdateComment = () => {
         if (!editingComment?.message.trim()) {
@@ -289,22 +308,21 @@ export default function Chapter() {
 
             {/* Modal Comments */}
             <div className="flex flex-col gap-4">
-                <ModalComments
-                    isOpen={isModalOpen}
-                    onClose={closeCommentsModal}
-                    chapterId={selectedChapter?._id}
-                    comments={comments} 
-                    
-                    newComment={newComment}
-                    setNewComment={setNewComment}
-                    onCreateComment={handleCreateComment}
-                    onUpdateComment={handleUpdateComment}
-                    onDeleteComment={handleDeleteComment}
-                    editingComment={editingComment}
-                    setEditingComment={setEditingComment}
-                    loading={commentsLoading}
-                    error={commentsError}
-                />
+            <ModalComments
+    isOpen={isModalOpen}
+    onClose={closeCommentsModal}
+    chapterId={selectedChapter?._id}
+    comments={comments} 
+    newComment={newComment}
+    setNewComment={setNewComment}
+    onCreateComment={handleCreateComment}
+    onUpdateComment={handleUpdateComment}
+    onDeleteComment={handleDeleteComment}
+    editingComment={editingComment}
+    setEditingComment={setEditingComment}
+    loading={commentsLoading}
+    error={commentsError}
+/>
             </div>
         </div>
     );
