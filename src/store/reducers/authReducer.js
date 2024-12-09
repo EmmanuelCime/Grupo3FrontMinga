@@ -25,8 +25,6 @@ const authReducer = createReducer(initialState, (builder) => {
             state.author = null
         })
         .addCase(signIn.fulfilled, (state, action) => {
-            console.log(action.payload, "lo que esta en el back-------");
-            
             state.loading = false
             state.error = null
             state.user = action.payload.user

@@ -12,7 +12,7 @@ import { signUp } from "../store/actions/authAction";
 export default function SignUp() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { loading, error, user } = useSelector((state) => state.authReducer)
+  const { user } = useSelector((state) => state.authReducer)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
