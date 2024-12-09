@@ -7,6 +7,9 @@ const initialState = {
     error: null,
     user: null,
     token: null,
+    author: null,
+    company: null,
+    switchRole: false,
     role: null
 }
 
@@ -18,13 +21,19 @@ const authReducer = createReducer(initialState, (builder) => {
             state.user = null
             state.token = null
             state.role = null
+            state.company = null
+            state.author = null
         })
         .addCase(signIn.fulfilled, (state, action) => {
+            console.log(action.payload, "lo que esta en el back-------");
+            
             state.loading = false
             state.error = null
             state.user = action.payload.user
             state.token = action.payload.token
             state.role = action.payload.user.role
+            state.company = action.payload.company
+            state.author = action.payload.author
             localStorage.setItem("token", action.payload.token)
         })
         .addCase(signIn.rejected, (state, action) => {
@@ -33,12 +42,16 @@ const authReducer = createReducer(initialState, (builder) => {
             state.user = null
             state.token = null
             state.role = null
+            state.company = null
+            state.author = null
             localStorage.removeItem("token")
         })
         .addCase(setUser, (state, action) => {
             state.user = action.payload.user
             state.token = action.payload.token
             state.role = action.payload.user.role
+            state.company = action.payload.company
+            state.author = action.payload.author
         })
         .addCase(signOut, (state) => {
             localStorage.removeItem("token")
@@ -46,6 +59,8 @@ const authReducer = createReducer(initialState, (builder) => {
             state.token = null
             state.error = null
             state.role = null
+            state.company = null
+            state.author = null
         })
         .addCase(signUp.pending, (state) => {
             state.loading = true;
