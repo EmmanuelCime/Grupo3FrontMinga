@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const uri_render = "http://localhost:8080/"//"https://grupo3backminga.onrender.com/"
+const uri_render = "https://grupo3backminga.onrender.com/"
 
 export const getAuthor = createAsyncThunk("GET_AUTHOR", async (_, { rejectWithValue }) => {
     const token = localStorage.getItem("token")
@@ -55,3 +55,21 @@ export const newAuthor = createAsyncThunk("newAuthor", async (newData, { rejectW
         return rejectWithValue(error.response?.data?.message || "Registration failed")
     }
 })
+
+export const deleteAuthor = createAsyncThunk("DELETE_AUTHOR", async (id, { rejectWithValue }) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        throw new Error("User is not logged in.")
+    }
+        try {
+            const response = await axios.delete(`${uri_render}api/authors/delete/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            return { id, message: response.data.message };
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Error deleting author");
+        }
+    }
+);
