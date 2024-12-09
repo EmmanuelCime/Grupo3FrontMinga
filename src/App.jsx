@@ -34,6 +34,7 @@ import LoginRouter from "./Components/privareRouter/LoginRouter.jsx";
 import AuthorCompanyAdminRouter from "./Components/privareRouter/AuthorCompanyAdminRouter.jsx";
 import AuthorRouter from "./Components/privareRouter/AuthorRouter.jsx";
 import CompanyRouter from "./Components/privareRouter/CompanyRouter.jsx";
+import AdminRouter from "./Components/privareRouter/AdminRouter.jsx";
 
 
 const router = createBrowserRouter([
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
       { path: "/home", element: <Home /> },
       { path: "/mangas", element: <Mangas />},
       { path: "/manager", element:<PrivateRoute> <AuthorCompanyAdminRouter><Manager/></AuthorCompanyAdminRouter></PrivateRoute>},
-      { path: "/adminpanel", element: <AuthorCompanyAdminRouter><AdminPanel /></AuthorCompanyAdminRouter> },
+      { path: "/adminpanel", element: <AdminRouter><AdminPanel /></AdminRouter> },
       { path: "/profile", element: <LoginRouter><Profile /></LoginRouter> },
       { path: "/chapter/:id", element: <LoginRouter><Chapter /></LoginRouter>},
       { path: "/details/:id", element: <LoginRouter><ChapterDetails /></LoginRouter> },
