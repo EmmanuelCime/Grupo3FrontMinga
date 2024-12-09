@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const uri_render = "https://jc69yf-8080.csb.app";
+const uri_render = "https://jc69yf-5050.csb.app";
 
 // Async thunk para crear un comentario
 export const createComment = createAsyncThunk(

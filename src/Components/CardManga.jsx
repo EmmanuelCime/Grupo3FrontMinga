@@ -2,17 +2,17 @@ import { Link, useLocation } from "react-router-dom"
 
 const BtnAuthCompanyTop = ({ id }) => {
     return (
-        <div className="flex">
-            <button className="rounded-full border-2 border-solid border-black p-1 ml-2 border-blue">
+        <div className="flex absolute top-1 left-1">
+            <button className="p-1 ml-2">
                 <Link to={`/newChapter/${id}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 border border-solid rounded-full border-black ">
                         <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
                     </svg>
                 </Link>
             </button>
-            <button className="rounded-full border-2 border-solid border-black p-1 ml-2">
+            <button className="p-1">
                 <Link to={`/editManga/${id}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 border border-solid rounded-full border-black">
                         <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                     </svg>
                 </Link>
@@ -23,13 +23,13 @@ const BtnAuthCompanyTop = ({ id }) => {
 
 const BtnAuthCompanyBottom = () => {
     return (
-        <div className="flex">
-            <button className="rounded-2xl font-base bg-purple-200 text-purple-500 px-2">
+        <div className="flex absolute bottom-2 left-3">
+            <button className="rounded-2xl text-xs md:text-sm md:px-4 md:py-2 bg-purple-200 text-purple-500 px-3 py-1">
                 <Link to={"/editManga"}>
                     Edit
                 </Link>
             </button>
-            <button className="rounded-2xl font-base bg-red-200 text-red-500  px-2 ml-2">
+            <button className="rounded-2xl text-xs md:text-sm bg-red-200 text-red-500  px-3 ml-2">
                 <Link to={"/deleteManga"}>
                     Delete
                 </Link>
@@ -43,7 +43,7 @@ export default function CardManga({ manga, index }) {
     const location = useLocation()
 
     const isEditPage = location.pathname === "/manager"
-
+    
     return (
         <>
             <div
