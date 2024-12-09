@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
-const uri_render = "https://grupo3backminga.onrender.com/"
+const uri_render = "http://localhost:8080/"
 
 export const setUser = createAction("setUser", (datos) => {
     return { payload: datos }

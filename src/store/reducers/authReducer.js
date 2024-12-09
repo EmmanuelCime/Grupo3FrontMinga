@@ -24,6 +24,8 @@ const authReducer = createReducer(initialState, (builder) => {
             state.author = null
         })
         .addCase(signIn.fulfilled, (state, action) => {
+            console.log(action.payload, "lo que esta en el back-------");
+            
             state.loading = false
             state.error = null
             state.user = action.payload.user
@@ -44,13 +46,13 @@ const authReducer = createReducer(initialState, (builder) => {
             localStorage.removeItem("token")
         })
         .addCase(setUser, (state, action) => {
-
-     
-            state.user = action.payload.user
+            console.log(action.payload, "el actions");
+            
+            state.user = action.payload.data.user
             state.token = action.payload.token
-            state.role = action.payload.user.role
-            state.company = action.payload.company
-            state.author = action.payload.author
+            state.role = action.payload.data.user.role
+            state.company = action.payload.data.company
+            state.author = action.payload.data.author
         })
         .addCase(signOut, (state) => {
             localStorage.removeItem("token")
