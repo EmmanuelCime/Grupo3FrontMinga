@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const uri_render = "https://jc69yf-5050.csb.app";
+const uri_render = "https://grupo3backminga.onrender.com/";
 
 // Async thunk para crear un comentario
 export const createComment = createAsyncThunk(
   'comments/createComment',
   async ({ chapterId, message }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${uri_render}/api/comment/create`, { 
+      const response = await axios.post(`${uri_render}api/comment/create`, { 
         chapterId,
         message 
       });
@@ -24,7 +24,7 @@ export const fetchCommentsByChapter = createAsyncThunk(
   'comments/fetchByChapter',
   async (chapterId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${uri_render}/api/comment/commentByChapter/${chapterId}`);
+      const response = await axios.get(`${uri_render}api/comment/commentByChapter/${chapterId}`);
       return response.data.comment || response.data; 
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -37,7 +37,7 @@ export const updateComment = createAsyncThunk(
   'comments/updateComment',
   async ({ commentId, message }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${uri_render}/api/comment/update`, {
+      const response = await axios.put(`${uri_render}api/comment/update`, {
         _id: commentId,
         message,
       });
@@ -59,7 +59,7 @@ export const deleteComment = createAsyncThunk(
   'comments/deleteComment',
   async (commentId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`${uri_render}/api/comment/delete`, { 
+      const response = await axios.delete(`${uri_render}api/comment/delete`, { 
         data: { _id: commentId }  
       });
 

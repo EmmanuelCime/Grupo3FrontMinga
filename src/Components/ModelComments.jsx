@@ -33,13 +33,13 @@ export default function ModalComments({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-[80vh] overflow-y-auto">
+      <div className="bg-white rounded-lg py-4 px-3 w-full max-w-md max-h-[80vh] overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Comments</h2>
           <button 
             onClick={onClose} 
-            className="text-gray-600 hover:text-gray-900"
+            className="text-gray-600 text-xl pb-1 hover:text-gray-900"
           >
             &times;
           </button>
@@ -100,25 +100,55 @@ export default function ModalComments({
         </div>
 
         {/* Input Section */}
-        <div className="flex items-center space-x-3 mt-4">
+        <div className="flex items-center sm:space-x-3 mt-4">
           <img 
             src="https://randomuser.me/api/portraits/men/32.jpg" 
             alt="User Avatar" 
-            className="w-10 h-10 rounded-full object-cover" 
+            className="w-10 h-10 rounded-full object-cover hidden sm:block" 
           />
           <input 
             type="text"
             value={editingComment ? editingComment.message : newComment}
             onChange={handleInputChange}
             placeholder="Say something here..."
-            className="flex-grow p-3 border rounded-lg shadow-md"
+            className="flex-grow p-2 border rounded-lg shadow-md"
           />
-          <button 
-            onClick={handleAction}
-            className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600"
-          >
-            {editingComment ? 'Update' : 'Send'}
-          </button>
+         <button
+  onClick={handleAction}
+  className="bg-orange-500 text-white px-3 ml-1 py-2 rounded-lg hover:bg-orange-600"
+>
+  {editingComment ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="h-6 w-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+      />
+    </svg>
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="h-6 w-6" 
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+      />
+    </svg>
+  )}
+</button>
         </div>
       </div>
     </div>
