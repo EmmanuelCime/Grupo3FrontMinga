@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAllChapter } from "../store/actions/chapterAction";
-import { EffectFlip } from "swiper/modules"; // Importa el módulo del efecto Flip
+import { EffectFlip } from "swiper/modules";
 import "swiper/css/effect-flip";
 
 export default function ViewChapter() {

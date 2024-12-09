@@ -120,10 +120,11 @@ export default function SignIn() {
               />
             </svg>
           </div>
-          <div>
+         
           {error && <p
             className="text-red-600 text-base text-center font-medium my-1"
           >{error}</p>}
+          <div>
           {/* Botón de inicio de sesión */}
           <ButtonPrimary onClick={handleSignIn} name="Sign In"></ButtonPrimary>
 
