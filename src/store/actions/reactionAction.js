@@ -1,43 +1,61 @@
-// import { createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-// const BASE_URL = "https://jc69yf-8080.csb.app/";
+const uri_render = "https://grupo3backminga.onrender.com";
 
-// // Fetch reactions
-// export const fetchReactions = createAsyncThunk(
-//     "reaction/fetchReactions",
-//     async (_, { rejectWithValue }) => {
-//       try {
-//         const response = await axios.get(`${BASE_URL}reactions/all`);
-//         return response.data;
-//       } catch (error) {
-//         return rejectWithValue(error.message);
-//       }
-//     }
-//   );
+// Create a new reaction
+export const createReaction = createAsyncThunk(
+    'reactions/createReaction',
+    async ({ chapterId, reactionType }, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${uri_render}/api/reactions`, { 
+                chapterId, 
+                reactionType 
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
-// // Create reaction
-// export const createReaction = createAsyncThunk(
-//     "reaction/createReaction",
-//     async (reactionData, { rejectWithValue }) => {
-//       try {
-//         const response = await axios.post(`${BASE_URL}reactions/create`, reactionData);
-//         return response.data;
-//       } catch (error) {
-//         return rejectWithValue(error.message); 
-//       }
-//     }
-//   );
+// Update an existing reaction
+export const updateReaction = createAsyncThunk(
+    'reactions/updateReaction',
+    async ({ reactionId, reactionType }, { rejectWithValue }) => {
+        try {
+            const response = await axios.put(`${uri_render}/api/reactions/${reactionId}`, { 
+                reactionType 
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
-// // Delete reaction by author
-// export const deleteReactionByAuthor = createAsyncThunk(
-//     "reaction/deleteReactionByAuthor",
-//     async (authorId, { rejectWithValue }) => {
-//       try {
-//         await axios.delete(`${BASE_URL}reactions/deleteByAuthor`, { data: { authorId } });
-//         return authorId;
-//       } catch (error) {
-//         return rejectWithValue(error.message);
-//       }
-//     }
-//   );
+// Delete a reaction
+export const deleteReaction = createAsyncThunk(
+    'reactions/deleteReaction',
+    async (reactionId, { rejectWithValue }) => {
+        try {
+            await axios.delete(`${uri_render}/api/reactions/${reactionId}`);
+            return reactionId;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+// Fetch reactions for a specific chapter
+export const fetchChapterReactions = createAsyncThunk(
+    'reactions/fetchChapterReactions',
+    async (chapterId, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${uri_render}/api/reactions/chapter/${chapterId}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);

@@ -1,13 +1,41 @@
 import favorites from "../assets/favorites.jpg";
 import avatarProfile from "../assets/avatarProfile.jpg";
+// import { useMemo } from "react";
 
-export default function MangaPage() {
+
+export default function Favorites() {
+
+  // logica para cuando funcione los roles 
+  
+  // const dispatch = useDispatch();
+  // const { favorites, loading, error } = useSelector((state) => state.favorites);
+
+  // useEffect(() => {
+  //     if (authorId || companyId) {
+  //         dispatch(fetchFavorites({ authorId, companyId }));
+  //     }
+  // }, [dispatch, authorId, companyId]);
+
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error}</p>;
+
+
+
   const mangas = [
     { title: "Naruto Volume 41", type: "Shonen", status: "Read", img: avatarProfile },
     { title: "Maximum Gantz", type: "Seinen", status: "Read", img: avatarProfile },
     { title: "Rosario To Vampire", type: "Shojo", status: "Read", img: avatarProfile },
     { title: "Vampire Knight Memories", type: "Kodomo", status: "Read", img: avatarProfile },
   ];
+
+// Filtrado de mangas por búsqueda
+// const filteredMangas = useMemo(() => {
+//   if (!search) return allMangas;
+
+//   return allMangas.filter((manga) =>
+//     manga.title.toLowerCase().includes(search.toLowerCase())
+//   );
+// }, [allMangas, search]);
 
   return (
     <div className="min-h-screen flex flex-col">

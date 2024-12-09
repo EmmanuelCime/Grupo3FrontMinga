@@ -13,6 +13,12 @@ import emojiLike from "../assets/emojiLike.png";
 import emojiDislike from "../assets/emojiDislike.png";
 import emojiLove from "../assets/emojiLove.png";
 import emojiWow from "../assets/emojiWow.png";
+// import {
+//     createReaction,
+//     updateReaction,
+//     deleteReaction,
+//     fetchChapterReactions
+// } from "../store/actions/reactionAction";
 
 export default function Chapter() {
     const dispatch = useDispatch();
@@ -20,6 +26,8 @@ export default function Chapter() {
     const { comments, loading: commentsLoading, error: commentsError } = useSelector((state) => state.comments);
     const [view, setView] = useState("manga");
     const { id } = useParams();
+    // const { reactions, userReaction, loading: reactionsLoading } = useSelector((state) => state.reactions);
+
 
     useEffect(() => {
         dispatch(getChapter(id))
@@ -52,6 +60,32 @@ export default function Chapter() {
         setNewComment("");
         setEditingComment(null);
     };
+
+        // manjejo de reaciones 
+    // const handleReactionChange = (reactionId) => {
+    //     // Check if user is authorized to react (author or company)
+    //     if (user && (user.role === 1 || user.role === 2)) {
+    //         if (userReaction) {
+    //             // If already reacted, update or delete
+    //             if (userReaction.reactionType === reactionId) {
+    //                 // Delete reaction if same reaction is selected again
+    //                 dispatch(deleteReaction(userReaction._id));
+    //             } else {
+    //                 // Update reaction
+    //                 dispatch(updateReaction({
+    //                     reactionId: userReaction._id, 
+    //                     reactionType: reactionId
+    //                 }));
+    //             }
+    //         } else {
+    //             // Create new reaction
+    //             dispatch(createReaction({
+    //                 chapterId: id,
+    //                 reactionType: reactionId
+    //             }));
+    //         }
+    //     }
+    // };
 
     const handleCreateComment = () => {
         if (selectedChapter && newComment.trim()) {
@@ -141,7 +175,8 @@ export default function Chapter() {
                                 name="reaction"
                                 value={reaction.id}
                                 checked={selectedReaction === reaction.id}
-                                onChange={() => handleChange(reaction.id)}
+                                // onChange={() => handleReactionChange(reaction.id)}
+                                // disabled={!(user?.role === 1 || user?.role === 2)}
                                 className="hidden"
                             />
                             <div
