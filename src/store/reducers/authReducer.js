@@ -1,7 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { signIn, setUser, signOut, signUp } from "../actions/authAction"
 
-
 const initialState = {
     loading: false,
     error: null,

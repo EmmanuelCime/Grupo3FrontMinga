@@ -1,15 +1,16 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import avatarProfile from "../assets/avatarProfile.jpg"
 import ButtonSave from "./ButtonSave"
 import ButtonDelete from "./ButtonDelete"
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getAuthor } from "../store/actions/authorAction";
-
+import { getAuthor,updateAuthor } from "../store/actions/authorAction";
+import { useNavigate } from "react-router-dom";
 
 export default function FormAuthor({ className }) {
     const { allAuthor, loading, error } = useSelector((state) => state.authorReducer)
+    const { user } = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -29,10 +30,10 @@ export default function FormAuthor({ className }) {
 
     useEffect(() => {
         if (allAuthor && allAuthor.length > 0) {
-            const author = allAuthor?.find((author) => author.userId === "67535b12fbb8780454bac7df");
-            console.log("Author:", author);
+            const author = allAuthor?.find((author) => author.userId === user._id);
             if (author) {
                 setFormData({
+                    id: author?._id,
                     firstName: author?.name,
                     lastName: author?.lastName,
                     city: author?.city,
@@ -42,19 +43,45 @@ export default function FormAuthor({ className }) {
                 })
             }
         }
-    },[allAuthor])
+    }, [allAuthor, user])
+
+    if (loading) {
+        return <div>Loading authors...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
     }
 
-    if (loading) {
-        return <div>Cargando autores...</div>;
-    }
+    const handleSave = () => {
 
-    if (error) {
-        return <div>Error: {error}</div>;
+        const updatedData = {
+            _id: formData.id,
+            name: formData.firstName,
+            lastName: formData.lastName,
+            city: formData.city,
+            country: formData.country,
+            dateBorn: formData.date,
+            photo: formData.profileImage
+        }
+
+        dispatch(updateAuthor({ updatedData: updatedData }))
+            .unwrap()
+            .then(() => {
+                alert("Author updated successfully!")
+                navigate("/home")
+            })
+            .catch((error) => {
+                console.error("Error updating author:", error)
+                alert(error.response || "Failed to update author")
+                navigate("/home")
+            })
+
     }
 
     return (
@@ -111,7 +138,7 @@ export default function FormAuthor({ className }) {
                     placeholder="URL de Imagen de Perfil"
                 />
                 <div className="flex flex-col items-center gap-4">
-                    <ButtonSave name="Save" />
+                    <ButtonSave name="Save" onClick={handleSave}/>
                     <ButtonDelete name="Delete" />
                 </div>
             </div>

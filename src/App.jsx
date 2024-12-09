@@ -1,28 +1,31 @@
+// React Router
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./Pages/Home.jsx";
-import NotFound from "./Pages/NotFound.jsx";
-import StandardLayout from "./Layouts/StandardLayout.jsx";
-import Mangas from "./Pages/Mangas.jsx";
-import Manager from "./Pages/Manager.jsx";
-import SignUp from "./Pages/SignUp.jsx";
-import SignIn from "./Pages/SignIn.jsx";
-import LayoutForms from "./Layouts/LayoutForms.jsx";
-import NewRole from "./Pages/NewRole.jsx";
-import AdminPanel from "./Pages/AdminPanel.jsx";
-import Profile from "./Pages/Profile.jsx";
-import Chapter from "./Pages/Chapter.jsx";
-import ChapterDetails from "./Pages/ChapterDetails.jsx";
-import EditChapter from "./Pages/EditChapter.jsx";
-import EditAuthor from "./Pages/EditAuthor.jsx";
-import EditCompany from "./Pages/EditCompany.jsx";
-import Favorites from "./Pages/Favorites.jsx";
-import EditManga from "./Pages/EditManga.jsx";
-import NewManga from "./Pages/NewManga.jsx";
-import NewChapter from "./Pages/NewChapter.jsx";
-import NewAuthor from "./Pages/NewAuthor.jsx";
-import NewCompany from "./Pages/NewCompany.jsx";
 import PrivateRoute from "./Components/PrivateRoutes.jsx";
 import SignRoute from "./Components/SignRoute.jsx";
+// Layouts
+import StandardLayout from "./Layouts/StandardLayout.jsx";
+import LayoutForms from "./Layouts/LayoutForms.jsx";
+// Pages
+import AdminPanel from "./Pages/AdminPanel.jsx";
+import Chapter from "./Pages/Chapter.jsx";
+import ChapterDetails from "./Pages/ChapterDetails.jsx";
+import EditAuthor from "./Pages/EditAuthor.jsx";
+import EditChapter from "./Pages/EditChapter.jsx";
+import EditCompany from "./Pages/EditCompany.jsx";
+import EditManga from "./Pages/EditManga.jsx";
+import Favorites from "./Pages/Favorites.jsx";
+import Home from "./Pages/Home.jsx";
+import Mangas from "./Pages/Mangas.jsx";
+import Manager from "./Pages/Manager.jsx";
+import NewAuthor from "./Pages/NewAuthor.jsx";
+import NewChapter from "./Pages/NewChapter.jsx";
+import NewCompany from "./Pages/NewCompany.jsx";
+import NewManga from "./Pages/NewManga.jsx";
+import NewRole from "./Pages/NewRole.jsx";
+import NotFound from "./Pages/NotFound.jsx";
+import Profile from "./Pages/Profile.jsx";
+import SignIn from "./Pages/SignIn.jsx";
+import SignUp from "./Pages/SignUp.jsx";
 import { useEffect } from "react";
 import { setUser } from "./store/actions/authAction.js";
 import { useDispatch } from "react-redux";
@@ -40,14 +43,14 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/home", element: <Home /> },
       { path: "/mangas", element: <Mangas />},
-      { path: "/manager", element: <AuthorCompanyAdminRouter><Manager/></AuthorCompanyAdminRouter>},
+      { path: "/manager", element:<PrivateRoute> <AuthorCompanyAdminRouter><Manager/></AuthorCompanyAdminRouter></PrivateRoute>},
       { path: "/adminpanel", element: <AuthorCompanyAdminRouter><AdminPanel /></AuthorCompanyAdminRouter> },
       { path: "/profile", element: <LoginRouter><Profile /></LoginRouter> },
       { path: "/chapter/:id", element: <LoginRouter><Chapter /></LoginRouter>},
       { path: "/details/:id", element: <LoginRouter><ChapterDetails /></LoginRouter> },
       { path: "/edit/author", element: <AuthorRouter><EditAuthor/></AuthorRouter> },
       { path: "/edit/company", element: <CompanyRouter> <EditCompany /></CompanyRouter> },
-      { path: "/favorites", element: <LoginRouter><Favorites /></LoginRouter> }
+      { path: "/favorites", element: <LoginRouter><Favorites /></LoginRouter>}
     ]
   },
   {
