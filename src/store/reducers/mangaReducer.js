@@ -65,10 +65,3 @@ export const mangaReducer = createReducer(initialState, (builder) => {
             state.myManga = null;
         });
 });
-
-
-
-
-/*.addCase("SET_FILTERED_MANGAS", (state, action) => {
-            state.filteredMangas = action.payload
-        })*/
