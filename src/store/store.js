@@ -6,7 +6,7 @@ import { chapterReducer } from "./reducers/chapterReducer";
 import commentsReducer from "./reducers/commentsReducer";
 import { userReducer } from "./reducers/userReducer";
 import { authorReducer } from "./reducers/authorReducer";
-// import reactionReducer from "./reducers/reactionReducer";
+import reactionReducer from "./reducers/reactionReducer";
 // import favoritesReducer from "./reducers/favoritesReducer";
 
 const store = configureStore({
@@ -16,7 +16,7 @@ const store = configureStore({
         categoryReducer,
         chapterReducer,
         comments: commentsReducer,
-        // reaction: reactionReducer,
+        reaction: reactionReducer,
         // favorites: favoritesReducer,
         userReducer,
         authorReducer,

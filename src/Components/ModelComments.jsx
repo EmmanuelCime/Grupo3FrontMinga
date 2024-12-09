@@ -13,6 +13,7 @@ export default function ModalComments({
   setEditingComment,
   loading,
   error,
+  selectedChapter, // Recibimos el capítulo seleccionado
 }) {
   if (!isOpen) return null;
 
@@ -26,15 +27,15 @@ export default function ModalComments({
     if (comment?.authorId) {
       return {
         name: comment.authorId.name || "Unknown Author",
-        avatar: comment.authorId.photo || <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>,
+        avatar: comment.authorId.photo || <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>,
       };
     } else if (comment?.companyId) {
       return {
         name: comment.companyId.name || "Unknown Company",
-        avatar: comment.companyId.photo || <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>,
+        avatar: comment.companyId.photo || <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>,
       };
     }
-    return { name: "Anonymous", avatar: <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg> };
+    return { name: "Anonymous", avatar: <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg> };
   };
 
   const handleInputChange = (e) => {
@@ -59,7 +60,7 @@ export default function ModalComments({
       <div className="bg-white rounded-lg py-4 px-3 w-full max-w-md max-h-[80vh] overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Comments</h2>
+          <h2 className="text-xl font-bold">Comments for Chapter: {selectedChapter?.title || "Unknown Chapter"}</h2>
           <button
             onClick={onClose}
             className="text-gray-600 text-xl pb-1 hover:text-gray-900"

@@ -2,23 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getChapter } from "../store/actions/chapterAction";
-import {
-    fetchCommentsByChapter,
-    createComment,
-    updateComment,
-    deleteComment
-} from "../store/actions/commentsAction";
+import { fetchCommentsByChapter, createComment, updateComment, deleteComment } from "../store/actions/commentsAction";
 import ModalComments from "../Components/ModelComments";
 import emojiLike from "../assets/emojiLike.png";
 import emojiDislike from "../assets/emojiDislike.png";
 import emojiLove from "../assets/emojiLove.png";
 import emojiWow from "../assets/emojiWow.png";
-// import {
-//     createReaction,
-//     updateReaction,
-//     deleteReaction,
-//     fetchChapterReactions
-// } from "../store/actions/reactionAction";
+import { createReaction, updateReaction, deleteReaction } from "../store/actions/reactionAction";
 
 export default function Chapter() {
     const dispatch = useDispatch();
@@ -26,24 +16,18 @@ export default function Chapter() {
     const { comments, loading: commentsLoading, error: commentsError } = useSelector((state) => state.comments);
     const { author, company, user, role } = useSelector((state) => state.authReducer);
 
-     // Debug logs for authentication
-     console.log("Authentication Debug:");
-     console.log("Author:", author);
-     console.log("Company:", company);
-     console.log("User:", user);
-     console.log("Role:", role);
-    
     const [view, setView] = useState("manga");
     const { id } = useParams();
-    
+
     const [selectedChapter, setSelectedChapter] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedReaction, setSelectedReaction] = useState("");
+    const [selectedReaction, setSelectedReaction] = useState(null);
     const [newComment, setNewComment] = useState("");
     const [editingComment, setEditingComment] = useState(null);
-
+    const { mangaId } = useSelector((state) => state.mangaReducer);
+    
     // Determine if the user has permission to interact
-    const canInteract = user && (role === 1 || role === 2); // Author or Company
+    const canInteract = user && (role === 1 || role === 2);
 
     const reactions = [
         { id: "1", img: emojiLike, alt: "Like" },
@@ -53,12 +37,10 @@ export default function Chapter() {
     ];
 
     useEffect(() => {
-        dispatch(getChapter(id))
-            .unwrap()
-            .catch((err) => console.error("Error fetching chapter:", err));
+        dispatch(getChapter(id));
     }, [dispatch, id]);
 
-    const openCommentsModal = (chapter) => {    
+    const openCommentsModal = (chapter) => {
         setSelectedChapter(chapter);
         dispatch(fetchCommentsByChapter(chapter._id));
         setIsModalOpen(true);
@@ -72,53 +54,39 @@ export default function Chapter() {
         setEditingComment(null);
     };
 
-        // manjejo de reaciones 
-    // const handleReactionChange = (reactionId) => {
-    //     // Check if user is authorized to react (author or company)
-    //     if (user && (user.role === 1 || user.role === 2)) {
-    //         if (userReaction) {
-    //             // If already reacted, update or delete
-    //             if (userReaction.reactionType === reactionId) {
-    //                 // Delete reaction if same reaction is selected again
-    //                 dispatch(deleteReaction(userReaction._id));
-    //             } else {
-    //                 // Update reaction
-    //                 dispatch(updateReaction({
-    //                     reactionId: userReaction._id, 
-    //                     reactionType: reactionId
-    //                 }));
-    //             }
-    //         } else {
-    //             // Create new reaction
-    //             dispatch(createReaction({
-    //                 chapterId: id,
-    //                 reactionType: reactionId
-    //             }));
-    //         }
-    //     }
-    // };
-
-   const handleCreateComment = () => {
-    if (newComment.trim()) {
-        dispatch(
-            createComment({
-                chapterId: selectedChapter._id,
-                message: newComment,
-                authorId: author?._id,
-                companyId: company?._id,
+    const handleReactionChange = (reactionId) => {
+        setSelectedReaction(reactionId);
+        dispatch(createReaction({ mangaId: mangaId, reactionType: reactionId, authorId: author,companyId: company }))
+            .unwrap()
+            .then((data) => {
+                console.log("Reaction created:", data);
             })
-        )
-            .then(() => {
-                dispatch(fetchCommentsByChapter(selectedChapter._id));
-                setNewComment("");
-            })
-            .catch((error) => {
-                console.error("Error creating comment:", error);
+            .catch((err) => {
+                console.error("Error creating reaction:", err);
             });
-    } else {
-        console.warn("Comment message cannot be empty.");
-    }
-};
+    };
+    
+    const handleCreateComment = () => {
+        if (newComment.trim()) {
+            dispatch(
+                createComment({
+                    chapterId: selectedChapter._id,
+                    message: newComment,
+                    authorId: author?._id,
+                    companyId: company?._id,
+                })
+            )
+                .then(() => {
+                    dispatch(fetchCommentsByChapter(selectedChapter._id));
+                    setNewComment("");
+                })
+                .catch((error) => {
+                    console.error("Error creating comment:", error);
+                });
+        } else {
+            console.warn("Comment message cannot be empty.");
+        }
+    };
 
     const handleUpdateComment = () => {
         if (!editingComment?.message.trim()) {
@@ -138,7 +106,7 @@ export default function Chapter() {
                 console.error("Error al manejar la actualización:", error);
             });
     };
-    
+
 
     const handleDeleteComment = (commentId) => {
         dispatch(deleteComment(commentId)).then(() => {
@@ -194,14 +162,14 @@ export default function Chapter() {
                                 name="reaction"
                                 value={reaction.id}
                                 checked={selectedReaction === reaction.id}
-                                // onChange={() => handleReactionChange(reaction.id)}
-                                // disabled={!(user?.role === 1 || user?.role === 2)}
+                                onChange={() => handleReactionChange(reaction.id)}
+                                disabled={!canInteract}
                                 className="hidden"
                             />
                             <div
-                                className={`flex items-center justify-center w-14 h-14 p-2 xl:w-18 xl:h-18 rounded-full shadow-md cursor-pointer transition-colors ${selectedReaction === reaction.id
-                                    ? "bg-orange-400"
-                                    : "bg-white hover:bg-gray-200"
+                                className={`flex items-center justify-center w-14 h-14 p-2 rounded-full shadow-md cursor-pointer transition-colors ${selectedReaction === reaction.id
+                                        ? "bg-orange-400"
+                                        : "bg-white hover:bg-gray-200"
                                     }`}
                             >
                                 <img src={reaction.img} alt={reaction.alt} />
@@ -209,6 +177,7 @@ export default function Chapter() {
                         </label>
                     ))}
                 </div>
+
 
                 {/* Rating */}
                 <div className="flex justify-between items-center bg-white shadow-md rounded-lg p-4 mb-5 sm:px-14">
@@ -308,21 +277,21 @@ export default function Chapter() {
 
             {/* Modal Comments */}
             <div className="flex flex-col gap-4">
-            <ModalComments
-    isOpen={isModalOpen}
-    onClose={closeCommentsModal}
-    chapterId={selectedChapter?._id}
-    comments={comments} 
-    newComment={newComment}
-    setNewComment={setNewComment}
-    onCreateComment={handleCreateComment}
-    onUpdateComment={handleUpdateComment}
-    onDeleteComment={handleDeleteComment}
-    editingComment={editingComment}
-    setEditingComment={setEditingComment}
-    loading={commentsLoading}
-    error={commentsError}
-/>
+                <ModalComments
+                    isOpen={isModalOpen}
+                    onClose={closeCommentsModal}
+                    chapterId={selectedChapter?._id}
+                    comments={comments}
+                    newComment={newComment}
+                    setNewComment={setNewComment}
+                    onCreateComment={handleCreateComment}
+                    onUpdateComment={handleUpdateComment}
+                    onDeleteComment={handleDeleteComment}
+                    editingComment={editingComment}
+                    setEditingComment={setEditingComment}
+                    loading={commentsLoading}
+                    error={commentsError}
+                />
             </div>
         </div>
     );

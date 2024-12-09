@@ -45,7 +45,6 @@ const commentsReducer = createReducer(initialState, (builder) => {
       state.error = null;
     })
     .addCase(createComment.fulfilled, (state, action) => {
-      console.log('Action payload: ', action.payload);
       state.loading = false;
       state.comments.push(action.payload);
     })
