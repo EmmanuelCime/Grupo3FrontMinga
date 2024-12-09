@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const uri_render = "https://grupo3backminga.onrender.com/" //"http://localhost:8080/"
+const uri_render = "https://grupo3backminga.onrender.com/"
 
 export const setSearch = createAction("SET_SEARCH")
 
