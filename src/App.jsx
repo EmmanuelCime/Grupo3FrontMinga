@@ -23,6 +23,14 @@ import NewAuthor from "./Pages/NewAuthor.jsx";
 import NewCompany from "./Pages/NewCompany.jsx";
 import PrivateRoute from "./Components/PrivateRoutes.jsx";
 import SignRoute from "./Components/SignRoute.jsx";
+import { useEffect } from "react";
+import { setUser } from "./store/actions/authAction.js";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import LoginRouter from "./Components/privareRouter/LoginRouter.jsx";
+import AuthorCompanyAdminRouter from "./Components/privareRouter/AuthorCompanyAdminRouter.jsx";
+import AuthorRouter from "./Components/privareRouter/AuthorRouter.jsx";
+import CompanyRouter from "./Components/privareRouter/CompanyRouter.jsx";
 
 
 const router = createBrowserRouter([
@@ -32,14 +40,14 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/home", element: <Home /> },
       { path: "/mangas", element: <Mangas />},
-      { path: "/manager", element: <Manager />},
-      { path: "/adminpanel", element: <PrivateRoute><AdminPanel /></PrivateRoute> },
-      { path: "/profile", element: <PrivateRoute><Profile /></PrivateRoute> },
-      { path: "/chapter/:id", element: <Chapter />},
-      { path: "/details/:id", element: <PrivateRoute><ChapterDetails /></PrivateRoute> },
-      { path: "/edit/author", element: <PrivateRoute><EditAuthor /></PrivateRoute> },
-      { path: "/edit/company", element: <PrivateRoute> <EditCompany /></PrivateRoute> },
-      { path: "/favorites", element: <Favorites /> }
+      { path: "/manager", element: <AuthorCompanyAdminRouter><Manager/></AuthorCompanyAdminRouter>},
+      { path: "/adminpanel", element: <AuthorCompanyAdminRouter><AdminPanel /></AuthorCompanyAdminRouter> },
+      { path: "/profile", element: <LoginRouter><Profile /></LoginRouter> },
+      { path: "/chapter/:id", element: <LoginRouter><Chapter /></LoginRouter>},
+      { path: "/details/:id", element: <LoginRouter><ChapterDetails /></LoginRouter> },
+      { path: "/edit/author", element: <AuthorRouter><EditAuthor/></AuthorRouter> },
+      { path: "/edit/company", element: <CompanyRouter> <EditCompany /></CompanyRouter> },
+      { path: "/favorites", element: <LoginRouter><Favorites /></LoginRouter> }
     ]
   },
   {
@@ -47,19 +55,52 @@ const router = createBrowserRouter([
     children: [
       { path: "/signin", element: <SignRoute><SignIn></SignIn></SignRoute> },
       { path: "/signup", element: <SignRoute><SignUp></SignUp></SignRoute> },
-      { path: "/newrole", element: <PrivateRoute> <NewRole></NewRole></PrivateRoute> },
-      { path: "/editchapter", element: <PrivateRoute><EditChapter></EditChapter></PrivateRoute> },
-      { path: "/editmanga/:id", element: <PrivateRoute><EditManga></EditManga></PrivateRoute> },
-      { path: "/newmanga", element: <PrivateRoute><NewManga></NewManga></PrivateRoute> },
-      { path: "/newchapter/:id", element: <PrivateRoute><NewChapter></NewChapter></PrivateRoute> },
-      { path: "/newauthor", element: <PrivateRoute><NewAuthor></NewAuthor></PrivateRoute> },
-      { path: "/newcompany", element: <PrivateRoute><NewCompany></NewCompany></PrivateRoute> },
+      { path: "/newrole", element: <LoginRouter> <NewRole></NewRole></LoginRouter> },
+      { path: "/editchapter", element: <AuthorCompanyAdminRouter><EditChapter></EditChapter></AuthorCompanyAdminRouter> },
+      { path: "/editmanga/:id", element: <AuthorCompanyAdminRouter><EditManga></EditManga></AuthorCompanyAdminRouter> },
+      { path: "/newmanga", element: <AuthorCompanyAdminRouter><NewManga></NewManga></AuthorCompanyAdminRouter> },
+      { path: "/newchapter/:id", element: <AuthorCompanyAdminRouter><NewChapter></NewChapter></AuthorCompanyAdminRouter> },
+      { path: "/newauthor", element: <LoginRouter><NewAuthor></NewAuthor></LoginRouter> },
+      { path: "/newcompany", element: <LoginRouter><NewCompany></NewCompany></LoginRouter> },
     ]
   },
   { path: "/*", element: <NotFound /> }
 ])
+const loginWithToken = async (token) => {
+  const uri_render = "http://localhost:8080/"
+  try {
+      const response = await axios.get(`${uri_render}api/auth/tokenVerification`,
+          {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              },
+          }
+      )
+      console.log(response.data);
+      
+      return response.data
+  } catch (error) {
+      console.error("Error validando el token", error)
+      return null
+  }
+}
+
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const tokenLocal = localStorage.getItem("token")
+    console.log("al cargar page");
+    
+    if (tokenLocal) {
+      console.log("entro al if de validar");
+      
+        loginWithToken(tokenLocal)
+            .then((data) => {
+                dispatch(setUser({ data, token:tokenLocal }))
+            })
+    }
+}, [dispatch])
   return (
     <RouterProvider router={router} />
   )

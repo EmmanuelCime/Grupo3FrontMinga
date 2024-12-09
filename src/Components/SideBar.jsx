@@ -5,57 +5,26 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, signOut } from "../store/actions/authAction"
-import axios from "axios";
 
 
 const routes = [
-  { to: "/", text: "Home" },
-  { to: "/mangas", text: "Mangas" },
-  { to: "/manager", text: "Manager" },
-  { to: "/signup", text: "Register" },
-  { to: "/signin", text: "Sign In" },
-  { to: "/details", text: "Details" },
-  { to: "/adminpanel", text: "Admin Panel" },
-  { to: "/newrole", text: "Change Role" },
-  { to: "/favorites", text: "Favorites" },
+  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" }],
+  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
+    { to: "/adminpanel", text: "Admin Panel" }, { to: "/details", text: "Details" }],
+  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
+      { to: "/adminpanel", text: "Admin Panel" }, { to: "/details", text: "Details" }],
+  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
+      { to: "/adminpanel", text: "Admin Panel" }, { to: "/details", text: "Details" }],
+  [{ to: "/", text: "Home" },{ to: "/signup", text: "Register" },{ to: "/signin", text: "Sign In" },{ to: "/mangas", text: "Mangas" }]
 ]
-const loginWithToken = async (token) => {
-  const uri_render = "http://localhost:8080/"
-  try {
-      const response = await axios.get(`${uri_render}api/auth/tokenVerification`,
-          {
-              headers: {
-                  Authorization: `Bearer ${token}`
-              },
-          }
-      )
-      console.log(response.data);
-      
-      return response.data
-  } catch (error) {
-      console.error("Error validando el token", error)
-      return null
-  }
-}
-
 
 export default function SidebarWithToggle() {
-  const { user, token } = useSelector((state) => state.authReducer)
+  const { user, token, role } = useSelector((state) => state.authReducer)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    
-    const tokenLocal = localStorage.getItem("token")
-    if (tokenLocal) {
-        loginWithToken(tokenLocal)
-            .then((data) => {
-                dispatch(setUser({ data, token:tokenLocal }))
-            })
-    }
-}, [])
 
   const lineColor = location.pathname.startsWith("/details") ? "bg-white" : "bg-orange-500";
   const isUser = user?.role === 0 && token;
@@ -154,7 +123,7 @@ export default function SidebarWithToggle() {
             )}
             {/* Opciones */}
             <div className="mt-6 space-y-4 w-full">
-              {routes.map((route) => (
+              { role != null ? routes[role].map((route) => (
                 <NavLink
                   key={route.to}
                   to={route.to}
@@ -168,7 +137,23 @@ export default function SidebarWithToggle() {
                 >
                   {route.text}
                 </NavLink>
-              ))}
+              )):
+              routes[4].map((route) => (
+                <NavLink
+                  key={route.to}
+                  to={route.to}
+                  className={({ isActive }) =>
+                    `w-full block py-2 text-white text-center font-semibold rounded-md ${isActive
+                      ? "bg-white !text-orange-500"
+                      : "hover:bg-white hover:text-orange-500"
+                    }`
+                  }
+                  onClick={handleLinkClick}
+                >
+                  {route.text}
+                </NavLink>
+              ))
+              }
             </div>
 
             {/* Botón Cerrar */}
