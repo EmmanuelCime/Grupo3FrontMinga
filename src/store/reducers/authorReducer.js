@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getAuthor } from "../actions/authorAction";
+import { getAuthor, updateAuthor } from "../actions/authorAction";
 
 const initialState = {
     allAuthor: [],
@@ -21,6 +21,23 @@ export const authorReducer = createReducer(initialState, (builder) => {
         .addCase(getAuthor.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
+        })
+
+        .addCase(updateAuthor.pending, (state)=>{
+            state.loading = true
+            state.error = null
+        })
+        .addCase(updateAuthor.fulfilled, (state,action)=> {
+            state.loading = false
+            state.error = null
+            // Actualiza el author en la lista de `allAuthor`
+            state.allAuthor = state.allAuthor.map((author) =>
+                author && author?._id === action.payload._id ? action.payload : author
+            )
+        })
+        .addCase(updateAuthor.rejected, (state,action)=>{
+            state.loading = false
+            state.error = action.error.message
         })
         
 })
