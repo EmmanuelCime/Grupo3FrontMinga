@@ -27,8 +27,8 @@ export default function SidebarWithToggle() {
 
 
   const lineColor = location.pathname.startsWith("/details") ? "bg-white" : "bg-orange-500";
-  const isUser = user?.role === 0 && token;
-  const isManager = user?.role !== 0 && token;
+  const isUser = user?.role === 0 && token
+  const isManager = user?.role !== 0 && token
 
   const handleLinkClick = () => {
     setIsSidebarOpen(false)
@@ -168,5 +168,5 @@ export default function SidebarWithToggle() {
         </div>
       )}
     </div>
-  );
+  )
 }

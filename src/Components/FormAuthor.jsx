@@ -3,7 +3,7 @@ import avatarProfile from "../assets/avatarProfile.jpg"
 import ButtonSave from "./ButtonSave"
 import ButtonDelete from "./ButtonDelete"
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthor,updateAuthor } from "../store/actions/authorAction";
+import { deleteAuthor, getAuthor,updateAuthor } from "../store/actions/authorAction";
 import { useNavigate } from "react-router-dom";
 
 export default function FormAuthor({ className }) {
@@ -84,6 +84,15 @@ export default function FormAuthor({ className }) {
 
     }
 
+    const handleDelete = (id) => {
+        if (window.confirm("Are you sure you want to delete this author?")) {
+            dispatch(deleteAuthor(id))
+                .unwrap()
+                .then(() => alert("Author deleted successfully!"))
+                .catch((error) => alert(error || "Failed to delete author"));
+        }
+    };
+
     return (
         <div
             className={`flex items-center justify-center p-4 gap-8 md:flex-row sm:gap-x-20 lg:mt-66 md:mt-60 lg:gap-x-60 md:gap-x-28 flex-col-reverse bg-[#EBEBEB]  sm:bg-white ${className}`}>
@@ -139,7 +148,7 @@ export default function FormAuthor({ className }) {
                 />
                 <div className="flex flex-col items-center gap-4">
                     <ButtonSave name="Save" onClick={handleSave}/>
-                    <ButtonDelete name="Delete" />
+                    <ButtonDelete name="Delete" onClick={() => handleDelete(formData.id)} />
                 </div>
             </div>
 
