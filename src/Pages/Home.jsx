@@ -3,10 +3,11 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import backgroundImage from "../assets/backgroundHome.png"
 import { useEffect, useState } from "react"
-import Carousel from "../Components/Carousel"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "../store/actions/authAction"
 import axios from "axios"
+import Carousel from "../Components/Carousel"
+
 
 const uri_render = "https://grupo3backminga.onrender.com/"
 
@@ -49,11 +50,12 @@ function Home() {
 
     return (
         <>
-            <div className="relative bg-cover bg-center h-screen md:h-[850px] text-white" style={{ backgroundImage: `url(${backgroundImage})` }}>
-                <div className="flex flex-col justify-center items-center h-screen md:h-[800px] gap-2 md:gap-6">
-                    <h1 className="text-2xl md:text-6xl lg:text-7xl font-bold">For the love of manga</h1>
-                    <p className="mt-4 md:text-3xl lg:text-4xl">Explore our varieties #MingaLove❤️</p>
-                    <button className="md:text-xl lg:text-2xl w-32 lg:w-44 bg-white text-orange-500 hover:bg-orange-600 hover:text-white px-6 py-3 rounded-lg mt-6">
+            <div className="relative bg-cover bg-center h-screen md:h-screen text-white" style={{ backgroundImage: `url(${backgroundImage})` }}>
+                <div className="flex flex-col justify-center items-start h-screen md:h-[700px] p-14">
+                    <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold">For the love of manga</h1>
+                    <p className="mt-4 sm:text-2xl md:text-3xl lg:text-4xl">Explore our varieties</p>
+                    <p className="mt-4 md:text-3xl lg:text-2xl">#MingaLove <span className="text-red-500 text-4xl"> ❤️</span></p>
+                    <button className="md:text-xl lg:text-2xl w-32 lg:w-44 bg-white text-orange-500 hover:bg-orange-600 hover:text-white px-6 py-3 rounded-lg mt-6 font-semibold">
                         {!token ? (
                             <Link to={"/signin"}>
                                 Sign In!

@@ -37,9 +37,9 @@ function Mangas() {
 
   return (
     <>
-      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center">
-        <p className="w-auto mb-8 mt-36 text-6xl text-white font-bold">Mangas</p>
-        <div className="relative w-full md:w-[70vw]">
+      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center ">
+        <p className="w-auto mb-8 mt-36 text-5xl sm:text-6xl text-white font-bold">Mangas</p>
+        <div className="relative w-full md:w-[70vw] ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -57,12 +57,12 @@ function Mangas() {
             value={search}
             onChange={(e) => dispatch(setSearch(e.target.value))}
             placeholder="Find your manga here"
-            className="w-full py-2 pl-12 pr-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+            className="w-full py-2 pl-12 pr-4 text-xs md:text-md lg:text-lg rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none"
           />
         </div>
       </div>
-      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-20 pt-5 pb-20 -mt-10 mx-auto shadow drop-shadow-md">
-        <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
+      <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 pt-5 pb-20 -mt-10 mx-auto shadow drop-shadow-md">
+        <div className="w-full h-full lg:px-5 p-2 flex flex-wrap justify-around sm:justify-start">
           <Category />
         </div>
         <div className="flex flex-wrap justify-around">

@@ -12,7 +12,7 @@ import { signUp } from "../store/actions/authAction";
 export default function SignUp() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {loading,error, user} = useSelector((state) => state.authReducer)
+  const { user } = useSelector((state) => state.authReducer)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -31,20 +31,20 @@ export default function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault()
     console.log("entrooooo");
-    
-    dispatch(signUp({password: password, email: email, photo: photo}))
+
+    dispatch(signUp({ password: password, email: email, photo: photo }))
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     if (user) {
       navigate("/home")
     }
-  },[user])
+  }, [user, navigate])
 
   return (
     <div className="flex h-screen">
       {/* Contenedor del formulario */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:p-8 p-3 bg-white">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center md:p-8 p-5 bg-white">
         {/* Logo y tÃ­tulo */}
         <img className="h-10 lg:h-14" src={MingaLogotype} alt="Minga Logotype" />
 
@@ -63,7 +63,7 @@ export default function SignUp() {
               name="email"
               placeholder=" "
               value={email} onChange={(e) => handleEmail(e)} required
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 pr-7 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
             <label
               htmlFor="email"
@@ -75,7 +75,7 @@ export default function SignUp() {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117] bg-white"
             >
               <path
                 fillRule="evenodd"
@@ -93,7 +93,7 @@ export default function SignUp() {
               name="photo"
               placeholder=" "
               value={photo} onChange={(e) => handlePhoto(e)} required
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 pr-7 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
             <label
               htmlFor="photo"
@@ -105,7 +105,7 @@ export default function SignUp() {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117] bg-white"
             >
               <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
               <path
@@ -124,7 +124,7 @@ export default function SignUp() {
               name="password"
               placeholder=" "
               value={password} onChange={(e) => handlePassword(e)} required
-              className=" peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+              className=" peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 pr-7 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
             />
             <label
               htmlFor="password"
@@ -136,7 +136,7 @@ export default function SignUp() {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#f97117] bg-white"
             >
               <path
                 fillRule="evenodd"

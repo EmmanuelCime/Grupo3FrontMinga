@@ -9,7 +9,7 @@ import {
 const commentsSlice = createSlice({
   name: 'comments',
   initialState: {
-    comments: [], // Inicializa como array vacío
+    comments: [], 
     loading: false,
     error: null,
   },

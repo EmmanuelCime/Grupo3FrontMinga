@@ -31,15 +31,15 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/home", element: <Home /> },
-      { path: "/mangas", element: <PrivateRoute><Mangas /></PrivateRoute> },
-      { path: "/manager", element: <PrivateRoute><Manager /></PrivateRoute> },
+      { path: "/mangas", element: <Mangas />},
+      { path: "/manager", element: <Manager />},
       { path: "/adminpanel", element: <PrivateRoute><AdminPanel /></PrivateRoute> },
       { path: "/profile", element: <PrivateRoute><Profile /></PrivateRoute> },
-      { path: "/chapter/:id", element: <PrivateRoute><Chapter /></PrivateRoute> },
+      { path: "/chapter/:id", element: <Chapter />},
       { path: "/details/:id", element: <PrivateRoute><ChapterDetails /></PrivateRoute> },
       { path: "/edit/author", element: <PrivateRoute><EditAuthor /></PrivateRoute> },
       { path: "/edit/company", element: <PrivateRoute> <EditCompany /></PrivateRoute> },
-      { path: "/favorites", element: <PrivateRoute><Favorites /></PrivateRoute> }
+      { path: "/favorites", element: <Favorites /> }
     ]
   },
   {

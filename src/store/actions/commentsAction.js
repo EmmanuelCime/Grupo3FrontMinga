@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const uri_render = "https://grupo3backminga.onrender.com/";
+const uri_render = "https://jc69yf-5050.csb.app";
 
 // Async thunk para crear un comentario
 export const createComment = createAsyncThunk(
@@ -12,7 +12,7 @@ export const createComment = createAsyncThunk(
         chapterId,
         message 
       });
-      return response.data;
+      return response.data.comment;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -25,14 +25,13 @@ export const fetchCommentsByChapter = createAsyncThunk(
   async (chapterId, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${uri_render}/api/comment/commentByChapter/${chapterId}`);
-      return response.data.comments || response.data; 
+      return response.data.comment || response.data; 
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   }
 );
 
-// Async thunk para actualizar un comentario
 // Async thunk para actualizar un comentario
 export const updateComment = createAsyncThunk(
   'comments/updateComment',
@@ -44,7 +43,7 @@ export const updateComment = createAsyncThunk(
       });
 
       // Devuelve solo el comentario actualizado desde el backend
-      return response.data.comment;
+      return response.data.comments;
 
     } catch (error) {
       // Maneja el caso donde no exista error.response
