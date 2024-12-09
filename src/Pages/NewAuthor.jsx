@@ -1,39 +1,52 @@
-import axios from 'axios'
 import { useState } from "react"
 import ButtonSend from "../Components/ButtonSend"
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom"
+import { newAuthor } from "../store/actions/authorAction"
 
 
 function NewAuthor() {
-    let [formData, setFormData] = useState({
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { user } = useSelector((state) => state.authReducer)
+
+    const [formData, setFormData] = useState({
+        userId: user._id,
         name: '',
         lastName: '',
-        location: '',
-        birthday: '',
-        profileImage: ''
+        city: '',
+        country: '',
+        dateBorn: '',
+        photo: '',
     })
 
-    let [message, setMessage] = useState('')
-
-    let handleChange = (e) => {
-        let { name, value } = e.target
+    const handleChange = (e) => {
+        const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
     }
 
-    let handleSubmit = async (e) => {
-
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setMessage('')
-
-        try {
-            await axios.post('http://localhost:8080/api/newauthor', formData)
-            setMessage('The author has been successfully created')
-        } catch (error) {
-            if (error.response) {
-                setMessage(`error ${error.response.data.message}`)
-            } else {
-                setMessage('Error unexpected... please try again')
-            }
+        const newData = {
+            userId: formData.userId,
+            name: formData.name,
+            lastName: formData.lastName,
+            city: formData.city,
+            country: formData.country,
+            dateBorn: formData.dateBorn,
+            photo: formData.photo
         }
+        dispatch(newAuthor({ newData: newData }))
+        .unwrap()
+        .then(() => {
+            alert("Author create successfully!")
+            navigate("/home")
+        })
+        .catch((error) => {
+            console.error("Error creating author:", error)
+            alert(error.response || "Failed to create author")
+            navigate("/home")
+        })
     }
 
 
@@ -43,7 +56,6 @@ function NewAuthor() {
                 <div className="flex justify-center items-center md:w-1/2 my-32 md:my-16">
                     <form onSubmit={handleSubmit} className="flex flex-col w-[90vw] md:w-[40vw] gap-4 p-4">
                         <h1 className="text-2xl text-center font-bold mb-6">New Author</h1>
-                        {message && <p className={`text-center ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>{message}</p>}
                         
                         <div className="mt-1 mb-4">
                             <input
@@ -53,6 +65,7 @@ function NewAuthor() {
                                 onChange={handleChange}
                                 className="w-full px-3 border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
                                 placeholder="Name"
+                                required
                             />
                         </div>
                         <div className="mt-1 mb-4">
@@ -63,39 +76,55 @@ function NewAuthor() {
                                 onChange={handleChange}
                                 className="w-full px-3 border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
                                 placeholder="Last Name"
+                                required
                             />
                         </div>
                         <div className="mt-1 mb-4">
                             <input
                                 type="text"
-                                name="location"
-                                value={formData.location}
+                                name="city"
+                                value={formData.city}
                                 onChange={handleChange}
                                 className="w-full px-3 border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
-                                placeholder="Location"
+                                placeholder="City"
+                                required
+                            />
+                        </div>
+                        <div className="mt-1 mb-4">
+                            <input
+                                type="text"
+                                name="country"
+                                value={formData.country}
+                                onChange={handleChange}
+                                className="w-full px-3 border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
+                                placeholder="Country"
+                                required
                             />
                         </div>
                         <div className="mt-1 mb-4">
                             <input
                                 type="date"
-                                name="birthday"
-                                value={formData.birthday}
+                                name="dateBorn"
+                                value={formData.dateBorn}
                                 onChange={handleChange}
                                 className="w-full px-3 border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
+                                placeholder="Birth month"
+                                required
                             />
                         </div>
                         <div className="mt-1 mb-4">
                             <input
                                 type="url"
-                                name="profileImage"
-                                value={formData.profileImage}
+                                name="photo"
+                                value={formData.photo}
                                 onChange={handleChange}
                                 className="w-full px-3 border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
                                 placeholder="URL Profile Image"
+                                required
                             />
                         </div>
                         <div className="flex flex-col items-center gap-3">
-                            <ButtonSend name="Send"/>
+                            <ButtonSend name="Send" onClick={handleSubmit}/>
                         </div>
                     </form>
                 </div>

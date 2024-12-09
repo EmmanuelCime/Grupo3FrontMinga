@@ -22,3 +22,12 @@ export const updateAuthor = createAsyncThunk("UPDATE_AUTHOR", async ({updatedDat
         return rejectWithValue(error.response?.data?.message) || "Error updating author"
     }
 })
+
+export const newAuthor = createAsyncThunk("newAuthor", async (newData, { rejectWithValue }) => {
+    try {
+        const response = await axios.post(`${uri_render}api/authors/create`, newData)
+        return response.data
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Registration failed")
+    }
+})
