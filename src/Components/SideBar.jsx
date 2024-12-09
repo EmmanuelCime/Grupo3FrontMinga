@@ -10,9 +10,9 @@ import { setUser, signOut } from "../store/actions/authAction"
 const routes = [
   [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" }],
   [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
-    { to: "/adminpanel", text: "Admin Panel" }, { to: "/details", text: "Details" }],
+   { to: "/details", text: "Details" }],
   [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
-      { to: "/adminpanel", text: "Admin Panel" }, { to: "/details", text: "Details" }],
+    { to: "/details", text: "Details" }],
   [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
       { to: "/adminpanel", text: "Admin Panel" }, { to: "/details", text: "Details" }],
   [{ to: "/", text: "Home" },{ to: "/signup", text: "Register" },{ to: "/signin", text: "Sign In" },{ to: "/mangas", text: "Mangas" }]
