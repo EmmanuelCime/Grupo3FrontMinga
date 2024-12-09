@@ -17,6 +17,8 @@ export const signIn = createAsyncThunk("login", async ({ email, password }, { re
         return {
             user: response.data.user,
             token: response.data.token,
+            company: response.data.company,
+            author: response.data.author
         }
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || "Login Error credentials invalid")

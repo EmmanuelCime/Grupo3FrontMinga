@@ -12,7 +12,7 @@ import { signUp } from "../store/actions/authAction";
 export default function SignUp() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {loading,error, user} = useSelector((state) => state.authReducer)
+  const { loading, error, user } = useSelector((state) => state.authReducer)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -31,15 +31,15 @@ export default function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault()
     console.log("entrooooo");
-    
-    dispatch(signUp({password: password, email: email, photo: photo}))
+
+    dispatch(signUp({ password: password, email: email, photo: photo }))
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     if (user) {
       navigate("/home")
     }
-  },[user])
+  }, [user, navigate])
 
   return (
     <div className="flex h-screen">
