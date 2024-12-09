@@ -1,7 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { signIn, setUser, signOut, signUp } from "../actions/authAction"
 
-
 const initialState = {
     loading: false,
     error: null,
@@ -45,6 +44,8 @@ const authReducer = createReducer(initialState, (builder) => {
             localStorage.removeItem("token")
         })
         .addCase(setUser, (state, action) => {
+
+     
             state.user = action.payload.user
             state.token = action.payload.token
             state.role = action.payload.user.role
