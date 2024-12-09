@@ -51,7 +51,7 @@ function Home() {
     return (
         <>
             <div className="relative bg-cover bg-center h-screen md:h-screen text-white" style={{ backgroundImage: `url(${backgroundImage})` }}>
-                <div className="flex flex-col justify-center items-start h-screen md:h-[700px] p-14">
+                <div className="flex flex-col justify-center items-start h-screen md:h-[700px] p-6 md:p-14">
                     <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold">For the love of manga</h1>
                     <p className="mt-4 sm:text-2xl md:text-3xl lg:text-4xl">Explore our varieties</p>
                     <p className="mt-4 md:text-3xl lg:text-2xl">#MingaLove <span className="text-red-500 text-4xl"> ❤️</span></p>
