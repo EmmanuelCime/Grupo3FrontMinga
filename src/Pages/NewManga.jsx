@@ -81,7 +81,7 @@ function NewManga() {
                                 placeholder="Insert description"
                             />
                         </div>
-                        <div className="flex flex-col items-center gap-4">
+                        <div className="flex flex-col items-center gap-3">
                             <ButtonSend name="Send" />
                         </div>
                     </form>
