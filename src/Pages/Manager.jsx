@@ -1,12 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
 import { getMangas, setSearch } from "../store/actions/mangasAction";
+import { getAuthor } from "../store/actions/authorAction";
 import CardManga from "../Components/CardManga";
 import Category from "../Components/Category";
 
 
 function Manager() {
-  const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer);
+  const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer)
+  const {allAuthor} =useSelector((state) => state.authorReducer)
+  const { user } = useSelector((state) => state.authReducer)
   const { selectedCategory } = useSelector((state) => state.categoryReducer)
   const dispatch = useDispatch()
 
@@ -14,11 +17,19 @@ function Manager() {
     dispatch(getMangas())
       .unwrap()
       .catch((err) => console.error("Error fetching mangas:", err))
+      dispatch(getAuthor())
+      .unwrap()
+      .catch((err) => console.error("Error fetching mangas:", err))
   }, [dispatch])
+console.log(user);
+console.log(allAuthor);
+
+const creatorId = allAuthor?.find((author) => author.userId === user._id)
+//console.log(creatorId);
 
   const creator = useMemo(
-    () => allMangas.filter((manga) => manga.authorId?._id === "674d5fcf4e75429504006e21"),
-    [allMangas]
+    () => allMangas?.filter((manga) => manga.authorId?._id === creatorId._id),
+    [allMangas,creatorId]
   )
 
   // Filtrado de mangas por categoría y búsqueda

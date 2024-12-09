@@ -8,8 +8,8 @@ import { getMangas } from "../store/actions/mangasAction";
 export default function ProfileMobileAuthor({ className }) {
     const { allMangas } = useSelector((state) => state.mangaReducer);
     const { allAuthor, loading, error } = useSelector((state) => state.authorReducer);
+    const { user } = useSelector((state) => state.authReducer)
     const dispatch = useDispatch();
-console.log(allMangas);
 
     const [author, setAuthor] = useState({
         id: "",
@@ -35,10 +35,10 @@ console.log(allMangas);
 
     const foundAuthor = useMemo(() => {
         if (allAuthor && allAuthor.length > 0) {
-            return allAuthor.find((author) => author.userId === "67535b12fbb8780454bac7df");
+            return allAuthor.find((author) => author.userId  === user._id)
         }
         return null
-    }, [allAuthor])
+    }, [allAuthor,user])
 
     useEffect(() => {
         if (foundAuthor) {
@@ -50,19 +50,18 @@ console.log(allMangas);
                 country: foundAuthor.country || "",
                 date: foundAuthor.dateBorn || "",
                 profileImage: foundAuthor.photo || avatarProfile,
-            });
+            })
         }
     }, [foundAuthor]);
 
-    const mangas = useMemo(() => allMangas.filter((manga) => manga.authorId === author.id), [allMangas, author.id]);
-console.log(mangas);
+    const mangas = useMemo(() => allMangas?.filter((manga) => manga.authorId._id === foundAuthor._id), [allMangas, foundAuthor])
 
     if (loading) {
-        return <div>Cargando autores...</div>;
+        return <div>Loading authors...</div>
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div>Error: {error}</div>
     }
     return (
         <div
@@ -160,5 +159,5 @@ console.log(mangas);
                 </NavLink>
             </div>
         </div>
-    );
+    )
 }
