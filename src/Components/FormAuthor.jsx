@@ -3,48 +3,27 @@ import avatarProfile from "../assets/avatarProfile.jpg"
 import ButtonSave from "./ButtonSave"
 import ButtonDelete from "./ButtonDelete"
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAuthor, getAuthor,updateAuthor } from "../store/actions/authorAction";
+import { clearAuthorAction, deleteAuthor, getAuthor,updateAuthor } from "../store/actions/authorAction";
 import { useNavigate } from "react-router-dom";
+import { setUpdateAuthor } from "../store/actions/authAction";
 
 export default function FormAuthor({ className }) {
-    const { allAuthor, loading, error } = useSelector((state) => state.authorReducer)
-    const { user } = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const {updateAut} = useSelector(state => state.authorReducer)
+    const { author, company, user, loading, token, error} = useSelector((state) => state. authReducer)
+    const [banUpdate, setbanUpdate] = useState(false)
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        city: "",
-        country: "",
-        date: "",
-        profileImage: avatarProfile,
+        id: author?._id,
+        firstName: author?.name,
+        lastName: author?.lastName,
+        city: author?.city,
+        country: author?.country,
+        date: author?.dateBorn,
+        profileImage: author?.photo || avatarProfile,
     })
-
-    useEffect(() => {
-        dispatch(getAuthor())
-            .unwrap()
-            .then(() => console.log("Authors fetched successfully"))
-            .catch((err) => console.error("Error fetching authors:", err))
-    }, [dispatch])
-
-    useEffect(() => {
-        if (allAuthor && allAuthor.length > 0) {
-            const author = allAuthor?.find((author) => author.userId === user._id);
-            if (author) {
-                setFormData({
-                    id: author?._id,
-                    firstName: author?.name,
-                    lastName: author?.lastName,
-                    city: author?.city,
-                    country: author?.country,
-                    date: author?.dateBorn,
-                    profileImage: author?.photo || avatarProfile,
-                })
-            }
-        }
-    }, [allAuthor, user])
-
+    
+    
     if (loading) {
         return <div>Loading authors...</div>;
     }
@@ -69,20 +48,23 @@ export default function FormAuthor({ className }) {
             dateBorn: formData.date,
             photo: formData.profileImage
         }
-
-        dispatch(updateAuthor({ updatedData: updatedData }))
-            .unwrap()
-            .then(() => {
-                alert("Author updated successfully!")
-                navigate("/home")
-            })
-            .catch((error) => {
-                console.error("Error updating author:", error)
-                alert(error.response || "Failed to update author")
-                navigate("/home")
-            })
-
+        setbanUpdate(e => !e)        
+        
+        dispatch(updateAuthor({ updatedData: updatedData, token:token }))
     }
+    useEffect(()=>{
+        console.log("estado de la bandera", banUpdate);
+        
+        if (updateAut != null && banUpdate) {
+            dispatch(setUpdateAuthor(updateAut))
+            alert("Author updated successfully!")
+            navigate("/home")
+        }else{
+            dispatch(clearAuthorAction())
+        }
+    },[updateAut])
+    
+    
 
     const handleDelete = (id) => {
         if (window.confirm("Are you sure you want to delete this author?")) {

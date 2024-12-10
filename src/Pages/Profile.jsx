@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
-    const { user } = useSelector((state) => state.authReducer)
+    const { author, company, user, loading, token} = useSelector((state) => state. authReducer)
     const navigate = useNavigate()
 
     // Verificar si el token o el rol no es válido
-    if (!user || (user.role !== 0 && user.role !== 1)) {
+    if (!user || (user.role == 0 || user.role == 3)) {
         navigate("/home");
         return null; // Evita que el componente siga renderizando
     }
