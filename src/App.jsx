@@ -82,8 +82,6 @@ const loginWithToken = async (token) => {
               },
           }
       )
-      console.log(response.data);
-      
       return response.data
   } catch (error) {
       console.error("Error validando el token", error)
@@ -103,7 +101,7 @@ function App() {
       
         loginWithToken(tokenLocal)
             .then((data) => {
-              if(data?.user) dispatch(setUser({ data, token:tokenLocal }))
+              dispatch(setUser({ data, token:tokenLocal }))
             })
     }
 }, [dispatch])
