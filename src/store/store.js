@@ -17,7 +17,7 @@ const store = configureStore({
         categoryReducer,
         chapterReducer,
         comments: commentsReducer,
-        reaction: reactionReducer,
+        // reaction: reactionReducer,
         // favorites: favoritesReducer,
         userReducer,
         authorReducer,

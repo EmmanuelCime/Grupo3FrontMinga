@@ -11,28 +11,51 @@ export default function NewRole() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [selectedRole, setSelectedRole] = useState("")
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [redirectAfterAlert, setRedirectAfterAlert] = useState(null);
+
   
-  useEffect(()=>{
-    if (selectedRole == "author") {
-      console.log(user);
-      
-      if (author) {
-        dispatch(setSwitch())
-        navigate("/")
-      }else{
-        navigate("/newauthor")
-      }
-    }else if(selectedRole == "company"){
-      if (company) {
-        dispatch(setSwitch())
-       navigate("/") 
-      }else{
-        navigate("/newcompany") 
-      }
+  const handleRoleSelect = (role) => {
+    setSelectedRole(role);
+    setShowAlert(true);
+
+    // Caso: el usuario ya tiene este rol
+    if ((role === "author" && author) || (role === "company" && company)) {
+      setAlertMessage(
+        `Your current role is ${role === "author" ? "Author" : "Company"}, keep enjoying`
+      );
+      setRedirectAfterAlert(() => () => navigate("/"));
+    } else {
+      // Caso: cambio de rol exitoso
+      setAlertMessage(
+        `Your role has been successfully switched to ${role === "author" ? "Author" : "Company"}!`
+      );
+      setRedirectAfterAlert(() => () => {
+        dispatch(setSwitch());
+        if (role === "author") {
+          navigate("/newauthor");
+        } else if (role === "company") {
+          navigate("/newcompany");
+        }
+      });
     }
-  }, [selectedRole])
+  };
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+    if (redirectAfterAlert) redirectAfterAlert();
+  };
+
   return (
     <div className="flex h-screen">
+      {/* Alerta personalizada */}
+      {showAlert && (
+        <CustomAlert
+          description={alertMessage}
+          onClose={handleCloseAlert} 
+        />
+      )}
       {/* Lado izquierdo */}
       <div className="w-full md:w-1/2 mx-4  flex flex-col justify-center items-center bg-white">
         <div className="text-center">
@@ -45,7 +68,7 @@ export default function NewRole() {
         <div className="flex flex-col gap-y-4 w-full sm:w-6/5 max-w-lg lg:w-10/12">
           {/* Botón de Autor */}
           <button
-            onClick={() => setSelectedRole("author")}
+         onClick={() => handleRoleSelect("author")}
             className={`flex items-center py-5 px-4 sm:p-4 border-2 rounded-3xl shadow-sm transition ${selectedRole === "author"
               ? "border-orange-500 bg-orange-50"
               : "border-gray-300 hover:bg-gray-50"
@@ -109,7 +132,7 @@ export default function NewRole() {
 
           {/* Botón de Compañía */}
           <button
-            onClick={() => setSelectedRole("company")}
+           onClick={() => handleRoleSelect("company")}
             className={`flex items-center py-5 px-4 sm:p-4 border-2 rounded-3xl shadow-sm transition ${selectedRole === "company"
               ? "border-orange-500 bg-orange-50"
               : "border-gray-300 hover:bg-gray-50"

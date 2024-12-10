@@ -43,7 +43,7 @@ function Carousel() {
             setCurrentIndex((prevIndex) =>
                 (prevIndex + 1) % allCategories.length
             );
-        }, 8000);
+        }, 5000);
 
         return () => clearInterval(interval);
     }, [allCategories]);
@@ -84,7 +84,7 @@ function Carousel() {
                         />
                     </div>
                     {/* Imagen de portada */}
-                    <div className="hidden md:block md:w-1/3 flex justify-center items-center px-10">
+                    <div className="hidden lg:block md:w-1/3 flex justify-center items-center px-10">
                         <img
                             src={allCategories[currentIndex]?.coverPhoto}
                             alt={`${allCategories[currentIndex]?.name} Cover`}
@@ -104,7 +104,7 @@ function Carousel() {
 
                 {/* Botón para pantalla mediana y grande */}
                 <button
-                    onClick={NextSlide}
+                    onClick={PreviousSlide}
                     className="md:text-2xl md:p-2 ps-1 rounded-full text-white absolute right-2 top-36"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
