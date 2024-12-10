@@ -103,10 +103,7 @@ function App() {
       
         loginWithToken(tokenLocal)
             .then((data) => {
-              if(data) dispatch(setUser({ data, token:tokenLocal }))
-                else{
-              localStorage.removeItem("token")
-              }
+              if(data?.user) dispatch(setUser({ data, token:tokenLocal }))
             })
     }
 }, [dispatch])
