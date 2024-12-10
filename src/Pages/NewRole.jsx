@@ -12,8 +12,6 @@ export default function NewRole() {
   const [selectedRole, setSelectedRole] = useState("")
   useEffect(()=>{
     if (selectedRole == "author") {
-      console.log(user);
-      
       if (author) {
         dispatch(setSwitch())
         navigate("/")

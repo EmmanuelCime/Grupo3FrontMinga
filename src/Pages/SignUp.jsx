@@ -2,21 +2,20 @@ import imageSignUp from "../assets/imageSignUp.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
 import ButtonPrimary from "../Components/ButtonPrimary";
 import ButtonGoogle from "../Components/ButtonGoogle";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signUp } from "../store/actions/authAction";
 
 
 export default function SignUp() {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.authReducer)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [photo, setPhoto] = useState("")
+  const [sendEmail, setSendEmail] = useState(false)
 
   const handleEmail = (e) => {
     setEmail(e.target.value)
@@ -27,19 +26,14 @@ export default function SignUp() {
   const handlePhoto = (e) => {
     setPhoto(e.target.value)
   }
-
-  const handleSignUp = async (e) => {
-    e.preventDefault()
-    console.log("entrooooo");
-
-    dispatch(signUp({ password: password, email: email, photo: photo }))
+  const handleSendMail = (e)=>{
+    setSendEmail(e.target.checked)
   }
 
-  useEffect(() => {
-    if (user) {
-      navigate("/home")
-    }
-  }, [user, navigate])
+  const handleSignUp = (e) => {
+    e.preventDefault()
+    dispatch(signUp({ password: password, email: email, photo: photo, sendEmail:sendEmail }))
+  }
 
   return (
     <div className="flex h-screen">
@@ -54,7 +48,7 @@ export default function SignUp() {
         </p>
 
         {/* Formulario */}
-        <form onSubmit={handleSignUp} className="w-full max-w-md lg:space-y-3 space-y-2">
+        <form onSubmit={(e)=>handleSignUp(e)} className="w-full max-w-md lg:space-y-3 space-y-2">
           {/* Input de Email */}
           <div className="relative h-11 w-full min-w-[200px]">
             <input
@@ -149,6 +143,7 @@ export default function SignUp() {
           {/* Checkbox */}
           <div className="flex items-center">
             <input
+            onChange={(e)=>handleSendMail(e)}
               id="notifications"
               type="checkbox"
               className="md:w-4 md:h-4 h-3 w-3 text-orange-500 bg-gray-100 rounded border-gray-300 focus:ring-orange-400 focus:ring-2"

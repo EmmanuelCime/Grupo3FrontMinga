@@ -1,15 +1,15 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
-const uri_render = "https://grupo3backminga.onrender.com/"
+const uri_render = "http://localhost:8080/"
 
 export const setUser = createAction("setUser", (datos) => {
     return { payload: datos }
 })
 
 export const signOut = createAction("logout")
-
 export const setSwitch = createAction("SET_SWITCH")
+export const setUpdateAuthor = createAction("SET_UPDATE_AUTHOR")
 
 export const signIn = createAsyncThunk("login", async ({ email, password }, { rejectWithValue }) => {
     try {
