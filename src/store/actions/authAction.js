@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
-const uri_render = "http://localhost:8080/"
+const uri_render = "https://grupo3backminga.onrender.com/"
 
 export const setUser = createAction("setUser", (datos) => {
     return { payload: datos }
@@ -31,6 +31,6 @@ export const signUp = createAsyncThunk("register", async (user, { rejectWithValu
         const response = await axios.post(`${uri_render}api/users/register`, user)
         return response.data
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Registration failed")
+        return rejectWithValue(error.response?.data || "Registration failed")
     }
 })
