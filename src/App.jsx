@@ -99,11 +99,14 @@ function App() {
     console.log("al cargar page");
     
     if (tokenLocal) {
-      console.log("entro al if de validar");
+      console.log("entro al if de validar", tokenLocal);
       
         loginWithToken(tokenLocal)
             .then((data) => {
-                dispatch(setUser({ data, token:tokenLocal }))
+              if(data) dispatch(setUser({ data, token:tokenLocal }))
+                else{
+              localStorage.removeItem("token")
+              }
             })
     }
 }, [dispatch])
