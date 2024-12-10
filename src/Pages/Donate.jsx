@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 function DonationPage() {
   let [donationAmount, setDonationAmount] = useState('')
@@ -8,10 +9,18 @@ function DonationPage() {
   let handleDonation = () => {
     if (donationAmount) {
       setMessage(`Thanks for your donation of $${donationAmount} USD!`)
-      alert(`Donation of $${donationAmount} USD sent successfully!`)
+      Swal.fire({
+        title: "Donation Sent Successfully!",
+        text: "The amount of " + donationAmount + " USD has been sent successfully to our organization. Thank you for your support!",
+        icon: "success"
+      })
       setDonationAmount('')
     } else {
-      alert('Enter a donation amount, please')
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Enter a donation amount, please"
+      })
     }
   }
 
