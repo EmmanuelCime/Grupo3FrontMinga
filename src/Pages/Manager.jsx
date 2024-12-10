@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react";
 import { getMangas, myMangaAction, setSearch } from "../store/actions/mangasAction";
 import CardManga from "../Components/CardManga";
 import Category from "../Components/Category";
+import { Link } from "react-router-dom";
 
 
 function Manager() {
@@ -56,8 +57,8 @@ if (!loading) {
         </div>
       </div>
       <div className="w-full md:w-[90vw] bg-white rounded-t-3xl px-3 sm:px-10 pt-5 pb-20 -mt-10 mx-auto shadow drop-shadow-md">
-        <div className="w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
-          <Category />
+        <div className="relative w-full h-full lg:px-5 flex flex-wrap justify-around md:justify-start">
+          <Category /> <Link to={"/newManga"} className="absolute bottom-0 right-0 border-2 border-solid border-orange-500 text-2xl font-bold rounded-full px-3 py-1">+</Link>
         </div>
         <div className="flex flex-wrap justify-evenly">
           {loadinMyManga ? (
