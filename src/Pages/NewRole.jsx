@@ -1,10 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import imageNewRole from "../assets/imageNewRole.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setSwitch } from "../store/actions/authAction";
 
 export default function NewRole() {
-  const [selectedRole, setSelectedRole] = useState("");
-
+  const { author, company, user, loading, token} = useSelector((state) => state. authReducer)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [selectedRole, setSelectedRole] = useState("")
+  useEffect(()=>{
+    if (selectedRole == "author") {
+      console.log(user);
+      
+      if (author) {
+        dispatch(setSwitch())
+        navigate("/")
+      }else{
+        navigate("/newauthor")
+      }
+    }else if(selectedRole == "company"){
+      if (company) {
+        dispatch(setSwitch())
+       navigate("/") 
+      }else{
+        navigate("/newcompany")
+      }
+    }
+  }, [selectedRole])
   return (
     <div className="flex h-screen">
       {/* Lado izquierdo */}
