@@ -10,7 +10,7 @@ function Footer() {
         <>
             <div className="lg:h-[200px]">
                 <div>
-                    <img className="h-20 md:h-32 lg:h-48 w-full" src={FooterBackground} alt="Manga" />
+                    <img className="h-24 md:h-44 lg:h-64 w-full" src={FooterBackground} alt="Manga" />
                 </div>
 
                 <div className="flex justify-around items-center">
@@ -25,7 +25,7 @@ function Footer() {
 
                     <div className="w-50">
                         <div className="flex justify-between">
-                        <a className="text-[10px] md:text-base" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                        <a className="text-[10px] md:text-base" href="https://www.facebook.com/" target="_blank" rel="Facebook icon">
                             <svg
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
@@ -36,7 +36,7 @@ function Footer() {
                             </svg>
                         </a>
 
-                        <a className="text-[10px] md:text-base" href="https://twitter.com/?lang=es" target="_blank" rel="noopener noreferrer">
+                        <a className="text-[10px] md:text-base" href="https://twitter.com/?lang=es" target="_blank" rel="X icon">
                             <svg
                                 viewBox="0 0 1024 1024"
                                 fill="currentColor"
@@ -47,7 +47,7 @@ function Footer() {
                             </svg>
                         </a>
 
-                        <a className="text-[10px] md:text-base" href="https://vimeo.com/es" target="_blank" rel="noopener noreferrer">
+                        <a className="text-[10px] md:text-base" href="https://vimeo.com/es" target="_blank" rel="Vimeo icon">
                             <svg
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
@@ -58,7 +58,7 @@ function Footer() {
                             </svg>
                         </a>
 
-                        <a className="text-[10px] md:text-base" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+                        <a className="text-[10px] md:text-base" href="https://www.youtube.com/" target="_blank" rel="Youtube icon">
                             <svg
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
