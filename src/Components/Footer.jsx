@@ -24,7 +24,7 @@ function Footer() {
                     </div>
 
                     <div className="w-50">
-                        <div className="flex justify-between mb-5">
+                        <div className="flex justify-between mb-2 md:mb-3 lg:mb-5">
                             <a className="text-[10px] md:text-base" href="https://www.facebook.com/" target="_blank" rel="Facebook icon">
                                 <svg
                                     viewBox="0 0 24 24"
@@ -71,7 +71,7 @@ function Footer() {
 
                         </div>
 
-                        <div className="flex justify-center mb-7">
+                        <div className="flex justify-center mb-3 md:mb-5 lg:mb-7">
                             <NavLink to="/donate"><img className="h-5 md:h-7 lg:h-10" src={DonateButton} alt="Donate" /></NavLink>
                         </div>
                     </div>
