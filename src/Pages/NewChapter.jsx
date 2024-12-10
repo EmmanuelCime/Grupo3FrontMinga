@@ -4,7 +4,7 @@ import ButtonSend from "../Components/ButtonSend"
 
 
 function NewChapter() {
-    const [formData, setFormData] = useState({
+    let [formData, setFormData] = useState({
         title: '',
         order: '',
         pages: ''
@@ -13,7 +13,7 @@ function NewChapter() {
     let [message, setMessage] = useState('')
 
     let handleChange = (e) => {
-        const { title, value } = e.target
+        let { title, value } = e.target
         setFormData({ ...formData, [title]: value })
     }
 

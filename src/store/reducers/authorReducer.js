@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getAuthor, updateAuthor } from "../actions/authorAction";
+import { getAuthor, newAuthor, updateAuthor, deleteAuthor } from "../actions/authorAction";
 
 const initialState = {
     allAuthor: [],
@@ -40,4 +40,31 @@ export const authorReducer = createReducer(initialState, (builder) => {
             state.error = action.error.message
         })
         
+        .addCase(newAuthor.pending,(state)=>{
+            state.loading = true
+            state.error = null
+        })
+        .addCase(newAuthor.fulfilled, (state,action)=>{
+            state.loading = false
+            state.allAuthor = [...state.allAuthor, action.payload]
+            state.error = null
+        })
+        .addCase(newAuthor.rejected, (state,action)=>{
+            state.loading = false
+            state.error = action.payload
+        })
+
+        .addCase(deleteAuthor.pending, (state) => {
+            state.loading = true
+            state.error = null
+        })
+        .addCase(deleteAuthor.fulfilled, (state, action) => {
+            state.loading = false
+            state.allAuthor = state.allAuthor.filter((author) => author._id !== action.payload.id)
+            state.error = null
+        })
+        .addCase(deleteAuthor.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.payload
+        })
 })

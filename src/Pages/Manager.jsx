@@ -1,40 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
-import { getMangas, setSearch } from "../store/actions/mangasAction";
-import { getAuthor } from "../store/actions/authorAction";
+import { getMangas, myMangaAction, setSearch } from "../store/actions/mangasAction";
 import CardManga from "../Components/CardManga";
 import Category from "../Components/Category";
 
 
 function Manager() {
-  const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer)
-  const {allAuthor} =useSelector((state) => state.authorReducer)
-  const { user } = useSelector((state) => state.authReducer)
+  const { myManga, search, loadinMyManga, errorMyManga } = useSelector((state) => state.mangaReducer);
+  const { author, company, user, loading, token} = useSelector((state) => state. authReducer)
   const { selectedCategory } = useSelector((state) => state.categoryReducer)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getMangas())
-      .unwrap()
-      .catch((err) => console.error("Error fetching mangas:", err))
-      dispatch(getAuthor())
-      .unwrap()
-      .catch((err) => console.error("Error fetching mangas:", err))
-  }, [dispatch])
-console.log(user);
-console.log(allAuthor);
-
-const creatorId = allAuthor?.find((author) => author.userId === user._id)
-//console.log(creatorId);
-
-  const creator = useMemo(
-    () => allMangas?.filter((manga) => manga.authorId?._id === creatorId._id),
-    [allMangas,creatorId]
-  )
+    if (author) {
+      dispatch(myMangaAction({author: author? author._id: null, company: company ? company._id : null, token:token}))
+    }
+  }, [author])
 
   // Filtrado de mangas por categoría y búsqueda
   const filteredMangas = useMemo(() => {
-    let filtered = creator
+    let filtered = myManga
 
     // Filtro por categoría
     if (selectedCategory) {
@@ -49,17 +34,15 @@ const creatorId = allAuthor?.find((author) => author.userId === user._id)
       )
     }
     return filtered
-  }, [creator, selectedCategory, search])
+  }, [myManga, selectedCategory, search])
 
 
-  const nameCreator = useMemo(() => {
-    return creator.length > 0 ? creator[0]?.authorId?.name : "Unknown Author";
-  }, [creator])
-
+  
+if (!loading) {
   return (
     <>
       <div className="bg-manager bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center pb-8">
-        <p className="w-auto mb-8 mt-36 text-6xl text-white font-bold">{nameCreator}</p>
+        <p className="w-auto mb-8 mt-36 text-6xl text-white font-bold">{author ? author.name : user?.name }</p>
         <div className="relative w-full md:w-[70vw]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
             className="absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
@@ -77,7 +60,7 @@ const creatorId = allAuthor?.find((author) => author.userId === user._id)
           <Category />
         </div>
         <div className="flex flex-wrap justify-evenly">
-          {loading ? (
+          {loadinMyManga ? (
             <div className="min-h-screen flex items-center justify-center px-3">
               <svg
                 viewBox="0 0 1024 1024"
@@ -88,8 +71,8 @@ const creatorId = allAuthor?.find((author) => author.userId === user._id)
               </svg>
               <p className="text-orange-500 text-xl font-semibold">Loading...</p>
             </div>
-          ) : error ? (
-            <p className="text-red-500 text-lg font-semibold">Error: {error}</p>
+          ) : errorMyManga ? (
+            <p className="text-red-500 text-lg font-semibold">Error: {errorMyManga}</p>
           ) : filteredMangas.length > 0 ? (
             filteredMangas.map((manga, index) => (
               <CardManga key={index} manga={manga} />
@@ -105,6 +88,8 @@ const creatorId = allAuthor?.find((author) => author.userId === user._id)
       </div>
     </>
   )
+}
+  
 }
 
 export default Manager
