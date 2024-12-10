@@ -19,13 +19,29 @@ const routes = [
 ]
 
 export default function SidebarWithToggle() {
-  const { user, token, role } = useSelector((state) => state.authReducer)
+  const { user, author, token, company, role, switchRole } = useSelector((state) => state.authReducer)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [img, setImg] = useState(user?.photo)
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(()=>{
+    console.log("entro al use", switchRole);
+    
+    if (company?.photo ) {
+      console.log("entro a company");
+      
+      setImg(company.photo)
+    }
+    if (author?.photo) {
+      console.log("entro a author");
+      
+      setImg(author.photo)
+    }
+  },[switchRole])
 
+  
   const lineColor = location.pathname.startsWith("/details") ? "bg-white" : "bg-orange-500";
   const isUser = user?.role === 0 && token
   const isManager = user?.role !== 0 && token
@@ -79,7 +95,7 @@ export default function SidebarWithToggle() {
                 <div className="mb-4 flex items-center gap-3 md:mt-2">
                   <div className="h-10 w-10 md:h-12 md:w-12 mt-1">
                     <img
-                      src={user?.photo || avatarProfile}
+                      src={img}
                       alt="User"
                       className="rounded-full h-10 w-10 md:h-12 md:w-12"
 
