@@ -35,6 +35,7 @@ import AuthorCompanyAdminRouter from "./Components/privareRouter/AuthorCompanyAd
 import AuthorRouter from "./Components/privareRouter/AuthorRouter.jsx";
 import CompanyRouter from "./Components/privareRouter/CompanyRouter.jsx";
 import AdminRouter from "./Components/privareRouter/AdminRouter.jsx";
+import Donate from "./Pages/Donate.jsx"
 
 
 const router = createBrowserRouter([
@@ -51,7 +52,8 @@ const router = createBrowserRouter([
       { path: "/details/:id", element: <LoginRouter><ChapterDetails /></LoginRouter> },
       { path: "/edit/author", element: <AuthorRouter><EditAuthor/></AuthorRouter> },
       { path: "/edit/company", element: <CompanyRouter> <EditCompany /></CompanyRouter> },
-      { path: "/favorites", element: <LoginRouter><Favorites /></LoginRouter>}
+      { path: "/favorites", element: <LoginRouter><Favorites /></LoginRouter>},
+      { path: "/donate", element: <Donate/>},
     ]
   },
   {

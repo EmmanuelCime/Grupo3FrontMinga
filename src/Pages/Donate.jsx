@@ -6,8 +6,8 @@ function DonationPage() {
 
   let handleDonation = () => {
     if (donationAmount) {
-      setMessage(`Thanks for your donation of $${donationAmount}!`)
-      alert(`Thanks for your donation of $${donationAmount}!`)
+      setMessage(`Thanks for your donation of $${donationAmount} USD!`)
+      alert(`Donation of $${donationAmount} USD sent successfully!`)
       setDonationAmount('')
     } else {
       alert('Enter a donation amount, please')
@@ -15,9 +15,9 @@ function DonationPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-      <h1 className="text-3xl font-bold text-orange-500 mb-4">Make a Donation</h1>
-      <p className="text-gray-700 mb-6">Your support is essential for our project. Thank you for your generosity!</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white gap-5">
+      <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-orange-500 mb-7">Make a Donation</h1>
+      <p className="text-gray-700 mb-6 m-1 lg:text-lg xl:text-xl">Your support is essential for our project. Thank you for your generosity!</p>
 
       <div className="w-full max-w-md p-6 bg-white border border-gray-200 shadow-md rounded-lg">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="donation">
@@ -43,7 +43,7 @@ function DonationPage() {
       </div>
 
       <a
-        href="/"
+        href="/home"
         className="mt-6 text-orange-500 hover:underline"
       >
         Go to Home Page
