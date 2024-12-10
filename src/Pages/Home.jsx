@@ -39,14 +39,15 @@ function Home() {
             localStorage.setItem("token", tokenUrl)
             loginWithToken(token)
                 .then((data) => {
-                    if (data) {
-                        dispatch(setUser({ data, token }))
-                    }
-                    else{
-                        localStorage.removeItem("token")
-                    }
+                    dispatch(setUser({ data, token }))
+                    
                 })
-            navigate("/")
+                const timer = setTimeout(() => {
+                    navigate("/")
+                  }, 3000); // 3000 milisegundos = 3 segundos
+              
+                  // Limpieza: limpiar el temporizador si el componente se desmonta
+                  return () => clearTimeout(timer);
         }
     }, [])
 
