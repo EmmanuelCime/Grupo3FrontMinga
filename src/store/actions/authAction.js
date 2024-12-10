@@ -8,8 +8,8 @@ export const setUser = createAction("setUser", (datos) => {
 })
 
 export const signOut = createAction("logout")
-
 export const setSwitch = createAction("SET_SWITCH")
+export const setUpdateAuthor = createAction("SET_UPDATE_AUTHOR")
 
 export const signIn = createAsyncThunk("login", async ({ email, password }, { rejectWithValue }) => {
     try {
@@ -31,6 +31,6 @@ export const signUp = createAsyncThunk("register", async (user, { rejectWithValu
         const response = await axios.post(`${uri_render}api/users/register`, user)
         return response.data
     } catch (error) {
-        return rejectWithValue(error.response?.data?.message || "Registration failed")
+        return rejectWithValue(error.response?.data || "Registration failed")
     }
 })

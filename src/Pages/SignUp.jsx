@@ -2,14 +2,14 @@ import imageSignUp from "../assets/imageSignUp.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
 import ButtonPrimary from "../Components/ButtonPrimary";
 import ButtonGoogle from "../Components/ButtonGoogle";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signUp } from "../store/actions/authAction";
 
 export default function SignUp() {
-  const navigate = useNavigate();
+  
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authReducer);
 
@@ -75,11 +75,7 @@ export default function SignUp() {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      navigate("/home");
-    }
-  }, [user, navigate]);
+
 
   return (
     <div className="flex h-screen">

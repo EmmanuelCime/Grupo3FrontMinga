@@ -1,7 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const uri_render = "https://grupo3backminga.onrender.com/"
+const uri_render = "http://localhost:8080/"
+
+export const clearAuthorAction = createAction("CLEAR_AUTHOR_ACTION")
 
 export const getAuthor = createAsyncThunk("GET_AUTHOR", async (_, { rejectWithValue }) => {
     const token = localStorage.getItem("token")
@@ -20,19 +22,14 @@ export const getAuthor = createAsyncThunk("GET_AUTHOR", async (_, { rejectWithVa
     }
 })
 
-export const updateAuthor = createAsyncThunk("UPDATE_AUTHOR", async ({updatedData},{rejectWithValue})=>{
-    const token = localStorage.getItem("token")
-    if (!token) {
-        throw new Error("User is not logged in.")
-    }
+export const updateAuthor = createAsyncThunk("UPDATE_AUTHOR", async ({updatedData, token},{rejectWithValue})=>{
     try {
-        const response = await axios.put(`${uri_render}api/authors/update`,updatedData, {
+        const response = await axios.put(`${uri_render}api/authors/update`, updatedData, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         })
-        
-        return response.data.authors
+        return response.data.author
     } catch (error) {
         console.error("Error during update:", error.response.data.message[0].description)
         return rejectWithValue(error.response?.data?.message) || "Error updating author"

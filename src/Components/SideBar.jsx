@@ -9,12 +9,9 @@ import { setUser, signOut } from "../store/actions/authAction"
 
 const routes = [
   [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" }],
-  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
-   { to: "/details", text: "Details" }],
-  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
-    { to: "/details", text: "Details" }],
-  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },
-      { to: "/adminpanel", text: "Admin Panel" }, { to: "/details", text: "Details" }],
+  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" }],
+  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" }],
+  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" }],
   [{ to: "/", text: "Home" },{ to: "/signup", text: "Register" },{ to: "/signin", text: "Sign In" },{ to: "/mangas", text: "Mangas" }]
 ]
 
@@ -22,24 +19,25 @@ export default function SidebarWithToggle() {
   const { user, author, token, company, role, switchRole } = useSelector((state) => state.authReducer)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [img, setImg] = useState(user?.photo)
+  const [name, setName] = useState(user?.email)
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(()=>{
-    console.log("entro al use", switchRole);
-    
-    if (company?.photo ) {
-      console.log("entro a company");
-      
-      setImg(company.photo)
+    if (user != null && !switchRole) {
+      setImg(user.photo)
+      setName(user.email)
     }
-    if (author?.photo) {
-      console.log("entro a author");
-      
-      setImg(author.photo)
+    if (company != null && switchRole) {
+      setName(company?.name)
+      setImg(i => i = company?.photo)
     }
-  },[switchRole])
+    if (author != null && switchRole) {
+      setName(author?.name)
+      setImg(i => i = author?.photo)
+    }
+  },[switchRole, user])
 
   
   const lineColor = location.pathname.startsWith("/details") ? "bg-white" : "bg-orange-500";
@@ -102,7 +100,7 @@ export default function SidebarWithToggle() {
                     />
                   </div>
                   <p className="mt-2 text-white text-xs font-medium text-center pr-5">
-                    {user?.email}
+                    {name}
                   </p>
                 </div>
                 <button
@@ -119,14 +117,14 @@ export default function SidebarWithToggle() {
                 <div className="mb-4 flex items-center gap-3 md:mt-2">
                   <NavLink to={`/profile`} className="h-10 w-10 md:h-12 md:w-12 mt-1">
                     <img
-                      src={user?.photo || avatarProfile}
+                      src={img}
                       alt="User"
                       className="rounded-full h-10 w-10 md:h-12 md:w-12"
                       onClick={handleLinkClick}
                     />
                   </NavLink>
                   <p className="mt-2 text-white text-xs font-medium text-center pr-5">
-                    {user?.email}
+                    {name}
                   </p>
                 </div>
                 <button

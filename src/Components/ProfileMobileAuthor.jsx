@@ -1,61 +1,44 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAuthor } from "../store/actions/authorAction";
 import avatarProfile from "../assets/avatarProfile.jpg"
-import { getMangas } from "../store/actions/mangasAction";
+import axios from "axios";
+
+const uri_render = "https://grupo3backminga.onrender.com/"
 
 export default function ProfileMobileAuthor({ className }) {
-    const { allMangas } = useSelector((state) => state.mangaReducer);
-    const { allAuthor, loading, error } = useSelector((state) => state.authorReducer);
-    const { user } = useSelector((state) => state.authReducer)
+    const { author, company, user, loading, token, error} = useSelector((state) => state. authReducer)
+    const [mangas, setManga] = useState([])
     const dispatch = useDispatch();
 
-    const [author, setAuthor] = useState({
-        id: "",
-        firstName: "",
-        lastName: "",
-        city: "",
-        country: "",
-        date: "",
-        profileImage: avatarProfile,
-    });
+    const [formData, setFormData] = useState({
+        id: author?._id,
+        firstName: author?.name,
+        lastName: author?.lastName,
+        city: author?.city,
+        country: author?.country,
+        date: author?.dateBorn,
+        profileImage: author?.photo || avatarProfile,
+    })
+
 
     useEffect(() => {
-        dispatch(getAuthor())
-            .unwrap()
-            .catch((err) => console.error("Error fetching authors:", err))
-    }, [dispatch])
-
-    useEffect(() => {
-        dispatch(getMangas())
-            .unwrap()
-            .catch((err) => console.error("Error fetching mangas:", err))
-    }, [dispatch])
-
-    const foundAuthor = useMemo(() => {
-        if (allAuthor && allAuthor.length > 0) {
-            return allAuthor.find((author) => author.userId  === user._id)
-        }
-        return null
-    }, [allAuthor,user])
-
-    useEffect(() => {
-        if (foundAuthor) {
-            setAuthor({
-                id: foundAuthor._id || "",
-                firstName: foundAuthor.name || "",
-                lastName: foundAuthor.lastName || "",
-                city: foundAuthor.city || "",
-                country: foundAuthor.country || "",
-                date: foundAuthor.dateBorn || "",
-                profileImage: foundAuthor.photo || avatarProfile,
+        const mangasAuthor = async()=>{
+            try {
+                const data = await axios.get(`${uri_render}api/manga/mangasByAuthorOrCompany?author=${formData.id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
             })
+            setManga(data.data.mangas)
+            } catch (error) {
+                console.log(error);
+                
+            }
         }
-    }, [foundAuthor]);
-
-    const mangas = useMemo(() => allMangas?.filter((manga) => manga.authorId._id === foundAuthor._id), [allMangas, foundAuthor])
-
+        mangasAuthor()
+    }, [])
+    
     if (loading) {
         return <div>Loading authors...</div>
     }
@@ -69,12 +52,12 @@ export default function ProfileMobileAuthor({ className }) {
             {/* Perfil */}
             <div className="flex items-center gap-4 mb-6 mt-2">
                 <img
-                    src={author.profileImage}
-                    alt={author.firstName}
+                    src={formData.profileImage}
+                    alt={formData.firstName}
                     className="w-12 h-12 rounded-full border border-gray-300"
                 />
                 <div className="flex flex-col w-full">
-                    <h1 className="font-bold text-md mb-">{`${author.firstName} ${author.lastName}`}</h1>
+                    <h1 className="font-bold text-md mb-">{`${formData.firstName} ${formData.lastName}`}</h1>
                     <p className="text-gray-600 text-xs flex mb-1">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +77,7 @@ export default function ProfileMobileAuthor({ className }) {
                                 strokeLinejoin="round"
                                 d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
                             />
-                        </svg>{`${author.city}, ${author.country}`}</p>
+                        </svg>{`${formData.city}, ${formData.country}`}</p>
                     <p className="text-gray-500 text-xs flex "> <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -108,7 +91,7 @@ export default function ProfileMobileAuthor({ className }) {
                             strokeLinejoin="round"
                             d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75-1.5.75a3.354 3.354 0 0 1-3 0 3.354 3.354 0 0 0-3 0 3.354 3.354 0 0 1-3 0 3.354 3.354 0 0 0-3 0 3.354 3.354 0 0 1-3 0L3 16.5m15-3.379a48.474 48.474 0 0 0-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 0 1 3 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 0 1 6 13.12M12.265 3.11a.375.375 0 1 1-.53 0L12 2.845l.265.265Zm-3 0a.375.375 0 1 1-.53 0L9 2.845l.265.265Zm6 0a.375.375 0 1 1-.53 0L15 2.845l.265.265Z"
                         />
-                    </svg>{author.date}</p>
+                    </svg>{formData.date}</p>
 
 
                 </div>
@@ -138,7 +121,7 @@ export default function ProfileMobileAuthor({ className }) {
             {/* Lista de Animes */}
             <div className="grid grid-cols-2 gap-4">
                 {/* Tarjeta de Anime */}
-                {mangas.map((manga, index) => (
+                {mangas.length > 0 ? mangas.map((manga, index) => (
                     <div key={index} className=" ">
                         <img
                             src={manga.coverPhoto}
@@ -147,7 +130,7 @@ export default function ProfileMobileAuthor({ className }) {
                         />
                         <p className="p-2 text-sm font-semibold">{manga.title}</p>
                     </div>
-                ))}
+                )) : ""}
             </div>
 
             {/* Botón de "Manage" */}

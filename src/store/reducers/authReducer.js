@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { signIn, setUser, signOut, signUp, setSwitch } from "../actions/authAction"
+import { signIn, setUser, signOut, signUp, setSwitch, setUpdateAuthor } from "../actions/authAction"
 
 const initialState = {
     loading: false,
@@ -24,8 +24,6 @@ const authReducer = createReducer(initialState, (builder) => {
             state.author = null
         })
         .addCase(signIn.fulfilled, (state, action) => {
-            console.log(action.payload, "lo que esta en el back-------");
-            
             state.loading = false
             state.error = null
             state.user = action.payload.user
@@ -83,6 +81,9 @@ const authReducer = createReducer(initialState, (builder) => {
           })
           .addCase(setSwitch, (state)=>{
             state.switchRole = !state.switchRole
+          })
+          .addCase(setUpdateAuthor, (state, action)=>{
+            state.author = action.payload
           })
 })
 
