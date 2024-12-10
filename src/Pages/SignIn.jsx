@@ -11,28 +11,96 @@ import { Link } from "react-router-dom";
 const uri_render = "https://grupo3backminga.onrender.com/"
 
 export default function SignIn() {
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user, token, loading, error } = useSelector((state) => state.authReducer)
+  
+  // State for form fields and validation
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  
+  // State for validation errors
+  const [validationErrors, setValidationErrors] = useState({
+    email: "",
+    password: ""
+  })
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value)
+  // Email validation function
+  const validateEmail = (email) => {
+    // Basic email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    
+    if (!email) {
+      return "Email is required"
+    }
+    
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address"
+    }
+    
+    return ""
   }
 
+  // Password validation function
+  const validatePassword = (password) => {
+    if (!password) {
+      return "Password is required"
+    }
+    
+    if (password.length < 6) {
+      return "Password must be at least 6 characters long"
+    }
+    
+    return ""
+  }
+
+  // Handle email input with validation
+  const handleEmail = (e) => {
+    const newEmail = e.target.value
+    setEmail(newEmail)
+    
+    // Validate email as user types
+    setValidationErrors(prev => ({
+      ...prev,
+      email: validateEmail(newEmail)
+    }))
+  }
+
+  // Handle password input with validation
+  const handlePassword = (e) => {
+    const newPassword = e.target.value
+    setPassword(newPassword)
+    
+    // Validate password as user types
+    setValidationErrors(prev => ({
+      ...prev,
+      password: validatePassword(newPassword)
+    }))
+  }
+
+  // Redirect if already logged in
   if (token != "" && user?.email) {
     navigate("/home")
   }
 
-  const handlePassword = (e) => {
-    setPassword(e.target.value)
-  }
-
+  // Handle form submission with comprehensive validation
   const handleSignIn = async (e) => {
     e.preventDefault()
-    dispatch(signIn({ password: password, email: email }))
+    
+    // Validate all fields before submission
+    const emailError = validateEmail(email)
+    const passwordError = validatePassword(password)
+    
+    // Update validation errors
+    setValidationErrors({
+      email: emailError,
+      password: passwordError
+    })
+    
+    // Only proceed if there are no validation errors
+    if (!emailError && !passwordError) {
+      dispatch(signIn({ password: password, email: email }))
+    }
   }
 
   const handleSignInGoogle = () => {
@@ -41,7 +109,6 @@ export default function SignIn() {
 
   return (
     <div className="flex h-screen">
-
       {/* Imagen lateral */}
       <div className="hidden md:block w-1/2 bg-cover bg-center" style={{ backgroundImage: `url(${imageSignIn})` }}
       ></div>
@@ -49,10 +116,7 @@ export default function SignIn() {
       {/* Contenedor del formulario */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-5 bg-white">
         {/* Logo y título */}
-
         <img className="h-10 lg:h-14" src={MingaLogotype} alt="Minga Logotype" />
-
-
 
         <h2 className="text-lg sm:text-2xl lg:text-3xl font-semibold mb-4">Welcome <span className="text-orange-500">back!</span></h2>
         <p className="text-gray-600 mb-6 text-center lg:text-sm text-xs">
@@ -68,8 +132,12 @@ export default function SignIn() {
               id="email"
               placeholder=" "
               value={email}
-              onChange={(e) => handleEmail(e)}
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+              onChange={handleEmail}
+              className={`peer h-full w-full rounded-md border ${
+                validationErrors.email 
+                  ? 'border-red-500' 
+                  : 'border-blue-gray-200 border-t-transparent'
+              } bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
             />
             <label
               htmlFor="email"
@@ -89,6 +157,9 @@ export default function SignIn() {
                 clipRule="evenodd"
               />
             </svg>
+            {validationErrors.email && (
+              <p className="text-red-500 text-xs mt-1 absolute">{validationErrors.email}</p>
+            )}
           </div>
 
           {/* Input de Password */}
@@ -98,8 +169,12 @@ export default function SignIn() {
               id="password"
               placeholder=" "
               value={password}
-              onChange={(e) => handlePassword(e)}
-              className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+              onChange={handlePassword}
+              className={`peer h-full w-full rounded-md border ${
+                validationErrors.password 
+                  ? 'border-red-500' 
+                  : 'border-blue-gray-200 border-t-transparent'
+              } bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-[#f97117] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
             />
             <label
               htmlFor="password"
@@ -119,6 +194,9 @@ export default function SignIn() {
                 clipRule="evenodd"
               />
             </svg>
+            {validationErrors.password && (
+              <p className="text-red-500 text-xs mt-1 absolute">{validationErrors.password}</p>
+            )}
           </div>
          
           {error && <p
@@ -135,10 +213,10 @@ export default function SignIn() {
 
         {/* Texto de ayuda */}
         <p className="lg:text-sm text-xs text-gray-500 lg:mt-6 mt-4 mb-2 font-semibold">
-          You don’t have an account yet? <Link to="/signup" className="text-orange-500">Sign up</Link>
+          You don't have an account yet? <Link to="/signup" className="text-orange-500">Sign up</Link>
         </p>
         <p className="lg:text-sm text-xs text-gray-500 font-semibold">
-          Go back to  <Link to="/home" className="text-orange-500">home page</Link>
+          Go back to  <Link to="/home" className="text-orange-500">Home page</Link>
         </p>
       </div>
     </div>
