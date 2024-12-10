@@ -65,7 +65,6 @@ function Home() {
                 </div>
             </div>
             <div className="px-4 py-7 lg:py-0"><Carousel></Carousel></div>
-            
         </>
     )
 }

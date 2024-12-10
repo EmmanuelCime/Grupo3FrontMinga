@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 function DonationPage() {
   let [donationAmount, setDonationAmount] = useState('')
@@ -15,6 +16,7 @@ function DonationPage() {
   }
 
   return (
+
     <div className="min-h-screen flex flex-col items-center justify-center bg-white gap-5">
       <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-orange-500 mb-7">Make a Donation</h1>
       <p className="text-gray-700 mb-6 m-1 lg:text-lg xl:text-xl">Your support is essential for our project. Thank you for your generosity!</p>
@@ -42,13 +44,9 @@ function DonationPage() {
         {message && <p className="mt-4 text-green-500 font-semibold">{message}</p>}
       </div>
 
-      <a
-        href="/home"
-        className="mt-6 text-orange-500 hover:underline"
-      >
-        Go to Home Page
-      </a>
+      <NavLink className="mt-6 text-orange-500 hover:underline" to="/home">Go to Home Page</NavLink>
     </div>
+    
   )
 }
 
