@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-function CustomAlert() {
+function CustomAlert({ description, onClose }) {
     const [isVisible, setIsVisible] = useState(true);
 
-    const closeAlert = () => {
+    const handleClose = () => {
+        if (onClose) onClose();
         setIsVisible(false);
     };
 
@@ -12,10 +13,10 @@ function CustomAlert() {
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                 <div className="bg-gray-100 w-80 rounded-lg shadow-lg p-5 text-center">
                     <p className="text-black text-lg font-medium mb-4">
-                        Your changes are saved correctly!
+                        {description}
                     </p>
                     <button
-                        onClick={closeAlert}
+                        onClick={handleClose}
                         className="text-blue-500 text-base font-medium focus:outline-none hover:underline"
                     >
                         Accept

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-function ConfirmationAlert() {
+function ConfirmationAlert({ description, onConfirm, onCancel }) {
     const [isVisible, setIsVisible] = useState(true);
 
-    const handleDelete = () => {
-        console.log("Deleted!");
+    const handleConfirm = () => {
+        if (onConfirm) onConfirm();
         setIsVisible(false);
     };
 
     const handleCancel = () => {
-        console.log("Canceled!");
+        if (onCancel) onCancel();
         setIsVisible(false);
     };
 
@@ -18,11 +18,11 @@ function ConfirmationAlert() {
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                 <div className="bg-gray-100 w-80 rounded-lg shadow-lg p-5 text-center">
                     <p className="text-black text-lg font-medium mb-4">
-                        Are you sure you want to delete?
+                        {description}
                     </p>
                     <div className="flex justify-between items-center">
                         <button
-                            onClick={handleDelete}
+                            onClick={handleConfirm}
                             className="w-1/2 text-red-500 text-base font-medium focus:outline-none hover:underline"
                         >
                             Yes, I'm sure

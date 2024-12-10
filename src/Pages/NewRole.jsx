@@ -4,12 +4,14 @@ import MingaLogotype from "../assets/mingaLogotype.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSwitch } from "../store/actions/authAction";
+import CustomAlert from "../Components/CustomAlert";
 
 export default function NewRole() {
   const { author, company, user, loading, token} = useSelector((state) => state. authReducer)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [selectedRole, setSelectedRole] = useState("")
+  
   useEffect(()=>{
     if (selectedRole == "author") {
       console.log(user);
@@ -25,7 +27,7 @@ export default function NewRole() {
         dispatch(setSwitch())
        navigate("/") 
       }else{
-        navigate("/newcompany")
+        navigate("/newcompany") 
       }
     }
   }, [selectedRole])
