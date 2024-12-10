@@ -73,7 +73,7 @@ const router = createBrowserRouter([
   { path: "/*", element: <NotFound /> }
 ])
 const loginWithToken = async (token) => {
-  const uri_render = "http://localhost:8080/"
+  const uri_render = "https://grupo3backminga.onrender.com/"
   try {
       const response = await axios.get(`${uri_render}api/auth/tokenVerification`,
           {
