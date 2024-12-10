@@ -60,21 +60,6 @@ const reactionReducer = createReducer(initialState, (builder) => {
             state.loading = false;
             state.error = action.payload;
         })
-
-        // Fetch Chapter Reactions Cases
-        // .addCase(fetchChapterReactions.pending, (state) => {
-        //     state.loading = true;
-        //     state.error = null;
-        // })
-        // .addCase(fetchChapterReactions.fulfilled, (state, action) => {
-        //     state.loading = false;
-        //     state.reactions = action.payload.reactions;
-        //     state.userReaction = action.payload.userReaction;
-        // })
-        // .addCase(fetchChapterReactions.rejected, (state, action) => {
-        //     state.loading = false;
-        //     state.error = action.payload;
-        // });
 });
 
 export default reactionReducer;

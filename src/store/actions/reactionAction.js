@@ -47,16 +47,3 @@ export const deleteReaction = createAsyncThunk(
         }
     }
 );
-
-// // Fetch reactions for a specific chapter
-// export const fetchChapterReactions = createAsyncThunk(
-//     'reactions/fetchChapterReactions',
-//     async (chapterId, { rejectWithValue }) => {
-//         try {
-//             const response = await axios.get(`${uri_render}api/reaction/chapter/${chapterId}`);
-//             return response.data;
-//         } catch (error) {
-//             return rejectWithValue(error.response.data);
-//         }
-//     }
-// );
