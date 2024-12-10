@@ -138,7 +138,7 @@ export default function SignIn() {
           You don’t have an account yet? <Link to="/signup" className="text-orange-500">Sign up</Link>
         </p>
         <p className="lg:text-sm text-xs text-gray-500 font-semibold">
-          Go back to  <Link to="/home" className="text-orange-500">home page</Link>
+          Go back to  <Link to="/home" className="text-orange-500">Home page</Link>
         </p>
       </div>
     </div>

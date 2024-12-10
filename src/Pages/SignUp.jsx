@@ -172,7 +172,7 @@ export default function SignUp() {
           Already have an account? <Link to="/signin" className="text-orange-500">Log in</Link>
         </p>
         <p className="lg:text-sm text-xs text-gray-500 font-semibold">
-          Go back to <Link to="/home" className="text-orange-500">home page</Link>
+          Go back to <Link to="/home" className="text-orange-500">Home page</Link>
         </p>
       </div>
 
