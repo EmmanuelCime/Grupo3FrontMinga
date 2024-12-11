@@ -17,16 +17,12 @@ export default function TablePanel() {
 
     useEffect(()=>{
         const test = {companies: allCompany, authors: allAuthor}
-            console.log(test);
-             
             setData(test)
     }, [allAuthor, allCompany])
 
 
 
     const toggleActive = (type, index, info, token) => {
-        console.log(info);
-        
         if (type == "companies" ) {
             const {_id, active} = info
             const test = {_id: _id, active: !active}
@@ -79,7 +75,7 @@ export default function TablePanel() {
                                         <td className="hidden sm:table-cell px-4 py-2 text-xs sm:text-sm">{company.website}</td>
                                         <td className="hidden sm:table-cell px-4 py-2">
                                             <div className={`w-8 h-8 rounded-full `}>
-                                                <img src={company.photo} className="w-full h-full" alt="" />
+                                                <img src={company.photo} className="w-full object-cover h-full" alt="" />
                                             </div>
                                         </td>
                                         <td className="px-4 py-2 text-center">
@@ -117,7 +113,7 @@ export default function TablePanel() {
                                             <img
                                                 src={author.photo}
                                                 alt={author.name}
-                                                className="w-[10vw] h-[5vw] rounded-full"
+                                                className="w-[10vw] h-[5vw] object-cover rounded-full"
                                             />
                                         </td>
                                         <td className="px-4 py-2 text-center">

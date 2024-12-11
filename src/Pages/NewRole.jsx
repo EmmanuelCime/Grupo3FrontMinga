@@ -19,7 +19,7 @@ export default function NewRole() {
   const handleRoleSelect = (role) => {
     setSelectedRole(role);
     setShowAlert(true);
-
+    dispatch(setSwitch())
     // Caso: el usuario ya tiene este rol
     if ((role === "author" && author) || (role === "company" && company)) {
       setAlertMessage(

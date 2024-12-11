@@ -21,15 +21,12 @@ export const getMangas = createAsyncThunk("GET_MANGAS", async (_, { rejectWithVa
             
             return response.data.manga
         } catch (error) {
-            console.error("Error during update:", error.response.data.message[0].description)
             return rejectWithValue(error.response?.data?.message) || "Error updating manga"
         }
     })
     export const myMangaAction = createAsyncThunk("MY_MANGA", async ({author, company, token}, { rejectWithValue }) => {
         try {
             const url = author ? `${uri_render}api/manga/mangasByAuthorOrCompany?author=${author}` : `${uri_render}api/manga/mangasByAuthorOrCompany?company=${company}`
-            console.log(url);
-            
             const response = await axios.get(url, {headers: {Authorization: `Bearer ${token}`}});
             return response.data.mangas;
         } catch (error) {
