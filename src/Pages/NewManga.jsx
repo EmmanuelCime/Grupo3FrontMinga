@@ -1,18 +1,23 @@
-import axios from 'axios'
 import { useState } from "react"
 import { NavLink } from 'react-router-dom'
 import ButtonSend from "../Components/ButtonSend"
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 
 function NewManga() {
-    let [formData, setFormData] = useState({
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { author, company, user, loading, token} = useSelector((state) => state. authReducer)
+    const { allCategory } = useSelector((state) => state.categoryReducer)
+console.log(company)
+    const [formData, setFormData] = useState({
         title: '',
-        category: '',
+        categoryId: '',
         coverPhoto: '',
-        description: ''
+        description: '',
+        //authorId: author._id || company._id
     })
-
-    let [message, setMessage] = useState('')
 
     let handleChange = (e) => {
         const { name, value } = e.target
@@ -21,18 +26,24 @@ function NewManga() {
 
     let handleSubmit = async (e) => {
         e.preventDefault()
-        setMessage('')
-
-        try {
-            await axios.post('http://localhost:8080/api/newmanga', formData)
-            setMessage('The manga has been successfully created')
-        } catch (error) {
-            if (error.response) {
-                setMessage(`error ${error.response.data.message}`)
-            } else {
-                setMessage('Error unexpected... please try again')
-            }
+        const newData = {
+            title: formData.title,
+            categoryId: formData.categoryId?._id || formData.categoryId,
+            coverPhoto: formData.coverPhoto,
+            description: formData.description,
+            authorId: formData.authorId
         }
+        dispatch(newManga({ newData: newData }))
+            .unwrap()
+            .then(() => {
+                alert("Manga create successfully!")
+                navigate("/manager")
+            })
+            .catch((error) => {
+                console.error("Error creating Manga:", error)
+                alert(error.response || "Failed to create Manga")
+                navigate("/newManga")
+            })
     }
 
     return (
@@ -41,7 +52,6 @@ function NewManga() {
                 <div className="flex justify-center items-center md:w-1/2 my-32 md:my-16 ">
                     <form onSubmit={handleSubmit} className="flex flex-col w-[80vw] md:w-[40vw] gap-4 p-4">
                         <h1 className="text-2xl text-center font-bold mb-6">New Manga</h1>
-                        {message && <p className={`text-center ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>{message}</p>}
 
                         <div className="mt-1 mb-4">
                             <input
@@ -53,15 +63,20 @@ function NewManga() {
                                 placeholder="Insert title"
                             />
                         </div>
-                        <div className="mt-1 mb-4">
-                            <input list="categoryOption" name="category" value={formData.category} onChange={handleChange} className="w-full border-gray-400 focus:border-gray-500 px-2 bg-transparent outline-none border-0 border-b-2" placeholder="Insert a category" />
-                            <datalist id="categoryOption" className="p-2 bg-white border border-gray-300 rounded-lg shadow-lg">
-                                <option value=" Comedy" />
-                                <option value="Fantasy" />
-                                <option value="Horror" />
-                                <option value="Action" />
-                            </datalist>
-                        </div>
+                        <select
+                            name="categoryId"
+                            value={formData.categoryId}
+                            onChange={handleChange}
+                            className="w-full border-b border-gray-400 outline-none focus:border-gray-600"
+                        >
+                            <option className="border-b border-gray-400 outline-none focus:border-gray-600" value="">Select new category</option>
+                            {allCategory.map((category) => (
+                                <option key={category._id} value={category._id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+
                         <div className="mt-1 mb-4">
                             <input
                                 type="url"
@@ -82,11 +97,12 @@ function NewManga() {
                                 placeholder="Insert description"
                             />
                         </div>
+
                         <div className="flex flex-col items-center gap-3">
-                            <ButtonSend name="Send" />
+                            <ButtonSend name="Send" onClick={handleSubmit} />
                         </div>
                         <div className="flex flex-col items-center pt-3 gap-3">
-                            <NavLink to="/mangas" className="md:text-xl lg:text-xl w-32 lg:w-52 text-center bg-orange-500 text-white hover:bg-orange-700 hover:bold px-3 py-2 rounded-lg font-semibold">Back to Mangas</NavLink>
+                            <NavLink to="/manager" className="md:text-xl lg:text-xl w-32 lg:w-52 text-center bg-orange-500 text-white hover:bg-orange-700 hover:bold px-3 py-2 rounded-lg font-semibold">Return to Manager</NavLink>
                         </div>
                     </form>
                 </div>

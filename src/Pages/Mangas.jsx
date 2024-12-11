@@ -84,10 +84,14 @@ function Mangas() {
               <CardManga key={index} manga={manga} />
             ))
           ) : (
-            <div className="w-64 h-36 md:w-80 md:h-44 flex items-center mt-4 rounded-2xl shadow-md">
+            <div className="w-full flex flex-col justify-center mt-4 p-5 rounded-2xl shadow-md bg-gradient-to-t from-orange-200">
               <p className="text-center text-3xl text-gray-500 font-bold">
                 {"We don't have that edition"}
               </p>
+              <img
+              className="w-[50vw] rounded-2xl mx-auto"
+              src="https://img.wattpad.com/688077c018b8b26260df264e37be8ab63d5cdae6/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f56487034577345486143496b48673d3d2d3834343838313236332e313566386234303562633730396532373939313736333930383031362e676966" alt="" />
+              
             </div>
           )}
         </div>
