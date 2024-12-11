@@ -73,9 +73,11 @@ export default function TablePanel() {
                                         </td>
                                         <td className="px-4 py-2 text-xs sm:text-sm">{company.name}</td>
                                         <td className="hidden sm:table-cell px-4 py-2 text-xs sm:text-sm">{company.website}</td>
+
                                         <td className="hidden sm:table-cell px-4 py-2">
+                                            
                                             <div className={`w-8 h-8 rounded-full `}>
-                                                <img src={company.photo} className="w-full object-cover h-full" alt="" />
+                                                <img src={company.photo} className="w-full object-cover rounded-full h-full" alt="photocompany" />
                                             </div>
                                         </td>
                                         <td className="px-4 py-2 text-center">
@@ -106,14 +108,14 @@ export default function TablePanel() {
                                                 />
                                             </svg>
                                         </td>
-                                        <td className="px-4 py-2 text-sm">{author.name}</td>
+                                        <td className="px- py-2 text-sm">{author.name}</td>
                                         <td className="hidden sm:table-cell px-4 py-2">{author.dateBorn}</td>
                                         <td className="hidden sm:table-cell px-4 py-2">{author.city}</td>
-                                        <td className="hidden sm:table-cell px-4 py-2">
+                                        <td className="hidden lg:table-cell px-4 py-2">
                                             <img
                                                 src={author.photo}
                                                 alt={author.name}
-                                                className="w-[10vw] h-[5vw] object-cover rounded-full"
+                                                className="w-8 h-8 object-cover rounded-full"
                                             />
                                         </td>
                                         <td className="px-4 py-2 text-center">
