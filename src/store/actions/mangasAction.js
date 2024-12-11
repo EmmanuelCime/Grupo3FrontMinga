@@ -35,4 +35,8 @@ export const getMangas = createAsyncThunk("GET_MANGAS", async (_, { rejectWithVa
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || "Error getting manga");
         }
-    });
+    })
+
+    /*export const newManga = createAsyncThunk("NEW_MANGA", async ({_,newData},{rejectWithValue})=>{
+
+    })*/
