@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState } from "react"
+import { NavLink } from 'react-router-dom'
 import ButtonSend from "../Components/ButtonSend"
 
 
@@ -41,7 +42,7 @@ function NewChapter() {
                     <form onSubmit={handleSubmit} className="flex flex-col w-[90vw] md:w-[40vw] gap-4 p-4">
                         <h1 className="text-2xl text-center font-bold mb-6">New Chapter</h1>
                         {message && <p className={`text-center ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>{message}</p>}
-                        
+
                         <div className="mt-1 mb-4">
                             <input
                                 type="text"
@@ -73,7 +74,10 @@ function NewChapter() {
                             />
                         </div>
                         <div className="flex flex-col items-center gap-3">
-                            <ButtonSend name="Send"/>
+                            <ButtonSend name="Send" />
+                        </div>
+                        <div className="flex flex-col items-center pt-3 gap-3">
+                            <NavLink to="/mangas" className="md:text-xl lg:text-xl w-32 lg:w-52 text-center bg-orange-500 text-white hover:bg-orange-700 hover:bold px-3 py-2 rounded-lg font-semibold">Back to Mangas</NavLink>
                         </div>
                     </form>
                 </div>
