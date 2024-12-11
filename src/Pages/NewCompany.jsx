@@ -87,7 +87,7 @@ function NewCompany() {
                             <ButtonSend name="Send" />
                         </div>
                         <div className="flex flex-col items-center pt-3 gap-3">
-                            <NavLink to="/mangas" className="md:text-xl lg:text-xl w-32 lg:w-52 text-center bg-orange-500 text-white hover:bg-orange-700 hover:bold px-3 py-2 rounded-lg font-semibold">Back to Mangas</NavLink>
+                            <NavLink to="/manager" className="w-full bg-[#fb8151] text-white py-3 rounded-3xl font-bold shadow-md transition-transform duration-200 transform hover:bg-[#c36540] hover:scale-105">Back to Manager</NavLink>
                         </div>
                     </form>
                 </div>

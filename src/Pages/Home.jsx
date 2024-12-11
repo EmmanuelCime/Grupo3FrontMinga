@@ -42,12 +42,7 @@ function Home() {
                     dispatch(setUser({ data, token }))
                     
                 })
-                const timer = setTimeout(() => {
-                    navigate("/")
-                  }, 3000); // 3000 milisegundos = 3 segundos
-              
-                  // Limpieza: limpiar el temporizador si el componente se desmonta
-                  return () => clearTimeout(timer);
+                navigate("/")
         }
     }, [])
 
