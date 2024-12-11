@@ -10,6 +10,7 @@ export const setUser = createAction("setUser", (datos) => {
 export const signOut = createAction("logout")
 export const setSwitch = createAction("SET_SWITCH")
 export const setUpdateAuthor = createAction("SET_UPDATE_AUTHOR")
+export const setSwitchSig = createAction("SET_SWITCH_SIGN_IN")
 
 export const signIn = createAsyncThunk("login", async ({ email, password }, { rejectWithValue }) => {
     try {

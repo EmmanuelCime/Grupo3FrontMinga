@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import avatarProfile from "../assets/avatarProfile.jpg";
 import mingaLogotype from "../assets/mingaLogotype.png";
 import { NavLink, useNavigate } from "react-router-dom";
+import {ChatBot} from "../Components/ChatBot"
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, signOut } from "../store/actions/authAction"
@@ -50,7 +51,8 @@ export default function SidebarWithToggle() {
 
   const handleSignOut = () => {
     dispatch(signOut())
-    navigate("/home")
+    navigate("/")
+    window.location.reload();
   }
 
   return (
@@ -181,6 +183,7 @@ export default function SidebarWithToggle() {
           </div>
         </div>
       )}
+      <ChatBot/>
     </div>
   )
 }
