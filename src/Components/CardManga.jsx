@@ -1,4 +1,6 @@
 import { Link, useLocation } from "react-router-dom"
+import Swal from "sweetalert2"
+import LogInIMG from "../assets/logIn.png"
 
 const BtnAuthCompanyTop = ({ id }) => {
     return (
@@ -44,7 +46,36 @@ export default function CardManga({ manga, index }) {
     const location = useLocation()
 
     const isEditPage = location.pathname === "/manager"
-    
+
+    Swal.fire({
+        icon: "warning",
+        title: "Log In First to Enjoy Our World of Mangas!",
+        text: "Access all features by logging in.",
+        imageUrl: LogInIMG,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        showCancelButton: true,
+        confirmButtonText: "Log In",
+        cancelButtonText: "Cancel",
+        background: "#f7f5f2",
+        color: "#3d3d3d",
+        confirmButtonColor: "#ff6f61",
+        cancelButtonColor: "#b0bec5",
+        customClass: {
+            title: "swal2-title-custom",
+            htmlContainer: "swal2-text-custom",
+            confirmButton: "swal2-confirm-button-custom",
+            cancelButton: "swal2-cancel-button-custom",
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/signin"
+        }
+    })
+
+
+
     return (
         <>
             <div
@@ -72,7 +103,7 @@ export default function CardManga({ manga, index }) {
                     </div>
 
                     {isEditPage && manga.role !== 0 ? (
-                        <BtnAuthCompanyBottom id={manga._id}/>
+                        <BtnAuthCompanyBottom id={manga._id} />
                     ) : (
                         <Link
                             to={`/chapter/${manga._id}`}
