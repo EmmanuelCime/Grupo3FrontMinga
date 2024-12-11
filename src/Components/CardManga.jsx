@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
 
 const BtnAuthCompanyTop = ({ id }) => {
     return (
@@ -41,6 +42,7 @@ const BtnAuthCompanyBottom = ({ id }) => {
 
 
 export default function CardManga({ manga, index }) {
+    const { role } = useSelector((state) => state.authReducer)
     const location = useLocation()
 
     const isEditPage = location.pathname === "/manager"
@@ -75,7 +77,7 @@ export default function CardManga({ manga, index }) {
                         <BtnAuthCompanyBottom id={manga._id}/>
                     ) : (
                         <Link
-                            to={`/chapter/${manga._id}`}
+                            to={role ? `/chapter/${manga._id}`: "/signin"}
                             className="text-xs py-1.5 px-4 rounded-full bg-green-200 text-green-600 md:text-sm absolute bottom-3   left-3"
                         >
                             Read

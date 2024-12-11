@@ -94,10 +94,8 @@ function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     const tokenLocal = localStorage.getItem("token")
-    console.log("al cargar page");
     
     if (tokenLocal) {
-      console.log("entro al if de validar", tokenLocal);
       
         loginWithToken(tokenLocal)
             .then((data) => {
