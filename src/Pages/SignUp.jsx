@@ -36,6 +36,8 @@ export default function SignUp() {
       newErrors.photo = "Invalid image URL (must be jpg, png, gif, or webp)";
     }
 
+
+
     // Password validation
     if (!password.trim()) {
       newErrors.password = "Password is required";
@@ -54,7 +56,10 @@ export default function SignUp() {
       ...touched,
       [field]: true
     });
-  };
+  }
+  const handleSignInGoogle = () => {
+    window.location.href = uri_render + "api/auth/signin/google"
+  }
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -168,7 +173,7 @@ export default function SignUp() {
 
           <div>
             <ButtonPrimary onClick={handleSignUp} name="Sign Up" />
-            <ButtonGoogle name="Sign up with Google" />
+            <ButtonGoogle onClick={handleSignInGoogle} name="Sign up with Google" />
           </div>
         </form>
 
