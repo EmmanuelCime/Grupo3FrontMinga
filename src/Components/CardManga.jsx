@@ -72,7 +72,7 @@ export default function CardManga({ manga, index }) {
                     </div>
 
                     {isEditPage && manga.role !== 0 ? (
-                        <BtnAuthCompanyBottom />
+                        <BtnAuthCompanyBottom id={manga._id}/>
                     ) : (
                         <Link
                             to={`/chapter/${manga._id}`}

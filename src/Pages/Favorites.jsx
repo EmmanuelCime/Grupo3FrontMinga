@@ -1,32 +1,32 @@
 import favorites from "../assets/favorites.jpg";
 import avatarProfile from "../assets/avatarProfile.jpg";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import axios from "axios";
 // import { useMemo } from "react";
 
 
 export default function Favorites() {
+  const { author, company, user, loading, token} = useSelector((state) => state. authReducer)
+  const [mangas, setMangas] = useState()
 
-  // logica para cuando funcione los roles 
-  
-  // const dispatch = useDispatch();
-  // const { favorites, loading, error } = useSelector((state) => state.favorites);
+  let url = ""
+  if (author) {
+    url = `https://grupo3backminga.onrender.com/api/manga/favoriteManga?author=${author._id}`
+  }
+  if (company) {
+    url =  `https://grupo3backminga.onrender.com/api/manga/favoriteManga?company=${author._id}`
+  }
 
-  // useEffect(() => {
-  //     if (authorId || companyId) {
-  //         dispatch(fetchFavorites({ authorId, companyId }));
-  //     }
-  // }, [dispatch, authorId, companyId]);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
-
+  useEffect(()=>{
+    const fav = async ()=>{
+      const response = await axios.get(url ,{headers: {Authorization: `Bearer ${token}`}})
+      setMangas(response.data.favorite)
+    }
+    fav()
+  },[])
 
 
-  const mangas = [
-    { title: "Naruto Volume 41", type: "Shonen", status: "Read", img: avatarProfile },
-    { title: "Maximum Gantz", type: "Seinen", status: "Read", img: avatarProfile },
-    { title: "Rosario To Vampire", type: "Shojo", status: "Read", img: avatarProfile },
-    { title: "Vampire Knight Memories", type: "Kodomo", status: "Read", img: avatarProfile },
-  ];
 
 // Filtrado de mangas por búsqueda
 // const filteredMangas = useMemo(() => {
@@ -80,7 +80,7 @@ export default function Favorites() {
         {/* tarjetas provisionales mientras se implementa la logica del back aqui se deberia renderizar en componente CardManga el mismo de mangas */}
         {/* Manga Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
-          {mangas.map((manga, index) => (
+          {mangas ? mangas.map((manga, index) => (
             <div
               key={index}
               className="bg-white shadow-lg rounded-lg overflow-hidden border"
@@ -98,7 +98,7 @@ export default function Favorites() {
                 </button>
               </div>
             </div>
-          ))}
+          )): ""}
         </div>
       </div>
     </div>
