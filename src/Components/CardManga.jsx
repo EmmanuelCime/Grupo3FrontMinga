@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 import LogInIMG from "../assets/logIn.png"
 import { useDispatch, useSelector } from "react-redux";
@@ -46,36 +46,40 @@ const BtnAuthCompanyBottom = ({ id }) => {
 export default function CardManga({ manga, index }) {
     const { role } = useSelector((state) => state.authReducer)
     const location = useLocation()
+    const navigate = useNavigate()
 
     const isEditPage = location.pathname === "/manager"
-
-    Swal.fire({
-        icon: "warning",
-        title: "Log In First to Enjoy Our World of Mangas!",
-        text: "Access all features by logging in.",
-        imageUrl: LogInIMG,
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: "Custom image",
-        showCancelButton: true,
-        confirmButtonText: "Log In",
-        cancelButtonText: "Cancel",
-        background: "#f7f5f2",
-        color: "#3d3d3d",
-        confirmButtonColor: "#ff6f61",
-        cancelButtonColor: "#b0bec5",
-        customClass: {
-            title: "swal2-title-custom",
-            htmlContainer: "swal2-text-custom",
-            confirmButton: "swal2-confirm-button-custom",
-            cancelButton: "swal2-cancel-button-custom",
-        },
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = "/signin"
+    const handlerButtonRead = (manga)=>{
+        if (role) {
+            navigate(`/chapter/${manga._id}`)
+        }else{
+            Swal.fire({
+                title: "Log In First to Enjoy Our World of Mangas!",
+                text: "Access all features by logging in.",
+                imageUrl: LogInIMG,
+                imageWidth: 400,
+                imageHeight: 180,
+                imageAlt: "Custom image",
+                showCancelButton: true,
+                confirmButtonText: "Log In",
+                cancelButtonText: "Cancel",
+                background: "#f7f5f2",
+                color: "#3d3d3d",
+                confirmButtonColor: "#ff6f61",
+                cancelButtonColor: "#b0bec5",
+                customClass: {
+                    title: "swal2-title-custom",
+                    htmlContainer: "swal2-text-custom",
+                    confirmButton: "swal2-confirm-button-custom",
+                    cancelButton: "swal2-cancel-button-custom",
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/signin", { state: { manga:manga._id } }) 
+                }
+            })
         }
-    })
-
+    }
 
 
     return (
@@ -107,12 +111,13 @@ export default function CardManga({ manga, index }) {
                     {isEditPage && manga.role !== 0 ? (
                         <BtnAuthCompanyBottom id={manga._id} />
                     ) : (
-                        <Link
-                            to={role ? `/chapter/${manga._id}`: "/signin"}
+                        
+                        <button
+                            onClick={()=>handlerButtonRead(manga)}
                             className="text-xs py-1.5 px-4 rounded-full bg-green-200 text-green-600 md:text-sm absolute bottom-3   left-3"
                         >
                             Read
-                        </Link>
+                        </button>
                     )}
                 </div>
                 <img

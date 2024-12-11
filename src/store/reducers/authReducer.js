@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { signIn, setUser, signOut, signUp, setSwitch, setUpdateAuthor } from "../actions/authAction"
+import { signIn, setUser, signOut, signUp, setSwitch, setUpdateAuthor, setSwitchSig } from "../actions/authAction"
 
 const initialState = {
     loading: false,
@@ -9,6 +9,7 @@ const initialState = {
     author: null,
     company: null,
     switchRole: false,
+    switchSignIn: false,
     role: null
 }
 
@@ -17,6 +18,7 @@ const authReducer = createReducer(initialState, (builder) => {
         .addCase(signIn.pending, (state) => {
             state.loading = true
             state.error = null
+            state.switchSignIn = false
             state.user = null
             state.token = null
             state.role = null
@@ -25,6 +27,7 @@ const authReducer = createReducer(initialState, (builder) => {
         })
         .addCase(signIn.fulfilled, (state, action) => {
             state.loading = false
+            state.switchSignIn = true
             state.error = null
             state.user = action.payload.user
             state.token = action.payload.token
@@ -35,6 +38,7 @@ const authReducer = createReducer(initialState, (builder) => {
         })
         .addCase(signIn.rejected, (state, action) => {
             state.loading = false
+            state.switchSignIn = false
             state.error = action.payload
             state.user = null
             state.token = null
@@ -49,6 +53,7 @@ const authReducer = createReducer(initialState, (builder) => {
             state.role = action.payload.data.user.role
             state.company = action.payload.data.company
             state.author = action.payload.data.author
+            state.switchSignIn = false
         })
         .addCase(signOut, (state) => {
             localStorage.removeItem("token")
@@ -58,21 +63,25 @@ const authReducer = createReducer(initialState, (builder) => {
             state.role = null
             state.company = null
             state.author = null
+            state.switchSignIn = false
         })
         .addCase(signUp.pending, (state) => {
             state.loading = true;
             state.error = null;
+            state.switchSignIn = false
           })
           .addCase(signUp.fulfilled, (state, action) => {
             state.loading = false;
             state.user = action.payload.user
             state.error = null;
             state.token = action.payload.token
+            state.switchSignIn = false
             state.role = action.payload.user.role
             localStorage.setItem("token", action.payload.token)
           })
           .addCase(signUp.rejected, (state, action) => {
             state.loading = false;
+            state.switchSignIn = false
             state.error = action.payload
             state.role = null
             state.user = null
@@ -82,6 +91,9 @@ const authReducer = createReducer(initialState, (builder) => {
           })
           .addCase(setUpdateAuthor, (state, action)=>{
             state.author = action.payload
+          })
+          .addCase(setSwitchSig, (state, action)=>{
+            state.switchSignIn = state.switchSignIn
           })
 })
 

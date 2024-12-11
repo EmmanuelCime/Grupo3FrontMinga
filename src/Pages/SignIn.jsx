@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import imageSignIn from "../assets/imageSignIn.jpg";
 import MingaLogotype from "../assets/mingaLogotype.png";
 import ButtonPrimary from "../Components/ButtonPrimary";
@@ -7,10 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../store/actions/authAction";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom"
 
 const uri_render = "https://grupo3backminga.onrender.com/"
 
 export default function SignIn() {
+  const location = useLocation();
+  const { manga } = location.state || ""
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user, token, loading, error } = useSelector((state) => state.authReducer)
@@ -79,9 +83,12 @@ export default function SignIn() {
   }
 
   // Redirect if already logged in
-  if (token != "" && user?.email) {
-    navigate("/home")
-  }
+  useEffect(() => {
+    if (token !== "" && user?.email) {
+      const nav = manga ? `/chapter/${manga}` : "/";
+      navigate(nav);
+    }
+  }, [token, user, manga, navigate])
 
   // Handle form submission with comprehensive validation
   const handleSignIn = async (e) => {

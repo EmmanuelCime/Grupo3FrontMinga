@@ -9,12 +9,13 @@ import emojiDislike from "../assets/emojiDislike.png";
 import emojiLove from "../assets/emojiLove.png";
 import emojiWow from "../assets/emojiWow.png";
 import { createReaction, updateReaction, deleteReaction } from "../store/actions/reactionAction";
+import { setSwitchSig } from "../store/actions/authAction";
 
 export default function Chapter() {
     const dispatch = useDispatch();
     const { chapters, loading, error } = useSelector((state) => state.chapterReducer);
     const { comments, loading: commentsLoading, error: commentsError } = useSelector((state) => state.comments);
-    const { author, company, user, role } = useSelector((state) => state.authReducer);
+    const { author, company, user, role, switchSignIn } = useSelector((state) => state.authReducer);
 
     const [view, setView] = useState("manga");
     const { id } = useParams();
@@ -37,6 +38,9 @@ export default function Chapter() {
     ];
 
     useEffect(() => {
+        if (switchSignIn) {
+            dispatch(setSwitchSig())
+        }
         dispatch(getChapter(id));
     }, [dispatch, id]);
 
