@@ -68,7 +68,7 @@ function EditManga() {
     }
 
     const handleSave = () => {
-        
+
         const updatedData = {
             title: formData.title,
             description: formData.description,
@@ -76,10 +76,14 @@ function EditManga() {
             categoryId: formData.categoryId?._id || formData.categoryId,
         }
 
-        dispatch(updateManga({id, updatedData: updatedData}))
+        dispatch(updateManga({ id, updatedData: updatedData }))
             .unwrap()
             .then(() => {
-                alert("Manga updated successfully!")
+                Swal.fire({
+                    title: "Manga Updated Successfully!",
+                    text: "Thank you for your contribution¡!",
+                    icon: "success"
+                })
                 navigate("/manager")
             })
             .catch((error) => {
@@ -87,7 +91,7 @@ function EditManga() {
                 alert(error.response || "Failed to update manga")
                 navigate("/manager")
             })
-            
+
     }
 
     return (
