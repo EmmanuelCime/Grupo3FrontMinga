@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const uri_render = "http://localhost:8080/"
+const uri_render = "https://grupo3backminga.onrender.com/"
 
 export const clearAuthorAction = createAction("CLEAR_AUTHOR_ACTION")
 
@@ -31,7 +31,6 @@ export const updateAuthor = createAsyncThunk("UPDATE_AUTHOR", async ({updatedDat
         })
         return response.data.author
     } catch (error) {
-        console.error("Error during update:", error.response.data.message[0].description)
         return rejectWithValue(error.response?.data?.message) || "Error updating author"
     }
 })

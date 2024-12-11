@@ -53,8 +53,6 @@ export default function FormAuthor({ className }) {
         dispatch(updateAuthor({ updatedData: updatedData, token:token }))
     }
     useEffect(()=>{
-        console.log("estado de la bandera", banUpdate);
-        
         if (updateAut != null && banUpdate) {
             dispatch(setUpdateAuthor(updateAut))
             alert("Author updated successfully!")

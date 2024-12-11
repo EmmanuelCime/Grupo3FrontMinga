@@ -14,11 +14,7 @@ export const allCompanyAction = createAsyncThunk("ALL_COMPANY", async (token, { 
 })
 export const allAuthorAction = createAsyncThunk("ALL_AUTHOR", async (token, { rejectWithValue })=>{
     try {
-        console.log("entro a action author");
-        
         const allAuthor = await axios.get(`${uri_render}api/authors/all`, {headers: {Authorization: `Bearer ${token}`}})
-        console.log(allAuthor.data.authors, "testtttttt all author");
-        
         return allAuthor.data.authors
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || "Error getting author")

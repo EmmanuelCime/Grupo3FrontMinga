@@ -2,6 +2,7 @@ import { useState } from "react"
 import ButtonSend from "../Components/ButtonSend"
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { newAuthor } from "../store/actions/authorAction"
 
 
@@ -125,6 +126,9 @@ function NewAuthor() {
                         </div>
                         <div className="flex flex-col items-center gap-3">
                             <ButtonSend name="Send" onClick={handleSubmit}/>
+                        </div>
+                        <div className="flex flex-col items-center pt-3 gap-3">
+                            <NavLink to="/mangas" className="md:text-xl lg:text-xl w-32 lg:w-52 text-center bg-orange-500 text-white hover:bg-orange-700 hover:bold px-3 py-2 rounded-lg font-semibold">Back to Mangas</NavLink>
                         </div>
                     </form>
                 </div>

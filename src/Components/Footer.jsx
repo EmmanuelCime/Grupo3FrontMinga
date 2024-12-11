@@ -72,7 +72,7 @@ function Footer() {
                         </div>
 
                         <div className="flex justify-center mb-3 md:mb-5 lg:mb-7">
-                            <NavLink to="/donate"><img className="h-5 md:h-7 lg:h-10" src={DonateButton} alt="Donate" /></NavLink>
+                            <NavLink to="/donate"><img className="h-5 md:h-7 lg:h-10" src={DonateButton} alt="Donate"/></NavLink>
                         </div>
                     </div>
                 </div>

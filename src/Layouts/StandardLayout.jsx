@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import Footer from "../Components/Footer.jsx"
 import SideBar from "../Components/SideBar.jsx"
+import { ChatBot } from "../Components/ChatBot.jsx"
 
 
 function StandardLayout() {
@@ -12,6 +13,7 @@ function StandardLayout() {
 
             <main>
                 <Outlet></Outlet>
+                <ChatBot/>
             </main>
 
             <footer>

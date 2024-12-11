@@ -73,7 +73,7 @@ const router = createBrowserRouter([
   { path: "/*", element: <NotFound /> }
 ])
 const loginWithToken = async (token) => {
-  const uri_render = "http://localhost:8080/"
+  const uri_render = "https://grupo3backminga.onrender.com/"
   try {
       const response = await axios.get(`${uri_render}api/auth/tokenVerification`,
           {
@@ -82,8 +82,6 @@ const loginWithToken = async (token) => {
               },
           }
       )
-      console.log(response.data);
-      
       return response.data
   } catch (error) {
       console.error("Error validando el token", error)
@@ -99,11 +97,11 @@ function App() {
     console.log("al cargar page");
     
     if (tokenLocal) {
-      console.log("entro al if de validar");
+      console.log("entro al if de validar", tokenLocal);
       
         loginWithToken(tokenLocal)
             .then((data) => {
-                dispatch(setUser({ data, token:tokenLocal }))
+              dispatch(setUser({ data, token:tokenLocal }))
             })
     }
 }, [dispatch])

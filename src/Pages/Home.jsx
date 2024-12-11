@@ -40,9 +40,15 @@ function Home() {
             loginWithToken(token)
                 .then((data) => {
                     dispatch(setUser({ data, token }))
+                    
                 })
+                const timer = setTimeout(() => {
+                    navigate("/")
+                  }, 3000); // 3000 milisegundos = 3 segundos
+              
+                  // Limpieza: limpiar el temporizador si el componente se desmonta
+                  return () => clearTimeout(timer);
         }
-        navigate("/home")
     }, [])
 
 
@@ -65,7 +71,6 @@ function Home() {
                 </div>
             </div>
             <div className="px-4 py-7 lg:py-0"><Carousel></Carousel></div>
-            
         </>
     )
 }

@@ -11,7 +11,7 @@ const routes = [
   [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" }],
   [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" }],
   [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" }],
-  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" }],
+  [{ to: "/", text: "Home" },{ to: "/mangas", text: "Mangas" },{ to: "/newrole", text: "Change Role" },{ to: "/favorites", text: "Favorites" },{ to: "/manager", text: "Manager" },{ to: "/adminPanel", text: "Admin Panel" }],
   [{ to: "/", text: "Home" },{ to: "/signup", text: "Register" },{ to: "/signin", text: "Sign In" },{ to: "/mangas", text: "Mangas" }]
 ]
 
@@ -26,15 +26,15 @@ export default function SidebarWithToggle() {
 
   useEffect(()=>{
     if (user != null && !switchRole) {
-      setImg(user.photo)
-      setName(user.email)
+      setImg(i => i = user.photo)
+      setName(i => i = user.email)
     }
     if (company != null && switchRole) {
-      setName(company?.name)
+      setName(i => i = company.name)
       setImg(i => i = company?.photo)
     }
     if (author != null && switchRole) {
-      setName(author?.name)
+      setName(i => i = author.name)
       setImg(i => i = author?.photo)
     }
   },[switchRole, user])
@@ -95,7 +95,7 @@ export default function SidebarWithToggle() {
                     <img
                       src={img}
                       alt="User"
-                      className="rounded-full h-10 w-10 md:h-12 md:w-12"
+                      className="rounded-full object-cover h-10 w-10 md:h-12 md:w-12"
 
                     />
                   </div>

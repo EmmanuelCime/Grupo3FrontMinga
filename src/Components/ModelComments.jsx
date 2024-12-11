@@ -13,7 +13,7 @@ export default function ModalComments({
   setEditingComment,
   loading,
   error,
-  selectedChapter, // Recibimos el capítulo seleccionado
+  selectedChapter,
 }) {
   if (!isOpen) return null;
 
@@ -141,7 +141,7 @@ export default function ModalComments({
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="h-6 w-6" // Ajuste de tamaño
+                  className="h-6 w-6" 
                 >
                   <path
                     strokeLinecap="round"
@@ -156,7 +156,7 @@ export default function ModalComments({
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="h-6 w-6" // Ajuste de tamaño
+                  className="h-6 w-6" 
                 >
                   <path
                     strokeLinecap="round"

@@ -44,8 +44,6 @@ const authReducer = createReducer(initialState, (builder) => {
             localStorage.removeItem("token")
         })
         .addCase(setUser, (state, action) => {
-            console.log(action.payload, "el actions");
-            
             state.user = action.payload.data.user
             state.token = action.payload.token
             state.role = action.payload.data.user.role

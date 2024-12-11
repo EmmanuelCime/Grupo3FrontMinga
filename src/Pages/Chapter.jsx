@@ -297,6 +297,7 @@ export default function Chapter() {
                     setEditingComment={setEditingComment}
                     loading={commentsLoading}
                     error={commentsError}
+                    selectedChapter={selectedChapter}
                 />
             </div>
         </div>
