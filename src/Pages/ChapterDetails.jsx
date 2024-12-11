@@ -18,7 +18,7 @@ export default function ViewChapter() {
   useEffect(() => {
     dispatch(getAllChapter(id))
       .unwrap()
-      .catch((err) => console.error("Error fetching chapter:", err));
+      .catch((err) => console.error("Error fetching chapter:", err)); 
   }, [dispatch, id])
 
   const chapter = allChapters?.find((chapter) => chapter._id === id)
@@ -89,7 +89,7 @@ function ChapterDetails({ pages, chapterTitle, chapterNumber }) {
             <img
               src={page}
               alt={`Página ${index + 1}`}
-              className="h-full w-full mx-auto mt-6 sm:w-1/2 lg:w-1/3"
+              className="h-full w-full mx-auto mt-6 sm:w-1/2 lg:w-1/3 object-contain"
             />
           </SwiperSlide>
         ))}
