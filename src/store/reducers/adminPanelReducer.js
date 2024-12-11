@@ -18,7 +18,6 @@ export const panelAdminReducer = createReducer(initialState, (builder) => {
         state.allAuthor = [];
       })
       .addCase(allAuthorAction.fulfilled, (state, action) => {
-        console.log('action', action);
         state.loadingAuthor = false;
         state.errorAuthor = null;
         state.allAuthor = action.payload;

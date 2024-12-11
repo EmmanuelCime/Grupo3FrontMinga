@@ -28,7 +28,6 @@ export const fetchCommentsByChapter = createAsyncThunk(
   async (chapterId, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${uri_render}api/comment/commentByChapter/${chapterId}`);
-      console.log(response.data.comment);
       return response.data.comment || response.data; 
     } catch (error) {
       return rejectWithValue(error.response.data);

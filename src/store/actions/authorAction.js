@@ -31,7 +31,6 @@ export const updateAuthor = createAsyncThunk("UPDATE_AUTHOR", async ({updatedDat
         })
         return response.data.author
     } catch (error) {
-        console.error("Error during update:", error.response.data.message[0].description)
         return rejectWithValue(error.response?.data?.message) || "Error updating author"
     }
 })
