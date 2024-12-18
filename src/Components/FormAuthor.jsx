@@ -3,7 +3,7 @@ import avatarProfile from "../assets/avatarProfile.jpg"
 import ButtonSave from "./ButtonSave"
 import ButtonDelete from "./ButtonDelete"
 import { useDispatch, useSelector } from "react-redux";
-import { clearAuthorAction, deleteAuthor, getAuthor,updateAuthor } from "../store/actions/authorAction";
+import { clearAuthorAction, deleteAuthor,updateAuthor } from "../store/actions/authorAction";
 import { useNavigate } from "react-router-dom";
 import { setUpdateAuthor } from "../store/actions/authAction";
 
@@ -11,7 +11,7 @@ export default function FormAuthor({ className }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {updateAut} = useSelector(state => state.authorReducer)
-    const { author, company, user, loading, token, error} = useSelector((state) => state. authReducer)
+    const { author, loading, token, error} = useSelector((state) => state. authReducer)
     const [banUpdate, setbanUpdate] = useState(false)
     const [formData, setFormData] = useState({
         id: author?._id,
@@ -25,11 +25,11 @@ export default function FormAuthor({ className }) {
     
     
     if (loading) {
-        return <div>Loading authors...</div>;
+        return <div>Loading authors...</div>
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div>Error: {error}</div>
     }
 
     const handleInputChange = (e) => {
@@ -69,9 +69,9 @@ export default function FormAuthor({ className }) {
             dispatch(deleteAuthor(id))
                 .unwrap()
                 .then(() => alert("Author deleted successfully!"))
-                .catch((error) => alert(error || "Failed to delete author"));
+                .catch((error) => alert(error || "Failed to delete author"))
         }
-    };
+    }
 
     return (
         <div

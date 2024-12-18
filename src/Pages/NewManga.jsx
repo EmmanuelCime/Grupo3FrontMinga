@@ -3,20 +3,20 @@ import { NavLink } from 'react-router-dom'
 import ButtonSend from "../Components/ButtonSend"
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { newManga } from "../store/actions/mangasAction"
 
 
 function NewManga() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { author, company, user, loading, token} = useSelector((state) => state. authReducer)
+    const { author, company} = useSelector((state) => state. authReducer)
     const { allCategory } = useSelector((state) => state.categoryReducer)
-console.log(company)
     const [formData, setFormData] = useState({
         title: '',
         categoryId: '',
         coverPhoto: '',
         description: '',
-        //authorId: author._id || company._id
+        authorId: author?._id || company?._id
     })
 
     let handleChange = (e) => {
@@ -50,7 +50,7 @@ console.log(company)
         <>
             <div className="flex items-center justify-center w-full h-[100vh]">
                 <div className="flex justify-center items-center md:w-1/2 my-32 md:my-16 ">
-                    <form onSubmit={handleSubmit} className="flex flex-col w-[80vw] md:w-[40vw] gap-4 p-4">
+                    <form className="flex flex-col w-[80vw] md:w-[40vw] gap-4 p-4">
                         <h1 className="text-2xl text-center font-bold mb-6">New Manga</h1>
 
                         <div className="mt-1 mb-4">

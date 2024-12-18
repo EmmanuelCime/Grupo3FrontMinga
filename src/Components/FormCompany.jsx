@@ -1,26 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonSave from "./ButtonSave";
 import ButtonDelete from "./ButtonDelete";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { clearCompanyAction, updateCompany } from "../store/actions/companyAction";
+import { setUpdateCompany } from "../store/actions/authAction";
 
 export default function FormCompany({ className }) {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { updateCom } = useSelector((state) => state.companyReducer)
+    const { company, loading, token, error } = useSelector((state) => state.authReducer)
+    const [banUpdate, setBanUpdate] = useState(false)
     const [formData, setFormData] = useState({
-        name: "Toei Animation",
-        webSite: "www.toeianimation.com",
-        description: "",
-        photo: "https://randomuser.me/api/portraits/men/32.jpg",
-        city: "Gynza",
-        country: "Japon",
-        active: true,
-        userId: "",
-    });
+        name: company?.name,
+        webSite: company?.webSite,
+        description: company?.description,
+        photo: company?.photo,
+        _id: company?._id,
+    })
+
+    if (loading) {
+        return <div>Loading authors...</div>
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>
+    }
 
     const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === "checkbox" ? checked : value,
-        });
-    };
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value })
+    }
+
+    const handleSave = () => {
+        const updatedData = {
+            name: formData.name,
+            webSite: formData.webSite,
+            description: formData.description,
+            photo: formData.photo,
+            _id: formData._id,
+        }
+        setBanUpdate(e => !e)
+        dispatch(updateCompany({ updatedData: updatedData, token: token }))
+    }
+    useEffect(() => {
+        if (updateCom != null && banUpdate) {
+            dispatch(setUpdateCompany(updateCom))
+            alert("Company updated successfully")
+            navigate("/home")
+        } else {
+            dispatch(clearCompanyAction())
+        }
+    }, [updateCom, banUpdate, dispatch, navigate])
+
+    /*const handleDelete = (_id) => {
+        if (window.confirm("Are you sure you want to delete this company?")) {
+            dispatch(deleteCompany(_id))
+                .unwrap()
+                .then(() => alert("Company deleted successfully!"))
+                .catch((error) => alert(error || "Failed to delete company"))
+        }
+    }*/
 
     return (
         <div
@@ -34,7 +75,7 @@ export default function FormCompany({ className }) {
                     value={formData.name}
                     onChange={handleInputChange}
                     className="w-full border-b border-gray-400 outline-none focus:border-gray-600 sm:bg-white bg-[#EBEBEB]"
-                    placeholder="Nombre de la Compañía"
+                    placeholder="Company Name"
                     required
                 />
                 <input
@@ -43,26 +84,16 @@ export default function FormCompany({ className }) {
                     value={formData.webSite}
                     onChange={handleInputChange}
                     className="w-full border-b border-gray-400 outline-none focus:border-gray-600 sm:bg-white bg-[#EBEBEB]"
-                    placeholder="Sitio Web"
-                    required
-                />
-
-                <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleInputChange}
-                    className="w-full border-b border-gray-400 outline-none focus:border-gray-600 sm:bg-white bg-[#EBEBEB]"
-                    placeholder="Ciudad"
+                    placeholder="web Site"
                     required
                 />
                 <input
                     type="text"
-                    name="country"
-                    value={formData.country}
+                    name="description"
+                    value={formData.description}
                     onChange={handleInputChange}
                     className="w-full border-b border-gray-400 outline-none focus:border-gray-600 sm:bg-white bg-[#EBEBEB]"
-                    placeholder="País"
+                    placeholder="Description"
                     required
                 />
                 <input
@@ -71,24 +102,12 @@ export default function FormCompany({ className }) {
                     value={formData.photo}
                     onChange={handleInputChange}
                     className="w-full border-b border-gray-400 outline-none focus:border-gray-600 sm:bg-white bg-[#EBEBEB]"
-                    placeholder="URL de la Foto"
+                    placeholder="URL photo company"
                     required
                 />
-                <div className="flex items-center">
-                    <input
-                        type="checkbox"
-                        name="active"
-                        checked={formData.active}
-                        onChange={handleInputChange}
-                        className="mr-2"
-                    />
-                    <label htmlFor="active" className="text-gray-600">
-                        Activo
-                    </label>
-                </div>
                 <div className="flex flex-col items-center gap-4">
-                    <ButtonSave name="Guardar" />
-                    <ButtonDelete name="Eliminar" />
+                    <ButtonSave name="Save" onClick={handleSave} />
+                    <ButtonDelete name="Delete" />
                 </div>
             </div>
 
@@ -107,27 +126,6 @@ export default function FormCompany({ className }) {
                         </svg>
 
                         {formData.webSite}</p>
-                    <p className="text-gray-600 flex gap-1"><svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-5 h-5"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                        />
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                        />
-                    </svg>
-                        {formData.city}, {formData.country}</p>
-
                 </div>
             </div>
         </div>

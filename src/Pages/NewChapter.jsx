@@ -1,64 +1,102 @@
-import axios from 'axios'
 import { useState } from "react"
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import ButtonSend from "../Components/ButtonSend"
+import { useDispatch } from 'react-redux'
+import { newChapter } from "../store/actions/chapterAction"
 
 
 function NewChapter() {
-    let [formData, setFormData] = useState({
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { id } = useParams()
+
+    const [formData, setFormData] = useState({
+        mangaId: id,
         title: '',
+        coverPhoto: '',
         order: '',
-        pages: ''
+        pages: [],
     })
 
-    let [message, setMessage] = useState('')
+    const [pageInput, setPageInput] = useState("")
 
-    let handleChange = (e) => {
-        let { title, value } = e.target
-        setFormData({ ...formData, [title]: value })
+    let handleInputChange = (e) => {
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value })
+    }
+
+    const handleAddPage = () => {
+        if (pageInput.trim()) {
+            setFormData((prevData) => ({
+                ...prevData,
+                pages: [...prevData.pages, pageInput.trim()],
+            }))
+            setPageInput("")
+        }
+    }
+
+    const handleRemovePage = (index) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            pages: prevData.pages.filter((_, i) => i !== index),
+        }))
     }
 
     let handleSubmit = async (e) => {
-
         e.preventDefault()
-        setMessage('')
-
-        try {
-            await axios.post('http://localhost:8080/api/newchapter', formData)
-            setMessage('The chapter has been successfully created')
-        } catch (error) {
-            if (error.response) {
-                setMessage(`error ${error.response.data.message}`)
-            } else {
-                setMessage('Error unexpected... please try again')
-            }
+        const newData = {
+            mangaId: formData.mangaId,
+            title: formData.title,
+            coverPhoto: formData.coverPhoto,
+            order: formData.order,
+            pages: formData.pages
         }
+        dispatch(newChapter({ newData: newData }))
+            .unwrap()
+            .then(() => {
+                alert("Chapter create successfully")
+                navigate("/manager")
+            })
+            .catch((error) => {
+                console.error("Error creating chapter: ", error)
+                alert(error.response || "Failed to create chapter")
+                navigate("/manager")
+            })
     }
 
     return (
         <>
             <div className="flex justify-center items-center w-full">
                 <div className="flex justify-center items-center md:w-1/2 my-32 md:my-16">
-                    <form onSubmit={handleSubmit} className="flex flex-col w-[90vw] md:w-[40vw] gap-4 p-4">
+                    <form className="flex flex-col w-[90vw] md:w-[40vw] gap-4 p-4">
                         <h1 className="text-2xl text-center font-bold mb-6">New Chapter</h1>
-                        {message && <p className={`text-center ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>{message}</p>}
 
                         <div className="mt-1 mb-4">
                             <input
                                 type="text"
                                 name="title"
                                 value={formData.title}
-                                onChange={handleChange}
+                                onChange={handleInputChange}
                                 className="w-full px-3  border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
-                                placeholder="Name"
+                                placeholder="Title of the chapter"
                             />
                         </div>
                         <div className="mt-1 mb-4">
                             <input
                                 type="text"
-                                name="Order"
+                                name="coverPhoto"
+                                value={formData.coverPhoto}
+                                onChange={handleInputChange}
+                                className="w-full px-3  border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
+                                placeholder="Url cover photo of the chapter"
+                            />
+                        </div>
+                        <div className="mt-1 mb-4">
+                            <input
+                                type="number"
+                                name="order"
                                 value={formData.order}
-                                onChange={handleChange}
+                                onChange={handleInputChange}
                                 className="w-full px-3  border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
                                 placeholder="Order"
                             />
@@ -66,15 +104,39 @@ function NewChapter() {
                         <div className="mt-1 mb-4">
                             <input
                                 type="text"
-                                name="Pages"
-                                value={formData.pages}
-                                onChange={handleChange}
-                                className="w-full px-3  border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
-                                placeholder="Pages"
+                                name="pages"
+                                value={pageInput}
+                                onChange={(e) => setPageInput(e.target.value)}
+                                className="w-full px-3 border-0 outline-none border-b-2 border-gray-400 focus:border-gray-500 bg-transparent"
+                                placeholder="Add page URL"
                             />
+                            <button
+                                type="button"
+                                onClick={handleAddPage}
+                                className="mt-2 px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+                            >
+                                Add Page
+                            </button>
+                        </div>
+                        <div className="mb-4">
+                            <h3 className="font-bold">Pages:</h3>
+                            <ul>
+                                {formData.pages.map((page, index) => (
+                                    <li key={index} className="flex justify-between items-center">
+                                        <span>{page}</span>
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemovePage(index)}
+                                            className="text-red-500 hover:underline"
+                                        >
+                                            Remove
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                         <div className="flex flex-col items-center gap-3">
-                            <ButtonSend name="Send" />
+                            <ButtonSend name="Send" onClick={handleSubmit} />
                         </div>
                         <div className="flex flex-col items-center pt-3 gap-3">
                             <NavLink to="/manager" className="md:text-xl lg:text-xl w-32 lg:w-52 text-center bg-orange-500 text-white hover:bg-orange-700 hover:bold px-3 py-2 rounded-lg font-semibold">Back to Manager</NavLink>
