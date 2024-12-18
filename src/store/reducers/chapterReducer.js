@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { getAllChapter, getChapter } from "../actions/chapterAction";
+import { getAllChapter, getChapter, newChapter } from "../actions/chapterAction";
 
 const initialState = {
     allChapters: [],
@@ -35,5 +35,18 @@ export const chapterReducer = createReducer(initialState, (builder) => {
         .addCase(getAllChapter.rejected, (state, action) => {
             state.loading = null
             state.error = action.error.message
+        })
+        .addCase(newChapter.pending, (state) =>{
+            state.loading = true
+            state.error = null
+        })
+        .addCase(newChapter.fulfilled, (state,action)=>{
+            state.loading = false
+            state.chapters = [...state.chapters, action.payload]
+            state.error = null
+        })
+        .addCase(newChapter.rejected, (state,action)=>{
+            state.loading = false
+            state.error = action.payload
         })
 })

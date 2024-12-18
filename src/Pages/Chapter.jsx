@@ -8,27 +8,27 @@ import emojiLike from "../assets/emojiLike.png";
 import emojiDislike from "../assets/emojiDislike.png";
 import emojiLove from "../assets/emojiLove.png";
 import emojiWow from "../assets/emojiWow.png";
-import { createReaction, updateReaction, deleteReaction } from "../store/actions/reactionAction";
+import { createReaction/*, updateReaction, deleteReaction */} from "../store/actions/reactionAction";
 import { setSwitchSig } from "../store/actions/authAction";
 
 export default function Chapter() {
     const dispatch = useDispatch();
     const { chapters, loading, error } = useSelector((state) => state.chapterReducer);
     const { comments, loading: commentsLoading, error: commentsError } = useSelector((state) => state.comments);
-    const { author, company, user, role, switchSignIn } = useSelector((state) => state.authReducer);
+    const { author, company, user, role, switchSignIn } = useSelector((state) => state.authReducer)
 
-    const [view, setView] = useState("manga");
-    const { id } = useParams();
+    const [view, setView] = useState("manga")
+    const { id } = useParams()
 
-    const [selectedChapter, setSelectedChapter] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedReaction, setSelectedReaction] = useState(null);
-    const [newComment, setNewComment] = useState("");
-    const [editingComment, setEditingComment] = useState(null);
-    const { mangaId } = useSelector((state) => state.mangaReducer);
+    const [selectedChapter, setSelectedChapter] = useState(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedReaction, setSelectedReaction] = useState(null)
+    const [newComment, setNewComment] = useState("")
+    const [editingComment, setEditingComment] = useState(null)
+    const { mangaId } = useSelector((state) => state.mangaReducer)
     
     // Determine if the user has permission to interact
-    const canInteract = user && (role === 1 || role === 2);
+    const canInteract = user && (role === 1 || role === 2)
 
     const reactions = [
         { id: "1", img: emojiLike, alt: "Like" },
@@ -42,21 +42,21 @@ export default function Chapter() {
             dispatch(setSwitchSig())
         }
         dispatch(getChapter(id));
-    }, [dispatch, id]);
+    }, [dispatch, id])
 
     const openCommentsModal = (chapter) => {
-        setSelectedChapter(chapter);
-        dispatch(fetchCommentsByChapter(chapter._id));
-        setIsModalOpen(true);
-    };
+        setSelectedChapter(chapter)
+        dispatch(fetchCommentsByChapter(chapter._id))
+        setIsModalOpen(true)
+    }
 
 
     const closeCommentsModal = () => {
-        setIsModalOpen(false);
-        setSelectedChapter(null);
-        setNewComment("");
-        setEditingComment(null);
-    };
+        setIsModalOpen(false)
+        setSelectedChapter(null)
+        setNewComment("")
+        setEditingComment(null)
+    }
 
     const handleReactionChange = (reactionId) => {
         setSelectedReaction(reactionId);
@@ -85,17 +85,17 @@ export default function Chapter() {
                     setNewComment("");
                 })
                 .catch((error) => {
-                    console.error("Error creating comment:", error);
-                });
+                    console.error("Error creating comment:", error)
+                })
         } else {
-            console.warn("Comment message cannot be empty.");
+            console.warn("Comment message cannot be empty.")
         }
-    };
+    }
 
     const handleUpdateComment = () => {
         if (!editingComment?.message.trim()) {
             console.error("Datos inválidos para actualizar el comentario");
-            return;
+            return
         }
         dispatch(updateComment({ commentId: editingComment._id, message: editingComment.message }))
             .then((result) => {
@@ -108,8 +108,8 @@ export default function Chapter() {
             })
             .catch((error) => {
                 console.error("Error al manejar la actualización:", error);
-            });
-    };
+            })
+    }
 
 
     const handleDeleteComment = (commentId) => {
@@ -117,23 +117,24 @@ export default function Chapter() {
             if (selectedChapter) {
                 dispatch(fetchCommentsByChapter(selectedChapter._id));
             }
-        });
-    };
+        })
+    }
 
     const startEditing = (comment) => {
-        setEditingComment({ ...comment });
-    };
+        setEditingComment({ ...comment })
+    }
 
     const handleChange = (reactionId) => {
-        setSelectedReaction(reactionId);
-    };
+        setSelectedReaction(reactionId)
+    }
+
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center">
           <svg viewBox="0 0 1024 1024" fill="currentColor" className="animate-spin h-20 w-20 mr-3" >
             <path d="M512 1024c-69.1 0-136.2-13.5-199.3-40.2C251.7 958 197 921 150 874c-47-47-84-101.7-109.8-162.7C13.5 648.2 0 581.1 0 512c0-19.9 16.1-36 36-36s36 16.1 36 36c0 59.4 11.6 117 34.6 171.3 22.2 52.4 53.9 99.5 94.3 139.9 40.4 40.4 87.5 72.2 139.9 94.3C395 940.4 452.6 952 512 952c59.4 0 117-11.6 171.3-34.6 52.4-22.2 99.5-53.9 139.9-94.3 40.4-40.4 72.2-87.5 94.3-139.9C940.4 629 952 571.4 952 512c0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.2C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3s-13.5 136.2-40.2 199.3C958 772.3 921 827 874 874c-47 47-101.8 83.9-162.7 109.7-63.1 26.8-130.2 40.3-199.3 40.3z" />
           </svg>
           <p className="text-orange-500 text-xl font-semibold">Loading...</p>
-        </div>;
+        </div>
       }
     if (error) return <p>Error: {error}</p>;
 
@@ -305,5 +306,5 @@ export default function Chapter() {
                 />
             </div>
         </div>
-    );
+    )
 }

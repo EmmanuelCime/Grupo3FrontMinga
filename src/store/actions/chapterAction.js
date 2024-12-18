@@ -14,7 +14,7 @@ export const getChapter = createAsyncThunk("GET_CHAPTER", async (id, { rejectWit
                 Authorization: `Bearer ${token}`,
             },
         })
-        
+
         return response.data.chapters
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || "Error fetching Category")
@@ -39,4 +39,11 @@ export const getAllChapter = createAsyncThunk("GET_All_CHAPTER", async (_, { rej
     }
 })
 
-
+export const newChapter = createAsyncThunk("NEW_CHAPTER", async (_,{ newData }, { rejectWithValue }) => {
+    try {
+        const response = await axios.post(`${uri_render}api/chapter/create`, newData)
+        return response.data.chapter
+    } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Error creating chapter")
+    }
+})

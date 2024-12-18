@@ -34,6 +34,11 @@ export const getMangas = createAsyncThunk("GET_MANGAS", async (_, { rejectWithVa
         }
     })
 
-    /*export const newManga = createAsyncThunk("NEW_MANGA", async ({_,newData},{rejectWithValue})=>{
-
-    })*/
+    export const newManga = createAsyncThunk("NEW_MANGA", async ({_,newData},{rejectWithValue})=>{
+        try {
+        const response = await axios.post(`${uri_render}api/manga/create`,newData)
+        return response.data.manga
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || "Error create manga");
+        }
+    })

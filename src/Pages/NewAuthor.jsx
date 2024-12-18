@@ -1,8 +1,7 @@
 import { useState } from "react"
 import ButtonSend from "../Components/ButtonSend"
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from "react-router-dom"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { newAuthor } from "../store/actions/authorAction"
 
 
