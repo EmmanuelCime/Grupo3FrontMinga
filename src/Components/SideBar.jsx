@@ -43,7 +43,8 @@ export default function SidebarWithToggle() {
   
   const lineColor = location.pathname.startsWith("/details") ? "bg-white" : "bg-orange-500";
   const isUser = user?.role === 0 && token
-  const isManager = user?.role !== 0 && token
+  const isManager = (user?.role === 1 || user?.role === 2) && token
+  const isAdmin = user?.role === 3 && token
 
   const handleLinkClick = () => {
     setIsSidebarOpen(false)
@@ -118,6 +119,29 @@ export default function SidebarWithToggle() {
               <>
                 <div className="mb-4 flex items-center gap-3 md:mt-2">
                   <NavLink to={`/profile`} className="h-10 w-10 md:h-12 md:w-12 mt-1">
+                    <img
+                      src={img}
+                      alt="User"
+                      className="rounded-full h-10 w-10 md:h-12 md:w-12"
+                      onClick={handleLinkClick}
+                    />
+                  </NavLink>
+                  <p className="mt-2 text-white text-xs font-medium text-center pr-5">
+                    {name}
+                  </p>
+                </div>
+                <button
+                  onClick={handleSignOut}
+                  className="w-full text-white font-semibold py-2 rounded-md hover:bg-white hover:text-orange-500"
+                >
+                  Sign Out
+                </button>
+              </>
+            )}
+            {isAdmin && (
+              <>
+                <div className="mb-4 flex items-center gap-3 md:mt-2">
+                  <NavLink to={`/adminPanel`} className="h-10 w-10 md:h-12 md:w-12 mt-1">
                     <img
                       src={img}
                       alt="User"

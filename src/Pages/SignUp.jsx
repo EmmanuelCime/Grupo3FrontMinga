@@ -4,9 +4,10 @@ import ButtonPrimary from "../Components/ButtonPrimary";
 import ButtonGoogle from "../Components/ButtonGoogle";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useState } from "react";
 import { signUp } from "../store/actions/authAction";
+
+const uri_render = "https://grupo3backminga.onrender.com/"
 
 export default function SignUp() {
   
@@ -58,7 +59,7 @@ export default function SignUp() {
     });
   }
   const handleSignInGoogle = () => {
-    window.location.href = uri_render + "api/auth/signin/google"
+    window.location.href = `${uri_render}api/auth/signin/google`
   }
 
   const handleSignUp = async (e) => {
