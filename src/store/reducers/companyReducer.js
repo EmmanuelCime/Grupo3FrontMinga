@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { updateCompany, clearCompanyAction, getCompany } from "../actions/companyAction"
+import { updateCompany, clearCompanyAction, getCompany, newCompany } from "../actions/companyAction"
 
 
 const initialState = {
@@ -43,6 +43,24 @@ export const companyReducer = createReducer(initialState, (builder) => {
             state.error = action.error.message
             state.updateCom = null
         })
+
+        .addCase(newCompany.pending,(state)=>{
+            state.loading = true
+            state.error = null
+            state.updateCom = null
+        })
+        .addCase(newCompany.fulfilled, (state,action)=>{
+            state.loading = false
+            state.allCompany = [...state.allCompany, action.payload]
+            state.error = null
+            state.updateCom = null
+        })
+        .addCase(newCompany.rejected, (state,action)=>{
+            state.loading = false
+            state.error = action.payload
+            state.updateCom = null
+        })
+
         .addCase(clearCompanyAction, (state) => {
             state.loading = false
             state.updateCom = null

@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getMangas, setSearch } from "../store/actions/mangasAction";
 import { useEffect, useMemo } from "react";
-import CardManga from "../Components/CardManga"
+import CardManga from "../Components/CardManga";
 import Category from "../Components/Category";
+import bgMangas from "../assets/mangaBackground.jpg"
 
 function Mangas() {
   const { allMangas, search, loading, error } = useSelector((state) => state.mangaReducer)
@@ -37,7 +38,7 @@ function Mangas() {
 
   return (
     <>
-      <div className="bg-mangas bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center ">
+      <div className="bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center" style={{ backgroundImage: `url(${bgMangas})` }}>
         <p className="w-auto mb-8 mt-36 text-5xl sm:text-6xl text-white font-bold">Mangas</p>
         <div className="relative w-full md:w-[70vw] ">
           <svg

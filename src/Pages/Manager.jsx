@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo } from "react";
-import { getMangas, myMangaAction, setSearch } from "../store/actions/mangasAction";
+import {myMangaAction, setSearch } from "../store/actions/mangasAction";
 import CardManga from "../Components/CardManga";
 import Category from "../Components/Category";
 import { Link } from "react-router-dom";
+import bgManager from "../assets/managerBackground.jpg"
 
 
 function Manager() {
@@ -42,7 +43,7 @@ function Manager() {
 if (!loading) {
   return (
     <>
-      <div className="bg-manager bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center pb-8">
+      <div className="bg-cover bg-center bg-no-repeat bg-opacity-40 w-full h-[70vh] px-5 flex flex-col justify-center items-center pb-8" style={{ backgroundImage: `url(${bgManager})` }}>
         <p className="w-auto mb-8 mt-36 text-6xl text-white font-bold">{author ? author.name : user?.name }</p>
         <div className="relative w-full md:w-[70vw]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
