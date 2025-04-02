@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+/*import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
@@ -60,4 +60,22 @@ function DonationPage() {
 }
 
 
-export default DonationPage
+export default DonationPage*/
+
+
+import React from "react";
+import StripeCheckout from "./StripeCheckout";
+
+function DonationPage() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white gap-5">
+      <h1 className="text-3xl font-bold text-orange-500 mb-7">Make a Donation</h1>
+      <p className="text-gray-700 mb-6">Your support is essential for our project. Thank you for your generosity!</p>
+
+      <StripeCheckout />
+
+    </div>
+  );
+}
+
+export default DonationPage;
